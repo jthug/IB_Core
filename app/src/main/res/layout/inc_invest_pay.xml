@@ -1,0 +1,205 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:text="@string/invest_assets_amount"
+                android:textColor="@color/clr_999999" />
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10">
+
+                <TextView
+                    android:id="@+id/invest_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:text="0"
+                    android:textColor="@color/clr_111111"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ETH"
+                    android:textColor="@color/clr_111111" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@android:color/white"
+            android:padding="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/transfer_price"
+                android:textColor="@color/clr_999999"
+                />
+
+            <TextView
+                android:id="@+id/gas_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:textColor="@color/clr_111111" />
+
+
+            <TextView
+                android:id="@+id/show_gas_prise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_30"
+                android:text="3 Gwei"
+                android:textColor="@color/clr_666666"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slow"
+                android:textColor="@color/clr_666666"
+                android:layout_marginTop="51dp"
+                android:textSize="12sp" />
+            <SeekBar
+                android:id="@+id/seek_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:maxHeight="3dp"
+                android:minHeight="3dp"
+                android:background="@null"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="48dp"
+                android:max="600"
+                android:progress="30"
+                android:progressDrawable="@drawable/seekbar_progress"
+                android:thumb="@drawable/seek_bar_thumb" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fast"
+                android:textColor="@color/clr_666666"
+                android:layout_marginTop="51dp"
+                android:textSize="12sp"
+                android:layout_alignParentRight="true"/>
+
+
+            <TextView
+                android:id="@+id/eth_available_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:textSize="10sp"
+                android:layout_marginTop="80dp"
+                android:textColor="@color/clr_059EFF" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_10"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_7"
+            android:paddingBottom="@dimen/dp_7"
+            android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/need_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="@string/need_pay"
+                android:textColor="@color/clr_999999" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@+id/need_pay">
+
+                <TextView
+                    android:id="@+id/need_pay_eth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:text="0"
+                    android:textColor="@color/clr_111111"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ETH"
+                    android:textColor="@color/clr_111111" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/current_eth_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/current_eth_balance"
+                android:textColor="@color/clr_059EFF"
+                android:textSize="10sp"/>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/sure_pay"
+            android:layout_width="240dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="36dp"
+            android:background="@drawable/gradient_oval_btn"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:text="@string/sure_pay"/>
+
+    </LinearLayout>
+
+</layout>

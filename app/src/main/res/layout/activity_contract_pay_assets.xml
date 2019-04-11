@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/clr_F5F5F5">
+
+        <com.lianer.core.custom.TitlebarView
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:centerTitle="@string/borrow"
+            app:leftDrawble="@drawable/ic_back" />
+
+
+
+
+
+                <ImageView
+                    android:id="@+id/progress_contract_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/deploy_wait_assets"
+                    android:layout_marginTop="1dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:background="@android:color/white"
+            android:layout_marginTop="12dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/clr_999999"
+                android:textSize="16sp"
+                android:layout_marginLeft="12dp"
+                android:text="@string/contract_address"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/contract_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/clr_059EFF"
+                android:textSize="12sp"
+                android:maxEms="9"
+                android:singleLine="true"
+                android:ellipsize="middle"
+                android:layout_marginRight="12dp" />
+
+        </LinearLayout>
+
+                <!--抵押资产数量-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@android:color/white"
+                    android:orientation="horizontal"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/mortgage_assets_amount"
+                        android:textColor="@color/clr_999999"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/mortgage_assets_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="12dp"
+                        android:text="0.00 QUN"
+                        android:textColor="@color/clr_111111"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/balance_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="12dp"
+
+                        android:textColor="@color/clr_059EFF"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="134dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@android:color/white"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/help_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/transfer_price"
+                        android:textColor="@color/clr_999999"
+                        android:drawableRight="@drawable/help"/>
+
+
+                    <TextView
+                        android:id="@+id/gas_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/clr_111111"
+                        android:layout_alignParentRight="true"/>
+
+
+                    <TextView
+                        android:id="@+id/show_gas_prise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3 Gwei"
+                        android:textColor="@color/clr_666666"
+                        android:layout_marginTop="30dp"
+                        android:textSize="10sp"
+                        android:layout_marginLeft="20dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/slow"
+                        android:textColor="@color/clr_666666"
+                        android:layout_marginTop="51dp"
+                        android:textSize="12sp" />
+                    <SeekBar
+                        android:id="@+id/seek_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:maxHeight="3dp"
+                        android:minHeight="3dp"
+                        android:background="@null"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="48dp"
+                        android:max="600"
+                        android:progress="30"
+                        android:progressDrawable="@drawable/seekbar_progress"
+                        android:thumb="@drawable/seek_bar_thumb" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fast"
+                        android:textColor="@color/clr_666666"
+                        android:layout_marginTop="51dp"
+                        android:textSize="12sp"
+                        android:layout_alignParentRight="true"/>
+
+
+                    <TextView
+                        android:id="@+id/eth_available_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:textColor="@color/clr_059EFF"
+                        android:layout_marginTop="80dp"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+
+                <Button
+                    android:id="@+id/pay_assets"
+                    android:layout_width="260dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/gray_oval_btn"
+                    android:text="@string/paying_mortgage_assets"
+                    android:textColor="@color/clr_999999"
+                    android:layout_marginBottom="16dp"
+                    android:enabled="false"/>
+        <TextView
+            android:id="@+id/termination_contract"
+            android:layout_width="120dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:textColor="@color/clr_999999"
+            android:textSize="14sp"
+            android:text="@string/termination_contract"
+            android:gravity="center" />
+            </LinearLayout>
+
+
+
+
+</layout>

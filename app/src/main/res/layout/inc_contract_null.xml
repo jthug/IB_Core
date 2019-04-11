@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/ll_contract_null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/contract_state_picture"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_66"
+            android:src="@drawable/ic_contract_null" />
+
+        <TextView
+            android:id="@+id/contract_state_warn"
+            style="@style/c11t2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_45"
+            android:layout_marginTop="@dimen/dp_38"
+            android:text="@string/no_contract" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/deploy_new_contract"
+                style="@style/c3t2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_10"
+                android:text="@string/deploy_new_contract" />
+
+
+            <TextView
+                style="@style/c6t2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/or" />
+
+            <TextView
+                android:id="@+id/market_look"
+                style="@style/c3t2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:text="@string/market_look" />
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

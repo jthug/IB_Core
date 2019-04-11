@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.lianer.core">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:name="com.lianer.core.app.NestApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.lianer.core.wallet.MyEarningActivity"></activity>
+        <activity android:name="com.lianer.core.wallet.ExportPrivateKeyActivity" />
+        <activity android:name="com.lianer.core.wallet.CreateAndImportActivity" />
+        <activity android:name="com.lianer.core.wallet.AboutNestActivity" />
+        <activity android:name="com.lianer.core.wallet.WalletSettingActivity" />
+        <activity android:name="com.lianer.core.wallet.WalletManagerListAct" />
+        <activity
+            android:name="com.lianer.core.lauch.LauchAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- &lt;!&ndash;Growing iO 数据统计SDK&ndash;&gt; -->
+            <!-- <intent-filter> -->
+            <!-- <data android:scheme="growing.44a1c65c4435487c"/> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
+
+
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+            <!-- </intent-filter> -->
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="nest" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.lianer.core.lauch.MainAct"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.lianer.core.lauch.GuideAct" />
+        <activity android:name="com.lianer.core.wallet.CreateWalletAct" />
+        <activity android:name="com.lianer.core.wallet.BackupWalletAct" />
+        <activity android:name="com.lianer.core.wallet.MnemonicAct" />
+        <activity android:name="com.lianer.core.wallet.ConfirmMnemonicAct" />
+        <activity android:name="com.lianer.core.wallet.ImportWalletAct" />
+        <activity android:name="com.lianer.core.wallet.ExportKeystoreActivity" />
+        <activity android:name="com.lianer.core.wallet.SettingAct" />
+        <activity android:name="com.lianer.core.wallet.LanguageSwitchAct" />
+        <activity android:name="com.lianer.core.wallet.UpdatePsdAct" />
+        <activity android:name="com.lianer.core.wallet.AddTokenTypeAct" />
+        <activity android:name="com.lianer.core.wallet.AssetsDetailAct" />
+        <activity android:name="com.lianer.core.wallet.TransferActivity" />
+        <activity android:name="com.lianer.core.wallet.TransferResultActivity" />
+        <activity android:name="com.lianer.core.wallet.WalletAddressActivity" />
+        <activity android:name="com.lianer.core.wallet.IncomeActivity" />
+        <activity android:name="com.lianer.core.wallet.IncomeDetailActivity" /> <!-- <activity -->
+        <!-- android:name="com.journeyapps.barcodescanner.CaptureActivity" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- tools:replace="screenOrientation" /> -->
+        <!-- <activity -->
+        <!-- android:name=".qrcode.QRCodeScanActivity" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- tools:replace="screenOrientation" /> -->
+        <activity
+            android:name="com.lianer.core.zxinglibrary.android.CaptureActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name="com.lianer.core.wallet.TxRecordDetailAct" />
+        <activity android:name="com.lianer.core.contract.ContractDetailAct" />
+        <activity android:name="com.lianer.core.contract.GetMortgageAssetsAct" />
+        <activity android:name="com.lianer.core.contract.ContractStateAct" />
+        <activity android:name="com.lianer.core.contract.RepaymentActivity" />
+        <activity android:name="com.lianer.core.invest.AllContractAct" />
+        <activity android:name="com.lianer.core.invest.InvestActivity" />
+        <activity android:name="com.lianer.core.borrow.BorrowingActivity" />
+        <activity android:name="com.lianer.core.borrow.ContractStateActivity" />
+        <activity android:name="com.lianer.core.borrow.ContractDeployActivity" />
+        <activity android:name="com.lianer.core.borrow.ContractPayAssetsActivity" />
+        <activity android:name="com.lianer.core.etherscan.EtherScanWebActivity" />
+        <activity android:name="com.lianer.core.contract.DisbandContractAct" />
+        <activity android:name="com.lianer.core.borrow.BannerDetailAct" />
+        <activity android:name="com.lianer.core.contract.MessageCenterAct" />
+        <activity android:name="com.lianer.core.contract.ContractActivity" />
+        <activity android:name="com.lianer.core.contract.ContractTusdActivity" />
+        <activity android:name="com.lianer.core.contract.ImportContractActivity" />
+        <activity android:name="com.lianer.core.contract.ContractOperateAct" />
+
+        <provider
+            android:name="com.lianer.core.utils.update.MNUpdateApkFileProvider"
+            android:authorities="${applicationId}.updateFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            android:readPermission="com.company.app.fileprovider.READ">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/update_file_provider" />
+        </provider>
+
+        <service
+            android:name="com.lianer.core.app.PollingService"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.lianer.core.https.OkHttpGlideModule"
+            android:value="GlideModule" /> <!-- TalkingData -->
+        <service
+            android:name="com.talkingdata.sdk.TDAntiCheatingService"
+            android:process="com.talkingdata.sdk.TDAntiCheatingService"> <!-- 用户质量评估Service可以配置在主进程或者单独进程 -->
+            <intent-filter>
+                <action android:name="com.talkingdata.sdk.TDAntiCheatingService" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="TD_APP_ID"
+            android:value="E74A5D2D0C944D0189A93BAFBC813FB5" />
+        <meta-data
+            android:name="TD_CHANNEL_ID"
+            android:value="official" />
+    </application>
+
+</manifest>

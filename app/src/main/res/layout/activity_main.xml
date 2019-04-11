@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data></data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/main_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_47"
+            android:layout_alignParentBottom="true"
+            android:background="@color/c1"
+            android:baselineAligned="true"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:id="@+id/ly_first"
+                style="@style/main_tab_layout_style">
+
+                <ImageView
+                    android:id="@+id/img_bottom_first"
+                    style="@style/main_tab_img_style"
+                    android:src="@drawable/select_contract" />
+
+                <TextView
+                    android:id="@+id/tx_bottom_first"
+                    style="@style/main_tab_text_style"
+                    android:text="@string/contract" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ly_second"
+                style="@style/main_tab_layout_style">
+
+                <ImageView
+                    android:id="@+id/img_bottom_second"
+                    style="@style/main_tab_img_style"
+                    android:src="@drawable/selector_invest" />
+
+                <TextView
+                    android:id="@+id/tx_bottom_second"
+                    style="@style/main_tab_text_style"
+                    android:text="@string/market" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ly_third"
+                style="@style/main_tab_layout_style">
+
+
+                <ImageView
+                    android:id="@+id/img_bottom_third"
+                    style="@style/main_tab_img_style"
+                    android:src="@drawable/selector_wallet" />
+
+                <TextView
+                    android:id="@+id/tx_bottom_third"
+                    style="@style/main_tab_text_style"
+                    android:text="@string/wallet" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/main_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/main_bottom"
+            android:background="@color/c0"
+            android:visibility="visible" />
+
+
+    </RelativeLayout>
+
+
+</layout>

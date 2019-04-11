@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.gzu-liyujiang.AndroidPicker:Common:1.5.6@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Common-1.5.6.aar/6dfc6338466f65fd3347951a209b49bb/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Common-1.5.6.aar/6dfc6338466f65fd3347951a209b49bb/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/Common-1.5.6.aar/6dfc6338466f65fd3347951a209b49bb/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.gzu-liyujiang.AndroidPicker/Common/1.5.6/306772682f0a9903e7a6ddd54a3b3f05a040cec9/Common-1.5.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

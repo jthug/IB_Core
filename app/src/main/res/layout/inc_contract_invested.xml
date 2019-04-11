@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_45">
+
+        <ViewStub
+            android:id="@+id/four_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/inc_contract_four_point" />
+
+        <ViewStub
+            android:id="@+id/three_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/inc_contract_three_point" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@android:color/white"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/borrow_wallet_address"
+                android:textColor="@color/clr_999999" />
+
+            <TextView
+                android:id="@+id/borrow_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:ellipsize="middle"
+                android:maxEms="10"
+                android:singleLine="true"
+                android:textColor="@color/clr_059EFF" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layout_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_36"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/agree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:drawablePadding="@dimen/dp_10"
+                android:drawableLeft="@drawable/ic_agreement_selected"
+                android:gravity="center_vertical"
+                android:textColor="@color/clr_999999"
+                android:text="@string/have_read"
+                android:textSize="12sp"
+                android:drawableStart="@drawable/ic_agreement_selected" />
+
+            <TextView
+                android:id="@+id/user_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/mortgage_protocol"
+                android:textColor="@color/clr_00BDFD"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:textSize="12sp"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp_5" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

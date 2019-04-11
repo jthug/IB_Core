@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/c0">
+
+        <com.lianer.core.custom.TitlebarView
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/c1"
+            app:centerTitle="@string/confirm_mnemonic"
+            app:leftDrawble="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_30"
+            android:text="@string/validate_mnemonic"
+            style="@style/b1_style" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:gravity="center_horizontal"
+            android:text="@string/mnemonic_check"
+            android:lineSpacingExtra="@dimen/dp_5"
+            style="@style/c7t4"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_mnemonic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_30"
+            />
+
+        <TextView
+            android:id="@+id/mnemonic_error_warn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mnemonic_validate_error"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_27"
+            android:visibility="visible"
+            android:lineSpacingExtra="@dimen/dp_5"
+            style="@style/c4t4"
+            />
+
+        <Button
+            android:id="@+id/reset"
+            style="@style/public_btn_style"
+            android:layout_marginTop="@dimen/dp_38"
+            android:text="@string/reset"
+            android:textColor="@drawable/public_text_color_selector"
+            android:textSize="@dimen/t2"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 椭圆灰色按钮 -->
+
+    <!-- 填充的颜色 -->
+    <!--<stroke-->
+    <!--android:width="0.5dp"-->
+    <!--android:color="@color/color_cccccc"/>-->
+    <solid android:color="@color/clr_DDDDDD"/>
+    <corners android:radius="@dimen/dp_30"/>
+</shape>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:id="@+id/contract_deploy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@drawable/c2_corners_bg"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_12">
+
+        <LinearLayout
+            android:id="@+id/state_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_34"
+            android:background="@drawable/contract_item_state_selector"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12">
+
+            <TextView
+                android:id="@+id/state_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/step_deploy"
+                android:textColor="@color/contract_state_select"
+                android:textSize="@dimen/t2" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/deploy_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/not_executable"
+                android:textColor="@color/contract_state_select"
+                android:textSize="@dimen/t4" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/c7t4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_12"
+            android:text="@string/step_deploy_hint" />
+
+        <!--借币数量-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12">
+
+            <TextView
+                android:id="@+id/amount_text"
+                style="@style/contract_param_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/borrow_amount" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/borrowing_amount"
+                style="@style/contract_param_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="---" />
+        </LinearLayout>
+
+        <!--借币周期-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12">
+
+            <TextView
+                android:id="@+id/cycle_text"
+                style="@style/contract_param_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/borrow_cycle" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/borrowing_cycle"
+                style="@style/contract_param_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="---" />
+        </LinearLayout>
+
+        <!--利息-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12">
+
+            <TextView
+                android:id="@+id/interest_text"
+                style="@style/contract_param_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/borrow_interest" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/borrowing_interest"
+                style="@style/contract_param_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="---" />
+        </LinearLayout>
+
+        <!--手续费-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12">
+
+            <TextView
+                android:id="@+id/handling_fee_text"
+                style="@style/contract_param_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/handling_fee" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/handling_fee"
+                style="@style/contract_param_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="---" />
+        </LinearLayout>
+
+        <!--实际到账-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12">
+
+            <TextView
+                android:id="@+id/actual_arrival_text"
+                style="@style/contract_param_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/actual_arrival" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/actual_arrival"
+                style="@style/contract_param_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="---" />
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

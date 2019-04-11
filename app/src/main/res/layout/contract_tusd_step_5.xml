@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:id="@+id/contract_approve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@drawable/c2_corners_bg"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_12">
+
+        <LinearLayout
+            android:id="@+id/state_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_34"
+            android:background="@drawable/contract_item_state_selector"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12">
+
+            <TextView
+                android:id="@+id/state_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/step_5_approve"
+                android:textColor="@color/contract_state_select"
+                android:textSize="@dimen/t2" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/approve_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/not_executable"
+                android:textColor="@color/contract_state_select"
+                android:textSize="@dimen/t4" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/c7t4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_12"
+            android:text="@string/step_repayment_approve_hint" />
+
+        <!--授权金额-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12">
+
+            <TextView
+                android:id="@+id/approve_text"
+                style="@style/contract_param_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/approve_amount" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/approve_amount"
+                style="@style/contract_param_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="---" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/clr_F5F5F5"
+        android:orientation="vertical">
+
+        <com.lianer.core.custom.TitlebarView
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            app:centerTitle="@string/invest"
+            app:leftDrawble="@drawable/ic_back" />
+
+
+        <ImageView
+            android:id="@+id/progress_contract_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/invest_start_bg" />
+
+        <!--投资数量-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="1dp"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/invest_assets_amount"
+                android:textColor="@color/clr_999999"
+                android:textSize="14sp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/invest_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="0.00 ETH"
+                android:textColor="@color/clr_111111"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="134dp"
+            android:layout_marginTop="12dp"
+            android:background="@android:color/white"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/help_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/help"
+                android:text="@string/transfer_price"
+                android:textColor="@color/clr_999999" />
+
+
+            <TextView
+                android:id="@+id/gas_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/clr_111111" />
+
+
+            <TextView
+                android:id="@+id/show_gas_prise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:text="3 Gwei"
+                android:textColor="@color/clr_666666"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="51dp"
+                android:text="@string/slow"
+                android:textColor="@color/clr_666666"
+                android:textSize="12sp" />
+
+            <SeekBar
+                android:id="@+id/seek_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="48dp"
+                android:background="@null"
+                android:max="600"
+                android:maxHeight="3dp"
+                android:minHeight="3dp"
+                android:progress="30"
+                android:progressDrawable="@drawable/seekbar_progress"
+                android:thumb="@drawable/seek_bar_thumb" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="51dp"
+                android:text="@string/fast"
+                android:textColor="@color/clr_666666"
+                android:textSize="12sp" />
+
+
+            <!--<TextView-->
+            <!--android:id="@+id/eth_available_amount"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="14sp"-->
+            <!--android:textColor="@color/clr_059EFF"-->
+            <!--android:layout_marginTop="80dp"-->
+            <!--android:layout_alignParentRight="true"/>-->
+        </RelativeLayout>
+
+        <!--结算-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="12dp"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/actual_payment"
+                android:textColor="@color/clr_999999"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/actual_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="12dp"
+                android:text="0.00 ETH"
+                android:textColor="@color/clr_111111"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/eth_available_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="12dp"
+                android:textColor="@color/clr_059EFF"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_pay"
+            android:layout_width="260dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/gray_oval_btn"
+            android:enabled="false"
+            android:text="@string/sure_pay"
+            android:textColor="@color/clr_999999" />
+
+
+    </LinearLayout>
+
+</layout>

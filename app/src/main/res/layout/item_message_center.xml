@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lianer.core.custom.RecyclerItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_100"
+    android:background="@color/c0">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/slide"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/rl_left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/delete"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/selector_delete_bg"
+                android:gravity="center"
+                android:text="@string/delete"
+                android:textColor="@color/c8" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_message_item_left">
+
+            <TextView
+                android:id="@+id/item_message_time"
+                style="@style/c11t4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_23" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/item_message_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_23"
+                    android:layout_marginEnd="@dimen/dp_15"
+                    android:textSize="@dimen/t4" />
+
+                <ImageView
+                    android:id="@+id/iv_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:src="@drawable/ic_operate_normal"
+                    android:visibility="gone"
+                    android:paddingVertical="@dimen/dp_30"
+                    android:paddingLeft="@dimen/dp_10"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/item_message_status"
+                style="@style/b3_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_message_time"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_23" />
+
+            <TextView
+                android:id="@+id/item_message_address"
+                style="@style/b3_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/item_message_status"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_toEndOf="@id/item_message_status" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_1"
+                android:background="@color/c9"
+                android:layout_alignParentBottom="true"
+                android:layout_marginHorizontal="@dimen/dp_20"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</com.lianer.core.custom.RecyclerItemView>

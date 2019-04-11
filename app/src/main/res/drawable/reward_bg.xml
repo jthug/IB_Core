@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <corners
+        android:topLeftRadius="@dimen/dp_9"
+        android:topRightRadius="@dimen/dp_9"
+
+        android:bottomRightRadius="@dimen/dp_9"
+        android:bottomLeftRadius="@dimen/dp_9"
+        />
+
+    <!--&lt;!&ndash; 填充的颜色 &ndash;&gt;-->
+    <!--<solid android:color="@color/c0" />-->
+
+    <padding
+        android:bottom="@dimen/dp_4"
+        android:left="@dimen/dp_8"
+        android:right="@dimen/dp_8"
+        android:top="@dimen/dp_4" />
+
+    <stroke
+        android:width="@dimen/dp_0_1"
+        android:color="@color/c11" />
+
+</shape>

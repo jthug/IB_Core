@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/borrowing_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_transparent_corner_bg"
+    android:orientation="vertical"
+    android:layout_marginBottom="12dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:translationY="-2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/white_corner_bg">
+    <RelativeLayout
+        android:id="@+id/token_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp">
+
+        <ImageView
+            android:id="@+id/token_logo"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
+            android:src="@drawable/borrow_true" />
+
+        <TextView
+            android:id="@+id/token_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="64dp"
+            android:textColor="@color/clr_666666"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/maximum_loanable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/maximum_loanable_0"
+            android:textColor="@color/clr_666666"
+            android:textSize="16sp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discount_rate"
+                android:textColor="@color/clr_999999"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/discount_rate"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/clr_00BDFD"
+                android:textSize="12sp" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/current_balance"
+                android:textColor="@color/clr_999999"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/current_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:singleLine="true"
+                android:textColor="@color/clr_00BDFD"
+                android:textSize="12sp"
+                android:text="-.----"
+                android:layout_marginStart="@dimen/dp_5" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/project_detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/clr_EBEBEB"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"/>
+
+        <TextView
+            android:id="@+id/token_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/clr_666666"
+            android:textSize="13sp"
+            android:layout_margin="16dp"
+            android:lineSpacingExtra="4dp"/>
+
+        <TextView
+            android:id="@+id/token_address"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="@color/clr_00BDFD"
+            android:textSize="12sp"
+            android:text="0"
+            android:layout_below="@+id/token_info"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center_vertical"/>
+
+        <Button
+            android:id="@+id/btn_borrowing"
+            android:layout_width="108dp"
+            android:layout_height="30dp"
+            android:background="@drawable/gradient_oval_btn"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:layout_below="@+id/token_info"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="20dp"/>
+    </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/contract_filter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
+
+            <com.lianer.core.custom.banner.BannerLayout
+                android:id="@+id/market_banner_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_184"
+                android:layout_marginBottom="@dimen/dp_7"
+                android:layout_marginTop="@dimen/dp_10"
+                android:visibility="gone"
+                app:autoPlaying="true"
+                app:centerScale="1.3"
+                app:itemSpace="20"
+                app:moveSpeed="1.8"
+                app:showIndicator="false" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/market_banner_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_184"
+                android:layout_marginBottom="@dimen/dp_7"
+                android:layout_marginTop="@dimen/dp_10"
+                android:clipToPadding="false"
+                android:paddingEnd="@dimen/dp_20"
+                android:paddingLeft="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_20"
+                android:paddingStart="@dimen/dp_20" />
+
+
+            <TextView
+                android:id="@+id/transaction_record"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:background="@color/c1"
+                style="@style/c7t4"
+                android:drawableLeft="@drawable/ic_notice"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/dp_12"
+                android:paddingLeft="@dimen/dp_18"
+                android:paddingRight="@dimen/dp_8"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true" />
+
+            <RelativeLayout
+                android:id="@+id/market_tab_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_38"
+                android:background="@color/c2"
+                android:elevation="@dimen/dp_5">
+
+                <TextView
+                    android:id="@+id/market_mortgage_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:checked="true"
+                    android:drawableEnd="@drawable/market_tab_selector"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:gravity="center_vertical"
+                    android:text="@string/mortgage_rate"
+                    android:textColor="@drawable/selector_filter_contract"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/market_interest_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_104"
+                    android:drawableEnd="@drawable/market_tab_selector"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:gravity="center_vertical"
+                    android:text="@string/market_interest_rate"
+                    android:textColor="@drawable/selector_filter_contract"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/market_cycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_179"
+                    android:drawableEnd="@drawable/market_tab_selector"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:gravity="center_vertical"
+                    android:text="@string/market_cycle"
+                    android:textColor="@drawable/selector_filter_contract"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/market_borrow_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_254"
+                    android:drawableEnd="@drawable/sort_no_choose"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:gravity="center_vertical"
+                    android:text="@string/market_number"
+                    android:textColor="@drawable/selector_filter_contract"
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:id="@+id/choose"
+                    android:layout_width="@dimen/dp_38"
+                    android:layout_height="@dimen/dp_38"
+                    android:layout_marginStart="@dimen/dp_322"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_filter" />
+            </RelativeLayout>
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/market_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/market_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:paddingBottom="10dp" />
+
+                    <LinearLayout
+                        android:id="@+id/contract_null"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/c0"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_60"
+                            android:layout_height="@dimen/dp_60"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_86"
+                            android:src="@drawable/ic_search_null" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_38"
+                            android:text="@string/no_contract"
+                            android:textColor="@color/c11"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/market_drawer_layout"
+            android:layout_width="@dimen/dp_230"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="@color/c0"
+            android:clickable="true"
+            android:focusable="true">
+
+
+            <TextView
+                android:id="@+id/mortgaged_assets_type"
+                style="@style/t4_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_17"
+                android:layout_marginStart="@dimen/dp_19"
+                android:layout_marginTop="@dimen/dp_17"
+                android:text="@string/mortgage_assets_type" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mortgage_type_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/mortgaged_assets_type"
+                android:paddingEnd="@dimen/dp_19" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_42"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/filter_reset_bg"
+                    android:gravity="center"
+                    android:text="@string/reset"
+                    android:textColor="@color/c5"
+                    android:textSize="@dimen/t3" />
+
+                <TextView
+                    android:id="@+id/sure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/filter_sure_bg"
+                    android:gravity="center"
+                    android:text="@string/sure"
+                    android:textColor="@color/c1"
+                    android:textSize="@dimen/t3" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.DrawerLayout>
+
+</layout>

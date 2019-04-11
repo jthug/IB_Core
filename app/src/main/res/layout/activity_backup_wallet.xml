@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c1"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp_52"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingStart="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:paddingEnd="@dimen/dp_15">
+
+        <TextView
+            style="@style/b0_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/backup_wallet" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/dp_8"
+            android:text="@string/backup_wallet_1_des"
+            android:layout_marginTop="@dimen/dp_27"
+            style="@style/c7t3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/dp_8"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/backup_wallet_2_des"
+            style="@style/c7t3" />
+
+        <Button
+            android:id="@+id/backup_wallet"
+            style="@style/public_btn_style"
+            android:layout_marginTop="@dimen/dp_77"
+            android:text="@string/immediately_backup" />
+
+    </LinearLayout>
+
+</layout>

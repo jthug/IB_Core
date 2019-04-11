@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c0"
+        android:orientation="vertical">
+
+        <com.lianer.core.custom.TitlebarView
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/c1"
+            app:centerTitle="@string/transfer"
+            app:leftDrawble="@drawable/ic_back" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/c2"
+            android:padding="12dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                style="@style/c6t2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/target_address" />
+
+            <EditText
+                android:id="@+id/target_address"
+                style="@style/c7_t3_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:hint="@string/input_transfer_address"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLength="42"/>
+
+            <!--<ImageView-->
+            <!--android:id="@+id/scan_code"-->
+            <!--android:layout_width="24dp"-->
+            <!--android:layout_height="24dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:src="@drawable/scan" />-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="124dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/c2"
+            android:padding="12dp">
+
+            <TextView
+                style="@style/c6t2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/transfer_assets_type" />
+
+            <TextView
+                android:id="@+id/transfer_type"
+                style="@style/t3_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="34dp"
+                android:background="@color/c9" />
+
+            <TextView
+                style="@style/c6t2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="@string/transfer_assets_amount" />
+
+            <EditText
+                android:id="@+id/transfer_amount"
+                style="@style/c7_t3_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="48dp"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:gravity="right"
+                android:hint="@string/input_transfer_amount"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal"
+                android:maxLength="18"/>
+
+            <TextView
+                android:id="@+id/available_amount"
+                android:textColor="@color/token_available_selector"
+                android:textSize="@dimen/t4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="80dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="134dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/c2"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/help_info"
+                style="@style/c6t2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/transfer_price" />
+
+            <!--<com.hedan.textdrawablelibrary.TextViewDrawable-->
+                <!--android:id="@+id/help_info"-->
+                <!--style="@style/c6t2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:drawableRight="@drawable/ic_question_mark"-->
+                <!--app:drawableRightWidth="16dp"-->
+                <!--app:drawableRightHeight="16dp"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:text="@string/transfer_price"-->
+                <!--/>-->
+
+
+            <TextView
+                android:id="@+id/gas_amount"
+                style="@style/t3_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true" />
+
+
+            <TextView
+                android:id="@+id/show_gas_prise"
+                style="@style/t4_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="50dp">
+            <TextView
+                style="@style/t4_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slow"
+                android:layout_marginTop="2dp"/>
+
+            <SeekBar
+                android:id="@+id/seek_bar"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:max="190"
+                android:maxHeight="3dp"
+                android:minHeight="3dp"
+                android:progress="20"
+                android:progressDrawable="@drawable/seekbar_progress"
+                android:thumb="@drawable/seek_bar_thumb" />
+
+            <TextView
+                style="@style/t4_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="@string/fast"
+                android:layout_marginTop="2dp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/eth_available_amount"
+                android:textColor="@color/token_available_selector"
+                android:textSize="@dimen/t4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="80dp" />
+        </RelativeLayout>
+
+        <android.support.v4.widget.Space
+            android:id="@+id/space"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/btn_bottom_selector"
+            android:enabled="false"
+            android:text="@string/next"
+            android:textColor="@color/btn_text_selector"
+            android:textStyle="bold"
+            android:textAllCaps="false"/>
+    </LinearLayout>
+
+</layout>

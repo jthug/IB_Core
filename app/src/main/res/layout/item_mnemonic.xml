@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_item_mnemonic"
+    android:layout_width="@dimen/dp_100"
+    android:layout_height="@dimen/dp_50"
+    android:background="@drawable/mnemonic_single_bg">
+
+    <TextView
+        android:id="@+id/singel_mnemonic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        style="@style/t5_style" />
+
+    <TextView
+        android:id="@+id/select_index"
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_20"
+        android:background="@drawable/mnenonic_label_bg"
+        style="@style/t5_style"
+        android:gravity="center"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

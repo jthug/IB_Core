@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <!--<com.journeyapps.barcodescanner.DecoratedBarcodeView-->
+        <!--android:id="@+id/zxing_barcode_scanner"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:zxing_preview_scaling_strategy="centerCrop"-->
+        <!--app:zxing_use_texture_view="true"-->
+        <!--app:zxing_scanner_layout="@layout/custom_barcode_scanner"-->
+        <!--app:zxing_framing_rect_width="200dp"-->
+        <!--app:zxing_framing_rect_height="200dp"/>-->
+
+    <com.lianer.core.custom.TitlebarView
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/c1"
+        app:centerTitle="@string/scan_import"
+        app:leftDrawble="@drawable/ic_back" />
+
+    <Button
+        android:id="@+id/btn_album"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/c1"
+        android:enabled="true"
+        android:text="@string/get_picture"
+        style="@style/c5b2"
+        android:layout_gravity="bottom"
+        android:textAllCaps="false"/>
+
+</FrameLayout>

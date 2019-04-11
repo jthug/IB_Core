@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="contract_invest">
+        <item>已生效</item>
+        <item>已还款</item>
+        <item>已逾期</item>
+        <item>已取回</item>
+    </string-array>
+
+    <string-array name="contract_borrow">
+        <item>已发布</item>
+        <item>已生效</item>
+        <item>已逾期</item>
+        <item>已还款</item>
+        <item>已取回</item>
+        <item>已解散</item>
+        <item>已终止</item>
+    </string-array>
+
+    <string-array name="assets_type">
+        <item>OMG</item>
+        <item>BNB</item>
+        <item>HT</item>
+        <item>IOST</item>
+        <item>LOOM</item>
+        <item>ELF</item>
+        <item>ZIL</item>
+    </string-array>
+
+    <string-array name="contract_status">
+        <item>合约部署中</item>
+        <item>合约部署失败</item>
+        <item>合约部署成功</item>
+        <item>待转入抵押资产</item>
+        <item>已终止</item>
+        <item>资产转入中</item>
+        <item>资产转入失败</item>
+        <item>资产转入成功</item>
+        <item>已发布</item>
+        <item>合约解散中</item>
+        <item>合约解散失败</item>
+        <item>合约解散成功</item>
+        <item>已解散</item>
+        <item>资产转入中</item>
+        <item>资产转入失败</item>
+        <item>资产转入成功</item>
+        <item>已生效</item>
+        <item>合约到期</item>
+        <item>还款中</item>
+        <item>还款失败</item>
+        <item>还款成功</item>
+        <item>已还款</item>
+        <item>已逾期</item>
+        <item>资产取回中</item>
+        <item>资产取回失败</item>
+        <item>资产取回成功</item>
+        <item>已取回</item>
+    </string-array>
+
+    <string-array name="contract_status_english">
+        <item>Contract deploying</item>
+        <item>Contract deployed failed</item>
+        <item>Contract deployed succeeded</item>
+        <item>To be transferred to mortgage assets</item>
+        <item>terminated</item>
+        <item>assets transferring</item>
+        <item>assets transferred failed</item>
+        <item>assets transferred succeeded</item>
+        <item>published</item>
+        <item>contract dissolving</item>
+        <item>Contract dissolved failed</item>
+        <item>Contract dissolved succeeded</item>
+        <item>dissolved</item>
+        <item>assets transferring</item>
+        <item>assets transferred failed</item>
+        <item>assets transferred succeeded</item>
+        <item>executed</item>
+        <item>expiration of contract</item>
+        <item>repayment in progress</item>
+        <item>repayment failed</item>
+        <item>repayment succeeded</item>
+        <item>repayment paid</item>
+        <item>overdue</item>
+        <item>asset retrieving</item>
+        <item>asset retrieved failed</item>
+        <item>asset retrieved succeeded</item>
+        <item>retrieved</item>
+    </string-array>
+
+</resources>

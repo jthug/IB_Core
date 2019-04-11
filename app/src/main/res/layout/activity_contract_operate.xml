@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/c0">
+
+        <RelativeLayout
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42"
+            android:background="@color/c1">
+
+            <TextView
+                android:id="@+id/contract_operate_title"
+                style="@style/t1_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:maxLines="1"
+                android:text="@string/output_contract" />
+
+        </RelativeLayout>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/contract_operate_refreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/title"
+            android:layout_above="@id/contract_operate_bottom">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/contract_operate_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/dp_15"/>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <LinearLayout
+            android:id="@+id/contract_null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_below="@id/title"
+            android:layout_above="@id/contract_operate_bottom"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/contract_state_picture"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_66"
+                android:src="@drawable/ic_contract_null" />
+
+            <TextView
+                android:id="@+id/contract_state_warn"
+                style="@style/c11t2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_45"
+                android:layout_marginTop="@dimen/dp_38"
+                android:text="@string/no_contract" />
+
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/contract_operate_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_47"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/c1"
+                android:text="@string/cancel"
+                android:textSize="@dimen/t3"
+                android:textColor="@color/c5"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/contract_operate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="@dimen/t3"
+                android:background="@drawable/contract_operate_selector"
+                android:textColor="@color/contract_operate_text_selector"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

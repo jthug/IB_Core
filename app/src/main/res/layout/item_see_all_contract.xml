@@ -1,0 +1,24 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/see_all_contract"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:drawableEnd="@drawable/gray_right_arrow"
+            android:drawablePadding="@dimen/dp_5"
+            android:drawableRight="@drawable/gray_right_arrow"
+            android:text="@string/see_all_contract"
+            android:textColor="@color/clr_999999"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c0">
+
+        <com.lianer.core.custom.TitlebarView
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="@color/c1" />
+
+        <RelativeLayout
+            android:id="@+id/rl_wallet_assets"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_70"
+            android:layout_below="@id/titlebar"
+            android:background="@color/c0"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingStart="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_19"
+            android:paddingEnd="@dimen/dp_19"
+            android:elevation="@dimen/dp_2">
+
+            <ImageView
+                android:id="@+id/assets_logo"
+                android:layout_width="@dimen/dp_31"
+                android:layout_height="@dimen/dp_31"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/assets_name"
+                style="@style/b1_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_11"
+                android:layout_marginStart="@dimen/dp_11"
+                android:layout_toEndOf="@id/assets_logo"
+                android:layout_toRightOf="@id/assets_logo"
+                android:text="---" />
+
+            <TextView
+                android:id="@+id/assets_amount"
+                style="@style/b2_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="-.----" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_linear"
+            android:layout_below="@id/rl_wallet_assets"
+            android:background="@color/c0"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_record_null"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_60"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_96"
+                android:src="@drawable/ic_contract_null"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/tv_record_null"
+                style="@style/c7t3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/no_have_record"
+                android:visibility="gone" />
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_assets_detaile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_linear"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_47"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/turn_out"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/assets_turn_out_btn_selector"
+                android:gravity="center"
+                android:text="@string/turn_out"
+                android:textColor="@drawable/assets_turn_out_text_selector"
+                android:textSize="@dimen/t2"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                />
+
+            <Button
+                android:id="@+id/switch_to"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/assets_switch_to_btn_selector"
+                android:gravity="center"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/switch_to"
+                android:textColor="@drawable/assets_switch_to_text_selector"
+                android:textSize="@dimen/t2"
+                android:textStyle="bold"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

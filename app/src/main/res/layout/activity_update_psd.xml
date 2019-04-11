@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c0">
+
+        <com.lianer.core.custom.TitlebarView
+            android:id="@+id/titlebar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:centerTitle="@string/update_psd"
+            android:gravity="center"
+            app:leftDrawble="@drawable/ic_back"
+            android:background="@color/c1"/>
+
+        <LinearLayout
+            android:id="@+id/layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/titlebar"
+            android:layout_marginTop="@dimen/dp_25"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40">
+
+                    <com.gs.keyboard.SecurityEditText
+                        style="@style/c7_t3_edit_text"
+                        android:id="@+id/current_psd"
+                        android:drawableLeft="@drawable/ic_oldpassword"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@drawable/ic_oldpassword"
+                        android:hint="@string/input_current_psd"
+                        android:inputType="textPassword"
+                        android:maxLength="32"
+                        android:paddingEnd="@dimen/dp_15"
+                        android:paddingLeft="@dimen/dp_15"
+                        android:paddingRight="@dimen/dp_15"
+                        android:paddingStart="@dimen/dp_15"
+                        android:textColorHint="@color/c11"/>
+
+                    <View
+                        style="@style/c9_horizontal_line"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_marginRight="@dimen/dp_15" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_10">
+
+                    <com.gs.keyboard.SecurityEditText
+                        style="@style/c7_t3_edit_text"
+                        android:id="@+id/new_psd"
+                        android:drawableLeft="@drawable/ic_password"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@drawable/ic_password"
+                        android:hint="@string/input_new_psd"
+                        android:inputType="textPassword"
+                        android:digits="1234567890qwertyuiopasdfghjklzxcvbnmABCDEFGHIJKLMNOPQRSTUVWXYZ`-=[]\;,./~!@#$%^*()_+}{:?&amp;&lt;&gt;&quot;&apos;"
+                        android:maxLength="32"
+                        android:paddingEnd="@dimen/dp_15"
+                        android:paddingLeft="@dimen/dp_15"
+                        android:paddingRight="@dimen/dp_15"
+                        android:paddingStart="@dimen/dp_15"
+                        android:textColorHint="@color/c11"/>
+
+                    <View
+                        style="@style/c9_horizontal_line"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_marginRight="@dimen/dp_15"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_10">
+
+                    <com.gs.keyboard.SecurityEditText
+                        style="@style/c7_t3_edit_text"
+                        android:id="@+id/confirm_new_psd"
+                        android:drawableLeft="@drawable/ic_password"
+                        android:drawablePadding="@dimen/dp_10"
+                        android:drawableStart="@drawable/ic_password"
+                        android:hint="@string/confirm_new_psd"
+                        android:inputType="textPassword"
+                        android:digits="1234567890qwertyuiopasdfghjklzxcvbnmABCDEFGHIJKLMNOPQRSTUVWXYZ`-=[]\;,./~!@#$%^*()_+}{:?&amp;&lt;&gt;&quot;&apos;"
+                        android:maxLength="32"
+                        android:paddingEnd="@dimen/dp_15"
+                        android:paddingLeft="@dimen/dp_15"
+                        android:paddingRight="@dimen/dp_15"
+                        android:paddingStart="@dimen/dp_15"
+                        android:textColorHint="@color/c11" />
+
+                    <View
+                        style="@style/c9_horizontal_line"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_marginRight="@dimen/dp_15"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/confirm_update"
+            style="@style/public_btn_style"
+            android:layout_below="@+id/layout_top"
+            android:layout_marginTop="@dimen/dp_96"
+            android:layout_centerHorizontal="true"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="@string/confirm_update"
+            android:textColor="@drawable/public_text_color_selector" />
+
+
+        <TextView
+            android:id="@+id/update_psd_warn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:layout_centerHorizontal="true"
+            android:textSize="12sp"
+            />
+
+    </RelativeLayout>
+
+</layout>

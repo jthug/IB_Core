@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/external_area"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="164dp"
+        android:layout_height="216dp"
+        android:layout_gravity="top|right"
+        android:background="@drawable/menu_bg"
+        android:elevation="6dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/eth_contract"
+            style="@style/t3_style"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/item_top_backgroud"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_menu_new"
+            android:gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:drawablePadding="12dp"
+            android:text="@string/new_eth_contract" />
+
+        <TextView
+            android:id="@+id/tusd_contract"
+            style="@style/t3_style"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/item_backgroud"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_menu_new"
+            android:gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:drawablePadding="12dp"
+            android:text="@string/new_tusd_contract" />
+        <TextView
+            android:id="@+id/import_contract"
+            style="@style/t3_style"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/item_backgroud"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_menu_import"
+            android:gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:drawablePadding="12dp"
+            android:text="@string/import_contract" />
+
+        <TextView
+            android:id="@+id/output_contract"
+            style="@style/t3_style"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/item_backgroud"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_menu_output"
+            android:gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:drawablePadding="12dp"
+            android:text="@string/export_contract"
+            android:textSize="@dimen/t3" />
+
+        <TextView
+            android:id="@+id/delete_contract"
+            style="@style/t3_style"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/item_bottom_backgroud"
+            android:clickable="true"
+            android:drawableLeft="@drawable/ic_menu_delete"
+            android:gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:drawablePadding="12dp"
+            android:text="@string/delete_contract" />
+
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c0"
+        android:orientation="vertical">
+
+        <com.lianer.core.custom.TitlebarView
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/c1"
+            app:centerTitle="@string/my_income"
+            app:leftDrawble="@drawable/ic_back" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:background="@drawable/frame_dark_corners_bg"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            style="@style/c7t4"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="left|center_vertical"
+                            android:text="@string/my_dividend" />
+
+                        <TextView
+                            android:id="@+id/my_dividend"
+                            style="@style/t1_style"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:drawableRight="@drawable/ic_right_arrow"
+                            android:gravity="left|center_vertical"
+                            android:paddingBottom="@dimen/dp_8"
+                            android:text="-.----" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_1"
+                            android:layout_marginBottom="@dimen/dp_16"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:background="@color/c9" />
+
+                        <TextView
+                            style="@style/c7t4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_8"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="left"
+                            android:text="@string/dividing_pool" />
+
+                        <TextView
+                            android:id="@+id/dividing_pool"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_8"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="right"
+                            android:text="-.------------------"
+                            android:textColor="@color/c5"
+                            android:textSize="@dimen/t1" />
+
+                        <TextView
+                            style="@style/c7t4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_8"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="left"
+                            android:text="@string/expected_dividends" />
+
+                        <TextView
+                            android:id="@+id/expected_dividends"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_8"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="right"
+                            android:text="-.------------------"
+                            android:textColor="@color/c5"
+                            android:textSize="@dimen/t1" />
+
+                        <TextView
+                            style="@style/c7t4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_8"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="left"
+                            android:text="@string/dividend_contract_address" />
+
+                        <TextView
+                            android:id="@+id/dividend_contract_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_16"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="right"
+                            android:textColor="@color/c3"
+                            android:textSize="@dimen/t1" />
+
+                        <Button
+                            android:id="@+id/btn_earn_detail"
+                            style="@style/public_btn_style"
+                            android:text="@string/earn_detail"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_marginBottom="@dimen/dp_30"
+                            android:visibility="visible"/>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="@dimen/dp_40"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_ethicon" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/frame_dark_corners_bg"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/c7t4"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="center_vertical"
+                            android:text="@string/my_mining" />
+
+                        <TextView
+                            android:id="@+id/my_mining"
+                            style="@style/t1_style"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_40"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:drawableRight="@drawable/ic_right_arrow"
+                            android:gravity="left|center_vertical"
+                            android:paddingBottom="@dimen/dp_8"
+                            android:text="-.----" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_1"
+                            android:layout_marginBottom="@dimen/dp_16"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:background="@color/c9" />
+
+                        <TextView
+                            style="@style/c7t4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_8"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="left"
+                            android:text="@string/borrowing_efficiency" />
+
+                        <TextView
+                            android:id="@+id/borrowing_efficiency"
+                            style="@style/t1_style"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_8"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="right"
+                            android:text="-.------------------" />
+
+                        <TextView
+                            style="@style/c7t4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_8"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="left"
+                            android:text="@string/credit_efficiency" />
+
+                        <TextView
+                            android:id="@+id/credit_efficiency"
+                            style="@style/t1_style"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_8"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="right"
+                            android:text="-.------------------" />
+
+
+                        <TextView
+                            style="@style/c7t4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_8"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="left"
+                            android:text="@string/nest_token_address" />
+
+                        <TextView
+                            android:id="@+id/nest_token_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dp_16"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:layout_marginRight="@dimen/dp_16"
+                            android:gravity="right"
+                            android:textColor="@color/c3"
+                            android:textSize="@dimen/t1" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="@dimen/dp_40"
+                        android:layout_marginTop="@dimen/dp_32"
+                        android:adjustViewBounds="true"
+                        android:alpha="0.1"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/nest_white" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/frame_dark_corners_bg"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        style="@style/c7t4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_8"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:layout_marginRight="@dimen/dp_16"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:gravity="left"
+                        android:text="@string/community_cumulative_dividend" />
+
+                    <TextView
+                        android:id="@+id/cumulative_dividend"
+                        style="@style/t1_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_8"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:layout_marginRight="@dimen/dp_16"
+                        android:gravity="right" />
+
+                    <TextView
+                        android:id="@+id/digged_rate"
+                        style="@style/c7t4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_8"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:layout_marginRight="@dimen/dp_16"
+                        android:gravity="left"
+                        android:text="@string/digged" />
+
+                    <TextView
+                        android:id="@+id/digged"
+                        style="@style/t1_style"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_8"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:layout_marginRight="@dimen/dp_16"
+                        android:gravity="right" />
+
+                    <TextView
+                        android:id="@+id/remainder_rate"
+                        style="@style/c7t4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_8"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:layout_marginRight="@dimen/dp_16"
+                        android:gravity="left"
+                        android:text="@string/remainder" />
+
+                    <TextView
+                        android:id="@+id/remainder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_16"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:layout_marginRight="@dimen/dp_16"
+                        android:gravity="right"
+                        android:textColor="@color/c11"
+                        android:textSize="@dimen/t1" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/nest_mining"
+                    style="@style/c7b2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/dp_24"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_48"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:drawableRight="@drawable/ic_right_arrow"
+                    android:gravity="center"
+                    android:text="@string/nest_mining_dividend_mechanism" />
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+</layout>

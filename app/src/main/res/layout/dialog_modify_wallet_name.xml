@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="@dimen/dp_300"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_circle_oval_bg"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/modify_wallet_name"
+            android:textColor="@color/clr_111111"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_15"/>
+
+        <EditText
+            android:id="@+id/et_wallet_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/input_wallet_psd_et_bg"
+            android:hint="@string/input_wallet_new_name"
+            android:singleLine="true"
+            android:padding="@dimen/dp_7"
+            android:maxLength="10"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:textSize="14sp"
+            android:textCursorDrawable="@null" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/clr_DDDDDD"
+            android:layout_marginTop="@dimen/dp_15"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/cancel"
+                android:textColor="@color/c3"
+                android:textSize="@dimen/t1" />
+
+            <View
+                android:layout_width="@dimen/dp_1"
+                android:layout_height="match_parent"
+                android:background="@color/clr_DDDDDD"
+                />
+
+            <TextView
+                android:id="@+id/tv_sure"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_10"
+                android:text="@string/sure"
+                android:textColor="@color/c3"
+                android:textSize="@dimen/t1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

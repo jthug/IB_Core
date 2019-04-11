@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_assets_detail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/c0"
+    android:paddingLeft="@dimen/dp_16"
+    android:paddingRight="@dimen/dp_16">
+
+    <TextView
+        android:id="@+id/trasaction_time"
+        style="@style/c6t4"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_72"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/trasaction_amount"
+        style="@style/c5b2"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_72"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_4"
+        android:gravity="center_vertical"/>
+
+
+    <View
+        style="@style/c9_horizontal_line"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

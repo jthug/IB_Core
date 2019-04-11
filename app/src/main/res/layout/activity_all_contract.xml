@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/clr_F5F5F5"
+        >
+
+        <com.lianer.core.custom.TitlebarView
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="@android:color/white"
+            app:centerTitle="@string/all_contract" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:orientation="horizontal"
+            android:background="@android:color/white">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/create_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:drawableEnd="@drawable/sort_no_choose"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:drawableRight="@drawable/sort_no_choose"
+                    android:gravity="center"
+                    android:textColor="@drawable/selector_filter_contract"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/interest_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:drawableEnd="@drawable/sort_no_choose"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:drawableRight="@drawable/sort_no_choose"
+                    android:gravity="center"
+                    android:text="@string/interest_rate"
+                    android:textColor="@drawable/selector_filter_contract"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/time_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:drawableEnd="@drawable/sort_no_choose"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:drawableRight="@drawable/sort_no_choose"
+                    android:gravity="center"
+                    android:text="@string/borrow_cycle"
+                    android:textColor="@drawable/selector_filter_contract"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/choose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:drawableEnd="@drawable/filter"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:drawableRight="@drawable/filter"
+                    android:gravity="center"
+                    android:text="@string/filter"
+                    android:textColor="@color/clr_999999"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/contract_filter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_10"
+                    android:clipToPadding="false"/>
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/drawer_layout"
+                android:layout_width="@dimen/dp_200"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:layout_gravity="end"
+                >
+
+                <include
+                    android:id="@+id/include"
+                    layout="@layout/inc_all_contract_filter" />
+
+            </RelativeLayout>
+
+
+        </android.support.v4.widget.DrawerLayout>
+
+    </LinearLayout>
+
+</layout>

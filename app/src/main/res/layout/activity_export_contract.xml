@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/save_area"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/c0"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/nest_white"
+            android:layout_marginTop="@dimen/dp_36"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0_5"
+            android:background="@color/c9"
+            android:layout_marginBottom="@dimen/dp_36"
+            android:layout_marginTop="@dimen/dp_36"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/dp_36"
+            android:layout_marginRight="@dimen/dp_36"
+            android:layout_marginBottom="@dimen/dp_8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contract_type"
+                style="@style/c11t2"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/contract_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contract_eth"
+                style="@style/c7b2"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/dp_36"
+            android:layout_marginRight="@dimen/dp_36"
+            android:layout_marginBottom="@dimen/dp_8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/invest_assets"
+                style="@style/c11t2"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/invest_assets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20 ETH"
+                style="@style/c7b2"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/dp_36"
+            android:layout_marginRight="@dimen/dp_36"
+            android:layout_marginBottom="@dimen/dp_8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mortgaged_assets"
+                style="@style/c11t2"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/mortgaged_assets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000 ECH"
+                style="@style/c7b2"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/dp_36"
+            android:layout_marginRight="@dimen/dp_36"
+            android:layout_marginBottom="@dimen/dp_8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/borrow_cycle"
+                style="@style/c11t2"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/borrow_cycle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 Day"
+                style="@style/c7b2"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/dp_36"
+            android:layout_marginRight="@dimen/dp_36"
+            android:layout_marginBottom="@dimen/dp_8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/due_payment"
+                style="@style/c11t2"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/due_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20.9 ETH"
+                style="@style/c7b2"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/dp_36"
+            android:layout_marginRight="@dimen/dp_36"
+            android:layout_marginBottom="@dimen/dp_8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contract_address"
+                style="@style/c11t2"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/contract_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0xsdsad"
+                style="@style/c7b2"/>
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0_5"
+            android:layout_margin="16dp"
+            android:background="@color/c9"/>
+
+        <ImageView
+            android:id="@+id/show_qr_code"
+            android:layout_width="@dimen/dp_140"
+            android:layout_height="@dimen/dp_140"
+            android:src="@drawable/hide_qr_code"
+            android:layout_gravity="center"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="36dp"
+            android:background="@color/c8"
+            android:padding="8dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+          />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_save"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_scan_import"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Save"
+                android:textColor="@color/c5"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btn_share"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_scan_import"
+                android:text="Share"
+                android:textAllCaps="false"
+                android:textColor="@color/c5"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

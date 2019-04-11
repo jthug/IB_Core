@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ll_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c0"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <EditText
+            style="@style/c7_t3_edit_text"
+            android:id="@+id/et_pk"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
+            android:background="@drawable/frame_dark_corners_stroke_bg"
+            android:gravity="top"
+            android:hint="@string/privatekey_import_hint"
+            android:imeOptions="actionNext"
+            android:inputType="text|textMultiLine"
+            android:padding="12dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="16dp">
+
+            <com.gs.keyboard.SecurityEditText
+                style="@style/c7_t3_edit_text"
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableLeft="@drawable/ic_password"
+                android:drawablePadding="10dp"
+                android:hint="@string/set_password"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:digits="1234567890qwertyuiopasdfghjklzxcvbnmABCDEFGHIJKLMNOPQRSTUVWXYZ`-=[]\;,./~!@#$%^*()_+}{:?&amp;&lt;&gt;&quot;&apos;"
+                android:maxLength="32"
+                android:padding="10dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:background="@color/c9" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="16dp">
+
+            <com.gs.keyboard.SecurityEditText
+                style="@style/c7_t3_edit_text"
+                android:id="@+id/et_re_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawableLeft="@drawable/ic_password"
+                android:drawablePadding="10dp"
+                android:hint="@string/reinput_psd"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:digits="1234567890qwertyuiopasdfghjklzxcvbnmABCDEFGHIJKLMNOPQRSTUVWXYZ`-=[]\;,./~!@#$%^*()_+}{:?&amp;&lt;&gt;&quot;&apos;"
+                android:maxLength="32"
+                android:padding="10dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:background="@color/c9" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/c7t4"
+                android:id="@+id/read_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/ic_agreement_selected"
+                android:drawablePadding="@dimen/dp_10"
+                android:text="@string/agreement_1"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/user_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/agreement_2"
+                android:textColor="@color/c3"
+                android:textSize="12sp"
+                android:gravity="center_vertical"
+                android:lines="1" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_36" />
+
+        <Button
+            android:id="@+id/btn_unlock"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
+            android:background="@drawable/btn_selector"
+            android:textColor="@color/btn_text_selector"
+            android:text="@string/start_input"
+            android:enabled="false"
+            android:textAllCaps="false"
+            android:stateListAnimator="@null"/>
+
+    </LinearLayout>
+
+</layout>

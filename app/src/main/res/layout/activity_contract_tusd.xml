@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c0"
+        android:orientation="vertical">
+
+        <com.lianer.core.custom.TitlebarView
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/c1"
+            app:centerTitle="@string/contract_detail"
+            app:leftDrawble="@drawable/ic_back">
+
+            <ImageView
+                android:id="@+id/iv_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_menu"
+                android:scaleType="fitXY"
+                android:paddingHorizontal="@dimen/dp_15"
+                android:paddingVertical="@dimen/dp_10"/>
+        </com.lianer.core.custom.TitlebarView>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_50">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--地址-->
+                <include
+                    android:id="@+id/contract_base_address"
+                    layout="@layout/contract_base_address" />
+
+                <!--合约部署-->
+                <include
+                    android:id="@+id/contract_step_1"
+                    layout="@layout/contract_tusd_step_1" />
+                <ImageView
+                    android:id="@+id/arrow_step_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/step_arrow"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_12" />
+
+                <!--抵押资产-->
+                <include
+                    android:id="@+id/contract_step_2"
+                    layout="@layout/contract_tusd_step_2" />
+                <ImageView
+                    android:id="@+id/arrow_step_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/step_arrow"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_12"/>
+
+                <!--授权-->
+                <include
+                    android:id="@+id/contract_step_3"
+                    layout="@layout/contract_tusd_step_3" />
+                <ImageView
+                    android:id="@+id/arrow_step_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/step_arrow"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_12"/>
+
+
+                <!--投资-->
+                <include
+                    android:id="@+id/contract_step_4"
+                    layout="@layout/contract_tusd_step_4" />
+                <ImageView
+                    android:id="@+id/arrow_step_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/step_arrow"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_12"/>
+
+
+                <!--授权-->
+                <include
+                    android:id="@+id/contract_step_5"
+                    layout="@layout/contract_tusd_step_5" />
+                <ImageView
+                    android:id="@+id/arrow_step_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/step_arrow"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_12"/>
+
+                <!--还款-->
+                <include
+                    android:id="@+id/contract_step_6"
+                    layout="@layout/contract_tusd_step_6" />
+                <ImageView
+                    android:id="@+id/arrow_step_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/step_arrow"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_12"/>
+
+                <!--逾期-->
+                <include
+                    android:id="@+id/contract_step_7"
+                    layout="@layout/contract_tusd_step_7" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_92" />
+            </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/user_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_50"
+            android:paddingLeft="16dp"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:background="@color/c1"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/c7t4"
+                android:id="@+id/read_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/ic_agreement_selected"
+                android:drawablePadding="@dimen/dp_10"
+                android:text="@string/agreed"
+                android:gravity="center_vertical"/>
+
+            <TextView
+                android:id="@+id/user_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:text="@string/mortgage_protocol"
+                android:textColor="@color/c3"
+                android:textSize="12sp"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_publish_to_market"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_50"
+            android:paddingLeft="16dp"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:background="@color/c1"
+            android:visibility="gone">
+
+            <CheckBox
+                android:id="@+id/cb_publish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/selector_check_box"
+                android:layout_gravity="center_vertical"
+                android:checked="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4dp"
+                android:text="@string/publish_to_market"
+                android:textColor="@color/c8"
+                android:textSize="12sp"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_action"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="@drawable/btn_bottom_selector"
+            android:enabled="true"
+            android:textColor="@color/btn_text_selector"
+            android:textStyle="bold"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:textAllCaps="false"/>
+
+    </FrameLayout>
+</layout>

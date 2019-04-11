@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_wallet_assets"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/token_bg"
+        android:layout_width="@dimen/dp_360"
+        android:layout_height="@dimen/dp_115"
+        android:background="@drawable/ic_wallet_s_bg"
+        android:adjustViewBounds="true"
+        />
+
+    <ImageView
+        android:id="@+id/token_logo"
+        android:layout_width="@dimen/dp_31"
+        android:layout_height="@dimen/dp_31"
+        android:layout_marginLeft="@dimen/dp_42"
+        android:layout_marginStart="@dimen/dp_42"
+        android:layout_marginTop="@dimen/dp_19"
+        android:src="@drawable/ic_default_eth" />
+
+    <TextView
+        android:id="@+id/assets_name"
+        style="@style/b3_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_84"
+        android:layout_marginStart="@dimen/dp_84"
+        android:layout_marginTop="@dimen/dp_25"
+        android:text="---" />
+
+    <TextView
+        android:id="@+id/assets_amount"
+        style="@style/b3_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="@dimen/dp_43"
+        android:layout_marginRight="@dimen/dp_43"
+        android:layout_marginTop="@dimen/dp_25"
+        android:text="-.----" />
+
+</RelativeLayout>

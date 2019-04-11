@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_20"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/schedule_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/clr_BFBFBF" />
+
+            <TextView
+                android:id="@+id/schedule_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/clr_BFBFBF" />
+
+            <TextView
+                android:id="@+id/schedule_third"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/clr_BFBFBF" />
+
+            <TextView
+                android:id="@+id/schedule_fourth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/clr_BFBFBF" />
+        </LinearLayout>
+
+
+        <include layout="@layout/inc_four_schedule" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/schedule_time_first"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:lines="2"
+                android:maxEms="5"
+                android:text="@string/horizontal_bar"
+                android:textColor="@color/clr_BFBFBF" />
+
+            <TextView
+                android:id="@+id/schedule_time_second"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:lines="2"
+                android:maxEms="5"
+                android:text="@string/horizontal_bar"
+                android:textColor="@color/clr_BFBFBF" />
+
+            <TextView
+                android:id="@+id/schedule_time_third"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:lines="2"
+                android:maxEms="5"
+                android:text="@string/horizontal_bar"
+                android:textColor="@color/clr_BFBFBF" />
+
+            <TextView
+                android:id="@+id/schedule_time_fourth"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:lines="2"
+                android:maxEms="5"
+                android:text="@string/horizontal_bar"
+                android:textColor="@color/clr_BFBFBF" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

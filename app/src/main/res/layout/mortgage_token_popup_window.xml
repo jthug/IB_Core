@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/external_area"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#6000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@drawable/c2_top_corners_bg"
+            android:orientation="horizontal">
+
+            <!--<ImageView-->
+            <!--android:id="@+id/cancel"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/ic_cancel"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="4dp"-->
+            <!--android:padding="14dp"/>-->
+
+            <Button
+                android:id="@+id/btn_previous"
+                style="@style/c11t2"
+                android:layout_width="60dp"
+                android:layout_height="44dp"
+                android:background="@android:color/transparent"
+                android:enabled="true"
+                android:text="@string/previous" />
+
+            <TextView
+                style="@style/t2_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:text="@string/choose_mortgage_assets" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/c0"
+            android:orientation="vertical">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="12dp">
+
+
+                <com.wx.wheelview.widget.WheelView
+                    android:id="@+id/wheelview"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="64dp"
+                    android:background="@color/c9" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="64dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@color/c9" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="24dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
+
+                <TextView
+                    style="@style/c6t2"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mortgage_assets_amount" />
+
+                <TextView
+                    android:id="@+id/mortgage_assets_amount"
+                    style="@style/t3_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@color/c9" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
+
+                <TextView
+                    style="@style/c6t2"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/discount_rate" />
+
+                <TextView
+                    android:id="@+id/discount_rate"
+                    style="@style/t3_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxEms="10" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@color/c9" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="24dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
+
+                <TextView
+                    style="@style/c6t2"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/equivalent" />
+
+                <TextView
+                    android:id="@+id/equivalent"
+                    style="@style/t3_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_sure"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/btn_bottom_selector"
+                android:enabled="true"
+                android:text="@string/sure"
+                android:textColor="@color/btn_text_selector"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

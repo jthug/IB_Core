@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ViewStub
+            android:id="@+id/three_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/inc_contract_three_point" />
+
+        <ViewStub
+            android:id="@+id/four_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/inc_contract_four_point"/>
+
+        <LinearLayout
+            android:id="@+id/released_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_55"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:background="@android:color/white"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/poundage_to_address"
+                    android:textColor="@color/clr_999999" />
+
+                <TextView
+                    android:id="@+id/poundage_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:ellipsize="middle"
+                    android:maxEms="10"
+                    android:singleLine="true"
+                    android:textColor="@color/clr_059EFF" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/disband_contract"
+                android:layout_width="@dimen/dp_300"
+                android:layout_height="@dimen/dp_40"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_20"
+                android:background="@drawable/gradient_oval_btn"
+                android:text="@string/disband_contract"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                />
+
+            <TextView
+                android:id="@+id/contract_disband_explain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:singleLine="true"
+                android:text="@string/contract_disband_explain"
+                android:textColor="@color/clr_059EFF"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/effect_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_55"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/ll_borrow_center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:background="@android:color/white"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/invester_wallet_address"
+                        android:textColor="@color/clr_999999" />
+
+                    <TextView
+                        android:id="@+id/invester_wallet_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/clr_059EFF"
+                        android:singleLine="true"
+                        android:maxEms="10"
+                        android:ellipsize="middle"
+                        />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:background="@color/clr_F5F5F5" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:background="@android:color/white"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/poundage_to_address"
+                        android:textColor="@color/clr_999999" />
+
+                    <TextView
+                        android:id="@+id/poundage_to_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/clr_059EFF"
+                        android:singleLine="true"
+                        android:maxEms="10"
+                        android:ellipsize="middle"
+                        />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

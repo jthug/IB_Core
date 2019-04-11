@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <!--合约地址-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_24"
+        android:paddingRight="@dimen/dp_24">
+
+        <TextView
+            style="@style/t3_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/contract_address" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/contract_address"
+            style="@style/c6t3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="---" />
+    </LinearLayout>
+
+    <!--借币地址-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_24"
+        android:paddingRight="@dimen/dp_24">
+
+        <TextView
+            style="@style/t3_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/borrow_address" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/borrow_address"
+            style="@style/c6t3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="---" />
+    </LinearLayout>
+
+    <!--投资地址-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_24"
+        android:paddingRight="@dimen/dp_24">
+
+        <TextView
+            style="@style/t3_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/invest_address" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/invest_address"
+            style="@style/c6t3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="---" />
+    </LinearLayout>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/picker_cancel"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:text="@string/cancel"
+        android:gravity="center"
+        android:textColor="@color/clr_666666"
+        android:textSize="12sp"
+        android:background="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/picker_title"
+        android:textColor="@color/clr_666666"
+        android:textSize="12sp"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1.0"
+        android:gravity="center"
+        android:background="@android:color/white"/>
+
+
+    <Button
+        android:id="@+id/picker_sure"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:text="@string/sure"
+        android:gravity="center"
+        android:textColor="@color/clr_666666"
+        android:textSize="12sp"
+        android:background="@android:color/white"/>
+
+</LinearLayout>

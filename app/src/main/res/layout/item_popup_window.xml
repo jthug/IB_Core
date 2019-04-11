@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/external_area">
+    <LinearLayout
+        android:layout_width="128dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:layout_gravity="top|right"
+        android:background="@drawable/menu_bg"
+
+        android:elevation="6dp">
+
+    <TextView
+        android:id="@+id/publish_contract"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        style="@style/t3_style"
+        android:text="@string/publish_contract"
+        android:gravity="center"
+        android:drawableLeft="@drawable/ic_contract_publish"
+        android:drawablePadding="12dp"
+        android:clickable="true"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:background="@drawable/item_top_backgroud"/>
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="1dp"
+            android:background="@color/c9"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/share_contract"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            style="@style/t3_style"
+            android:text="@string/share_contract"
+            android:gravity="center"
+            android:drawableLeft="@drawable/ic_contract_share"
+            android:drawablePadding="12dp"
+            android:clickable="true"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:background="@drawable/item_bottom_backgroud"/>
+
+    </LinearLayout>
+</FrameLayout>

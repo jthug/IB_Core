@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.lianer.core.custom.TitlebarView
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@android:color/white"
+        app:centerTitle="@string/borrow"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@drawable/gradient_corner_bg"
+        android:layout_margin="10dp"
+        android:padding="12dp"
+        android:orientation="vertical"
+        android:elevation="6dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/borrowing_description"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/borrowing_rule"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+           android:lineSpacingExtra="8dp"/>
+    </LinearLayout>
+
+    <!--<com.scwang.smartrefresh.layout.SmartRefreshLayout-->
+        <!--android:id="@+id/refreshLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/currency_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    <!--</com.scwang.smartrefresh.layout.SmartRefreshLayout>-->
+</LinearLayout>

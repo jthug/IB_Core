@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c0"
+        android:orientation="vertical">
+
+        <com.lianer.core.custom.TitlebarView
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_back_selected"
+            app:centerTitle="@string/message_center">
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_waste"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/dp_10"/>
+        </com.lianer.core.custom.TitlebarView>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/c0"
+                android:visibility="gone">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            <LinearLayout
+                android:id="@+id/bottom_linear"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_47"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/assets_turn_out_btn_selector"
+                    android:gravity="center"
+                    android:text="@string/cancel"
+                    android:textColor="@drawable/assets_turn_out_text_selector"
+                    android:textSize="@dimen/t2"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    />
+
+                <Button
+                    android:id="@+id/btn_delete"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/assets_switch_to_btn_selector"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_10"
+                    android:text="@string/delete"
+                    android:textColor="@drawable/assets_switch_to_text_selector"
+                    android:textSize="@dimen/t2"
+                    android:textStyle="bold"
+                    android:textAllCaps="false"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/message_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/c0"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_message_null"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_60"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_130"
+                android:src="@drawable/ic_contract_null" />
+
+            <TextView
+                android:id="@+id/tv_message_null"
+                style="@style/c7t3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_38"
+                android:text="@string/no_news" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

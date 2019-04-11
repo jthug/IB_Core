@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"
+        android:background="@drawable/gradient_rectangle_bg">
+
+        <TextView
+            android:id="@+id/interest_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_75"
+            android:layout_marginStart="@dimen/dp_75"
+            android:layout_marginTop="@dimen/dp_25"
+            android:textColor="@color/clr_F5F5F5"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tv_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/interest_rate"
+            android:text="@string/interest_rate_unit"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginStart="@dimen/dp_5"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_toEndOf="@id/interest_rate" />
+
+        <TextView
+            android:id="@+id/time_limit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/interest_rate"
+            android:layout_marginLeft="@dimen/dp_240"
+            android:textColor="@color/clr_F5F5F5"
+            android:textSize="30sp"
+            android:layout_marginStart="@dimen/dp_240" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/time_limit"
+            android:layout_toRightOf="@id/time_limit"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="@string/day"
+            android:layout_marginTop="@dimen/dp_40"
+            android:textColor="@color/clr_F5F5F5"
+            android:layout_marginStart="@dimen/dp_5" />
+
+        <LinearLayout
+            android:id="@+id/layout_contract_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_40"
+            android:background="@drawable/oval_gray_bg"
+            android:alpha="0.8"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dp_5"
+            android:paddingEnd="@dimen/dp_10"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_5">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contract_address"
+                android:textColor="@color/clr_059EFF" />
+
+            <TextView
+                android:id="@+id/contract_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_10"
+                android:ellipsize="middle"
+                android:maxEms="10"
+                android:singleLine="true"
+                android:textColor="@color/clr_059EFF" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/contract_detail_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0_5"
+            android:layout_below="@id/layout_contract_address"
+            android:layout_marginTop="@dimen/dp_25"
+            android:background="@color/clr_DDDDDD" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/contract_detail_line">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/amount_invested"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/clr_F5F5F5" />
+
+                <TextView
+                    android:id="@+id/investment_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:textColor="@color/clr_F5F5F5" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/dp_0_5"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_15"
+                android:background="@color/clr_DDDDDD"
+                android:layout_gravity="center_vertical"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/expire_eth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/clr_F5F5F5" />
+
+                <TextView
+                    android:id="@+id/principal_interest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:textColor="@color/clr_F5F5F5" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

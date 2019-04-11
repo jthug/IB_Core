@@ -1,0 +1,622 @@
+<resources>
+    <string name="app_name">NEST</string>
+
+    <string name="borrow">Loan</string>
+
+    <string name="nest">NEST</string>
+    <string name="eth">ETH</string>
+    <string name="my_contract">我的合约</string>
+    <string name="launcher_info">去中心化数字资产抵押借贷 DApp</string>
+
+
+    <!-- 钱包创建导入流程模块 -->
+    <string name="create_wallet">创建钱包</string>
+    <string name="create_wallet_warn_1">* 钱包密码用于保护您的私钥和身份验证</string>
+    <string name="create_wallet_warn_2">* NEST不存储任何密码，也无法帮您找回，请妥善保管</string>
+    <string name="set_password">请设置8~32位密码</string>
+    <string name="reinput_psd">请重复密码</string>
+    <string name="agreement_1">我已阅读并同意</string>
+    <string name="agreement_2">《用户服务协议及隐私条款》</string>
+    <string name="agreement_3">《风险提示和用户协议》</string>
+    <string name="import_wallet">导入钱包</string>
+
+    <string name="wallet_psd">钱包密码</string>
+    <string name="input_wallet_psd">请输入钱包密码</string>
+    <string name="cancel">取消</string>
+    <string name="sure">确定</string>
+    <string name="backup_wallet">备份钱包</string>
+    <string name="backup_wallet_1_des">助记词等同于私钥，您的设备联网都有被盗风险，请您手抄助记词并存放在安全的地方</string>
+    <string name="backup_wallet_2_des">当您不慎遗忘密码或者丢失私钥时，可以使用助记词来恢复钱包</string>
+    <string name="immediately_backup">立即备份</string>
+
+    <string name="dont_screenshot">请勿截图</string>
+    <string name="dont_screenshot_warn">请确保四周无人及无任何摄像头\n勿用截图或拍照保存，有被盗风险</string>
+    <string name="i_know">我知道了</string>
+    <string name="backup_mnemonic">备份助记词</string>
+    <string name="please_copy_mnemonic">请抄写您的助记词</string>
+    <string name="mnemonic_warn">助记词用于恢复钱包，一旦丢失，无法找回\n请按照顺序抄写助记词在纸上，并保存在安全的地方</string>
+    <string name="mnemonic_next">我已正确抄写，下一步</string>
+
+    <string name="confirm_mnemonic">确认助记词</string>
+    <string name="validate_mnemonic">请验证您的助记词</string>
+    <string name="mnemonic_check">为了确保您的助记词备份正确，请按照抄写顺序点击助记词</string>
+    <string name="mnemonic_validate_error">验证失败，请确认您的助记词顺序是否正确</string>
+    <string name="reset">重置</string>
+    <string name="validate_success">验证成功</string>
+    <string name="mnemonic_validate_success">请妥善保管好您的助记词，丢失将无法找回</string>
+
+    <string name="mnemonic">助记词</string>
+    <string name="input_mnemonic_hint">请输入助记词，并按空格分隔单词</string>
+    <string name="start_input">开始导入</string>
+    <string name="input_keystore_hint">请直接复制Keystore文件内容至输入框</string>
+    <string name="input_keystore_password">请输入Keystore密码</string>
+    <string name="keystore_password_incorrect">Keystore 密码错误</string>
+    <string name="old_password_error">旧密码错误</string>
+
+
+    <!-- 钱包模块 -->
+    <string name="my_wallet">我的钱包</string>
+    <string name="wallet">钱包</string>
+    <string name="market">市场</string>
+    <string name="contract">合约</string>
+    <string name="copy_address">复制地址</string>
+    <string name="please_input_token">请输入 Token 名称或 ERC20 Token 合约地址</string>
+    <string name="no_search_result">没找到想要的结果</string>
+    <string name="assets_detail">资产详情</string>
+    <string name="turn_out">转出</string>
+    <string name="switch_to">转入</string>
+    <string name="eth_rewards">分红奖励</string><!-- TODO 没有-->
+    <string name="nest_rewards">挖矿奖励</string><!-- TODO 没有-->
+    <string name="no_have_record">暂无交易记录</string>
+    <string name="transfer">转账</string>
+    <string name="target_address">转入地址</string>
+    <string name="transfer_assets_type">转出类型</string>
+    <string name="transfer_assets_amount">转出金额</string>
+    <string name="current_balance">当前余额</string>
+    <string name="transfer_price">矿工费</string>
+    <string name="slow">慢</string>
+    <string name="fast">快</string>
+    <string name="next">下一步</string>
+    <string name="input_transfer_address">请输入 42 位钱包地址</string>
+    <string name="wallet_address">钱包地址</string>
+    <string name="transfer_detail">交易详情</string>
+    <string name="transferred_in_address">转入地址</string>
+    <string name="confirm_transfer">确认转出</string>
+    <string name="transactions_details">详情</string>
+    <string name="to_address">转出地址</string>
+    <string name="tx_hash">交易 Hash</string>
+    <string name="in_the_package">\t打包中</string>
+    <string name="transaction_success">\t交易成功</string>
+    <string name="transaction_fail">\t交易失败</string>
+    <string name="wallet_manager">钱包管理</string>
+    <string name="wallet_setting">钱包设置</string>
+    <string name="update_psd">修改密码</string>
+    <string name="export_keystore">导出 Keystore</string>
+    <string name="other_setting">其他设置</string>
+    <string name="language_switch">多语言选择</string>
+    <string name="simplified_chinese">简体中文</string>
+    <string name="delete_wallet">删除钱包</string>
+    <string name="delete">删除</string>
+    <string name="delete_wallet_warn">删除钱包后，与其对应的合约也会删除！请确保钱包与合约均已备份</string>
+    <string name="input_current_psd">请输入您的旧密码</string>
+    <string name="input_new_psd">请设置8～32位新密码</string>
+    <string name="confirm_new_psd">请再次输入新密码</string>
+    <string name="confirm_update">确认修改</string>
+    <string name="complete">完成</string>
+    <string name="QR_code">二维码</string>
+    <string name="save_offline">离线保存</string>
+    <string name="save_prompt">请将 Keystore 文件复制到安全、离线的地方保存,请不要把 Keystore 文件保存到记事本、邮箱、网盘、聊天工具等，会有很大风险</string>
+    <string name="not_use_network_transmission">请不要使用网络传输</string>
+    <string name="transmission_prompt">请不要通过网络工具传输 Keystore 文件，若被黑客获取将会对您造成不可挽回的损失\n建议使用离线设备，通过扫描二维码的方式</string>
+    <string name="copy_keystore">复制 Keystore</string>
+    <string name="safe_scan">请在安全环境下扫描</string>
+    <string name="scan_prompt">请确保四周无人及摄像头，二维码禁止保存、截图、拍照\n仅限在安全环境下使用，二维码一旦被他人获取将会对您的资\n产造成不可挽回的损失</string>
+    <string name="show_qr_code">显示二维码</string>
+    <string name="hide_qr_code">隐藏二维码</string>
+    <string name="wallet_name">钱包名称</string>
+    <string name="backup_keystore">备份Keystore</string>
+
+
+    <!-- 市场模块 -->
+    <string name="publish_time">发布时间</string>
+    <string name="borrow_amount">借 ETH 数量</string>
+    <string name="borrowing_amount">借入数量(ETH)</string>
+    <string name="borrow_tusd_amount">借入数量(TUSD)</string>
+    <string name="discount_rate">抵押率</string>
+    <string name="mortgage_rate">抵押率</string>
+    <string name="market_mortgage_rate">抵押率</string>
+    <string name="borrow_interest">利率</string>
+    <string name="market_interest_rate">利率</string>
+    <string name="market_cycle">周期</string>
+    <string name="market_number">数量</string>
+    <string name="contract_publish_success">合约发布到市场成功</string>
+    <string name="contract_publish_fail">合约发布失败</string>
+    <string name="contract_contract_existed">该合约已经发布,请勿重复发布</string>
+    <string name="filter">筛选</string>
+    <string name="mortgaged_assets">抵押资产</string>
+    <string name="market_day">/ 天</string>
+    <string name="mortgage_assets_type">抵押资产类型</string>
+    <string name="transaction_record_statistics" formatted="false">已成交%s单，累计交易%sETH，%sTUSD</string>
+
+    <!-- 合约管理模块 -->
+    <string name="contract_management">合约管理</string>
+    <string name="no_contract">暂无合约</string>
+    <string name="deploy_new_contract">部署新合约</string>
+    <string name="or">或</string>
+    <string name="market_look">去市场看看</string>
+    <string name="status_1">待转入抵押</string>
+    <string name="status_2">待投资</string>
+    <string name="borrow_money">借入</string>
+    <string name="status_3">待还款</string>
+    <string name="status_4">已逾期</string>
+    <string name="overdue">已逾期</string>
+    <string name="status_5">已还款</string>
+    <string name="status_6">已结束</string>
+    <string name="investment">投资</string>
+    <string name="maturity_and_interest">到期本息</string>
+    <string name="daoqibenxi">到期本息</string>
+    <string name="due_payment">应还本息</string>
+    <string name="due_income">到期本息</string>
+    <string name="time_1">部署时间</string>
+    <string name="message_center">消息中心</string>
+    <string name="packaging_success">\t打包成功</string>
+    <string name="invest_contract">投资合约</string>
+    <string name="message_status_4">投资合约</string>
+    <string name="retrieve_assets">取回资产</string>
+    <string name="packaging_failure">\t打包失败</string>
+    <string name="contract_type">合约类型</string>
+    <string name="contract_address">合约地址</string>
+    <string name="invest_assets">投资资产</string>
+    <string name="contract_eth">ETH 借贷合约</string>
+    <string name="effect_time">生效时间</string>
+    <string name="overdue_time">逾期时间</string>
+    <string name="time_4">逾期时间</string>
+    <string name="output_contract">导出合约</string>
+    <string name="export_contract">导出合约</string>
+    <string name="export">导出</string>
+    <string name="delete_contract">删除合约</string>
+    <string name="input_contract_address">请输入合约地址</string>
+    <string name="scan_import">扫码导入</string>
+    <string name="select_image_from_album">从相册选择图片</string><!-- todo 没有 -->
+    <string name="please_open_album">为便捷导入合约，请打开相机/相册权限</string><!-- todo 没有 -->
+    <string name="please_open_message_permission">为及时获取合约信息，请打开消息推送权限</string>
+    <string name="no_open_album">未打开相机/相册权限，请设置后使用</string><!-- todo 没有 -->
+    <string name="delete_contract_warn">合约删除后将不再展示，请确认已经做好合约备份</string>
+    <string name="contract_expires">取回抵押资产后，合约失效</string>
+    <string name="take_back_assets">取回抵押资产</string>
+    <string name="input_contract_param">填写合约信息</string>
+    <string name="borrowing_cycle">周期(天)</string>
+    <string name="borrow_cycle">周期</string>
+    <string name="cycle">周期</string>
+    <string name="borrowing_interest">利率(‰/天)</string>
+    <string name="previous">上一步</string>
+    <string name="choose_mortgage_assets">选择抵押资产</string>
+    <string name="mortgageAmount">抵押数量 %s</string>
+    <string name="rate">折扣率</string>
+    <string name="compromise">折合</string>
+    <string name="equivalent">折合</string>
+    <string name="tx_type">交易类型</string>
+    <string name="new_eth_contract">借 ETH</string>
+    <string name="new_tusd_contract">借 TUSD</string>
+    <string name="deploy_contract">部署合约</string>
+    <string name="message_status_1">部署合约</string>
+    <string name="contract_detail">合约详情</string>
+    <string name="pay_and_invest">支付并投资</string>
+    <string name="borrow_address">借方地址</string>
+    <string name="invest_address">投资地址</string>
+    <string name="step_deploy_hint">点击填写参数后，可部署合约</string>
+    <string name="executable">可执行</string>
+    <string name="executed">已执行</string>
+    <string name="not_executed">未执行</string>
+    <string name="not_executable">不可执行</string>
+    <string name="transfer_to_mortgage_assets">转入抵押资产</string>
+    <string name="step_mortgage_hint">转入抵押资产后，合约生效</string>
+    <string name="mortgage_insufficient">需转入抵押资产</string>
+    <string name="step_invest_hint">投资合约将有额外的挖矿积分奖励</string>
+    <string name="invest_amount">投资数量</string>
+    <string name="invest_time">投资时间</string>
+    <string name="handling_fee">手续费</string>
+    <string name="poundage">手续费</string>
+    <string name="actual_arrival">借方实际到账</string>
+    <string name="status_repayment">还款</string>
+    <string name="step_repayment_hint">逾期将无法取回抵押资产</string>
+    <string name="time_5">还款时间</string>
+    <string name="repayment_time">还款时间</string>
+    <string name="step_overdue_hint">逾期后，投资人可获取抵押资产</string>
+    <string name="follow">关注</string>
+    <string name="time_6">结束时间</string>
+    <string name="message_status_5">还款</string>
+    <string name="refusals">拒绝</string>
+    <string name="allow">允许</string>
+    <string name="share_contract">分享</string>
+
+    <string name="import_fail_existed">导入失败，合约管理中已存在该合约</string>
+    <string name="import_fail_not_nest">导入失败，请导入NEST合约地址</string>
+    <string name="import_contract_success">导入成功，可在合约管理中查看</string>
+    <string name="save_the_image_successfully">保存图片成功</string><!-- TODO 没有使用 -->
+    <string name="failed_to_save_image">保存图片失败</string><!-- TODO 没有使用 -->
+    <string name="successfully_released">发布成功</string><!-- TODO 没有使用 -->
+    <string name="publishing_failed">发布失败</string><!-- TODO 没有使用 -->
+    <string name="message_status_2">转入抵押</string>
+    <string name="message_status_3">取回抵押</string>
+    <string name="message_status_6">获取抵押</string>
+    <string name="message_status_7">授权</string>
+    <string name="message_status_8">取消授权</string>
+    <string name="message_status_9">存入</string>
+    <string name="message_status_10">取出</string>
+    <string name="pay_and_deploy">支付并部署</string><!-- TODO 没有使用 -->
+    <string name="pay_and_transfer_to_mortgage">支付并转入抵押</string><!-- TODO 没有使用 -->
+    <string name="pay_and_get_back_the_mortgage">支付并取回抵押</string><!-- TODO 没有使用 -->
+    <string name="pay_and_repay">支付并还款</string><!-- TODO 没有使用 -->
+    <string name="pay_and_get_a_mortgage">支付并获取抵押</string><!-- TODO 没有使用 -->
+    <string name="pay_and_transfer_out">支付并转出</string><!-- TODO 没有使用 -->
+    <string name="transaction_error">\t交易异常</string>
+    <string name="the_transaction_is_abnormal">该笔交易异常</string><!-- TODO 没有使用 -->
+    <string name="trading_reminder">[NEST] 交易提醒：</string>
+    <string name="trading_reminder_content">有一条交易状态更新了，点此查看详情！</string>
+    <string name="config_contract">配置合约</string>
+    <string name="get_mortgage">获取抵押资产</string>
+    <string name="step_get_mortgage_hint">取回抵押资产后，合约不可投资</string>
+    <string name="mortgage_sufficient">已转入抵押资产</string>
+    <string name="time_3">到期时间</string>
+    <string name="second_psd_not_match">两次输入的新密码不一致</string>
+    <string name="agree_agreement">请同意协议</string>
+    <string name="incorrect_password">密码输入错误</string><!-- TODO 没有使用 -->
+    <string name="invalid_mnemonic">助记词无效</string><!-- TODO 没有使用 -->
+    <string name="Insufficient_password_length">密码长度不足</string><!-- TODO 没有使用 -->
+    <string name="check_the_input_is_correct">请检查输入是否正确</string><!-- TODO 没有使用 -->
+    <string name="enter_your_current_password">请输入当前密码</string><!-- TODO 没有使用 -->
+    <string name="set_a_new_password">请设置新密码</string><!-- TODO 没有使用 -->
+    <string name="confirm_the_new_password">确认新密码</string><!-- TODO 没有使用 -->
+    <string name="please_input_data">请输入密码</string>
+    <string name="successfully_deleted">删除成功</string>><!-- TODO 没有使用 -->
+    <string name="filed_to_delete">删除失败</string>><!-- TODO 没有使用 -->
+    <string name="update_psd_success">修改成功</string>
+    <string name="copy_success">复制成功</string>
+    <string name="transaction_history_details">交易记录详情</string><!-- TODO 没有使用 -->
+    <string name="current_currency_balance">当前Token余额：</string><!-- TODO 没有使用 -->
+    <string name="enter_the_number_of_tokens">请输入Token数量</string><!-- TODO 没有使用 -->
+    <string name="total_of_payment_of_tokens">共需支付Token</string><!-- TODO 没有使用 -->
+    <string name="please_allow_camera_permissions">为了便捷导入/导出合约，请允许NEST获取您的相机权限</string><!-- TODO 没有使用 -->
+    <string name="inquire">查询</string><!-- TODO 没有使用 -->
+    <string name="go_to_set">去设置</string><!-- TODO 没有使用 -->
+    <string name="publish_contract">发布</string>
+    <string name="operation_failed">操作失败,请刷新合约</string><!-- TODO 没有使用 -->
+    <string name="agreed">已同意</string>
+    <string name="mortgage_protocol">《抵押借贷相关的风险提示和用户协议》</string>
+    <string name="version_update">版本更新 V</string>
+    <string name="update_now">现在更新</string>
+    <string name="no_news">暂无消息</string>
+    <string name="setting">设置</string>
+
+
+    <!-- 下拉刷新 上拉加载 -->
+    <string name="srl_header_pulling">下拉可以刷新</string>
+    <string name="srl_header_refreshing">正在刷新…</string>
+    <string name="srl_header_loading">正在加载…</string>
+    <string name="srl_header_release">释放立即刷新</string>
+    <string name="srl_header_finish">刷新完成</string>
+    <string name="srl_header_failed">刷新失败</string>
+    <string name="srl_header_update">上次更新 M-d HH:mm</string>
+    <string name="srl_header_secondary">释放进入二楼</string>
+
+    <string name="srl_footer_pulling">上拉加载更多</string>
+    <string name="srl_footer_release">释放立即加载</string>
+    <string name="srl_footer_loading">正在加载…</string>
+    <string name="srl_footer_refreshing">正在刷新…</string>
+    <string name="srl_footer_finish">加载完成</string>
+    <string name="srl_footer_failed">加载失败</string>
+    <string name="srl_footer_nothing">没有更多数据了</string>
+
+
+    <!-- other -->
+
+    <string name="contract_restore">导入合约 ></string>
+    <string name="send_transaction_failed">发起交易失败,请重试</string>
+    <string name="eth_wallet">ETH wallet</string>
+    <string name="eth_amount">%s ETH</string>
+    <string name="tusd">TUSD</string>
+    <string name="tusd_amount">%s TUSD</string>
+    <string name="token_send">%s 转账</string>
+    <string name="day_hour" formatted="false">%s 天 %s 小时</string>
+    <string name="export_success">导出成功,请到相册中查看</string>
+    <string name="export_failed">导出失败</string>
+    <string name="mnemonic_error">导入失败，请重新检查助记词</string>
+    <string name="mnemonic_success">导入助记词成功</string>
+    <string name="keystore">keystore</string>
+    <string name="keystore_error">keystore 无效</string>
+    <string name="password_does_not_match">密码不一致</string>
+    <string name="import_success">导入成功</string>
+    <string name="asset_profile">资产简介</string>
+    <string name="project_name">项目名称</string>
+    <string name="brief_introduction">简介</string>
+    <string name="token_address">Token地址：</string>
+    <string name="select_project">查询项目</string>
+    <string name="copy_token_address">复制Token地址</string>
+    <string name="sure_stop_contract">确定终止合约</string>
+    <string name="termination_contract">终止合约</string>
+    <string name="contract_terminated">合约已终止</string>
+    <string name="stop_contract_warn">合约已部署成功，若中途终止已支付的 Gas 费用不会返回您的钱包</string>
+    <string name="disband_contract_description">解散合约说明</string>
+    <string name="disband_contract_info">1、合约部署成功后，解散合约需要支付一定的Gas费用\n2.无论操作是否成功，之前用于部署合约的Gas都不会返还\n3.若合约成功解散，抵押资产会自动返还至您的钱包\n4.若在合约成功解散之前，有投资操作被优先确认，则该合约仍会生效</string>
+    <string name="title_activity_confirm_mnemonic">ConfirmMnemonicAct</string>
+    <string name="confirm_mnemonic_warn">妥善保管好您的助记词，丢失将无法找回</string>
+    <string name="add_assets">添加资产</string>
+    <string name="english">English</string>
+    <string name="language_setting">语言选择</string>
+    <string name="recent_transaction_record">近期交易记录</string>
+    <string name="update_psd_warn">如不慎忘记密码，您可以 导入助记词或私钥 来重置密码</string>
+    <string name="keystore_file">Keystore</string>
+    <string name="password_safe">密码保险箱</string>
+    <string name="safe_prompt">建议使用安全等级更高的密码管理工具来保存 Keystore 文件</string>
+    <string name="scan_cancel">扫描取消</string>
+    <string name="decode_failed">二维码解析失败</string>
+    <string name="request_permissions">请开通相关权限，否则无法正常使用本应用！</string>
+    <string name="get_picture">相册选择图片</string>
+    <string name="current_psd_error">钱包密码错误，请重新输入</string>
+
+    <string name="nonce_hint">警告</string>
+    <string name="nonce_warning">还有交易未打包完成,请稍后再发起\n如果调高GasPrice会覆盖上一笔交易,请确认上一笔交易打包成功后再发起交易</string>
+    <string name="gas_info">矿工费用说明</string>
+    <string name="gas_description">1.矿工费将会直接从您的钱包对应资产中扣除\n2.确保您的钱包有足够的余额，否则无法完成该操作</string>
+    <string name="input_transfer_type">请选择Token</string>
+    <string name="input_transfer_amount">请输入转出数量</string>
+    <string name="available_amount" formatted="false">当前 %s 余额：%s</string>
+    <string name="transfer_success">转帐成功</string>
+    <string name="transfer_fail">转帐失败</string>
+    <string name="address_error">转入地址无效</string>
+    <string name="tx_time">交易时间</string>
+    <string name="sub">- \t</string>
+    <string name="add">+ \t</string>
+    <string name="take_effect">已生效</string>
+    <string name="repaid">已还款</string>
+    <string name="take_back">已取回</string>
+    <string name="release">已发布</string>
+    <string name="disbanded">已解散</string>
+    <string name="terminated">已终止</string>
+    <string name="no_invest_contract">还没有投资任何合约</string>
+    <string name="no_borrow_contract">还没有发布借币合约</string>
+    <string name="go_invest">去投资</string>
+    <string name="go_borrow">去借币</string>
+    <string name="dynamic_contract">当前有 %d 动态合约单</string>
+    <string name="expire_date">到期时间</string>
+    <string name="take_back_time">取回时间</string>
+    <string name="see_all_contract">查看全部合约</string>
+    <string name="all_contract">全部合约</string>
+    <string name="contract_create_date_desc">contractCreateDate desc</string>
+    <string name="interest_rate_desc">interestRate desc</string>
+    <string name="contract_create_date_asc">contractCreateDate asc</string>
+    <string name="interest_rate_asc">interestRate asc</string>
+    <string name="time_limit_desc">timeLimit desc</string>
+    <string name="time_limit_asc">timeLimit asc</string>
+    <string name="invest_assets_amount">投资资产数量</string>
+    <string name="current_eth_balance">当前 ETH 余额：%s</string>
+    <string name="no_contract_sheet">暂无可投资合约单</string>
+    <string name="invested">已投资</string>
+    <string name="repaymented">借方已还款</string>
+    <string name="taken_back_assets">抵押资产已取回</string>
+    <string name="borrow_wallet_address">借方钱包地址</string>
+    <string name="wait_repayment">待还款</string>
+    <string name="create_time">创建时间</string>
+    <string name="expire_time">到期时间</string>
+    <string name="disband_time">解散时间</string>
+    <string name="terminated_time">终止时间</string>
+    <string name="current_dynamic_contract">当前有 %d 条动态合约单</string>
+    <string name="current_token_amount" formatted="false">当前 %s 余额: %s</string>
+    <string name="borrowing_description">借币说明</string>
+    <string name="borrowing_rule">每种抵押资产最多可借计算方式如下：\n最多可借 = 当前余额×折扣率×资产昨日均价\n资产昨日均价为该抵押资产前一天兑ETH的平均价格\n* 提前还款也需偿还全部本息</string>
+    <string name="maximum_loanable">最多可借: %s ETH</string>
+    <string name="maximum_loanable_0">最大可借: -.---- ETH</string>
+    <string name="borrowing_now">马上借 ETH</string>
+    <string name="select_borrowing_amount">请选择借币数量</string>
+    <string name="select_borrowing_interest">请选择借币利息</string>
+    <string name="select_borrowing_cycle">请选择借币天数</string>
+    <string name="assets_average_price">资产昨日均价</string>
+    <string name="mortgage_assets_amount">抵押资产数量</string>
+    <string name="mortgage_discount_rate">抵押折扣率（%）</string>
+    <string name="mortgage_assets_equivalent">抵押资产折合ETH</string>
+    <string name="have_read">已阅读</string>
+
+    <string name="create_contract">创建合约单</string>
+    <string name="actual_payment">共需支付</string>
+    <string name="confirm_deploy_contract">确认并部署合约</string>
+    <string name="hash_address">Hash 地址</string>
+    <string name="contract_deploying">合约部署中...</string>
+    <string name="contract_deploy_success">合约部署成功</string>
+    <string name="contract_deploy_fail">合约部署失败</string>
+    <string name="contract_assets_transfer">资产转入中...</string>
+    <string name="contract_assets_transfer_fail">资产转入失败</string>
+    <string name="contract_assets_transfer_success">资产转入成功</string>
+    <string name="invest_loading">资产转入中</string>
+    <string name="invest_fail">资产转入失败</string>
+    <string name="invest_success">投资成功</string>
+    <string name="repayment_statement">还款说明</string>
+    <string name="repayment_statement_content">为防止以太坊网络发生拥堵，建议您提前24小时进行还款，否则造成合约逾期，NEST 不会承担您的任何损失</string>
+    <string name="repayment_explain">还款费用说明</string>
+    <string name="confirm_repayment">确认还款</string>
+    <string name="get_assets_ing">资产取回中</string>
+    <string name="contract_release">Contract deployed succeeded</string>
+    <string name="get_assets_fail">资产取回失败</string>
+    <string name="get_assets_success">资产取回成功</string>
+    <string name="paying_mortgage_assets">转入抵押资产</string>
+    <string name="go_contract_detail">查看合约详情</string>
+    <string name="back">返回</string>
+    <string name="back_retry">返回重试</string>
+    <string name="borrow_contract">借币合约</string>
+    <string name="actual_amount">实际到账数量</string>
+    <string name="poundage_to_address">手续费转入地址</string>
+    <string name="contract_disband_explain">合约解散说明</string>
+    <string name="disband_contract">解散合约</string>
+    <string name="disband_explain">1、解散合约需要支付一定的Gas费用\n2、不管是否操作成功，之前用于部署合约的Gas都不会返还\n3、若合约成功解散，抵押资产会自动返还至您的钱包\n4、若在合约成功解散之前，有投资操作被优先确认，则该合约仍会生效</string>
+    <string name="contract_disbanding">解散合约中</string>
+    <string name="contract_disband_success">合约解散成功</string>
+    <string name="contract_disband_fail">合约解散失败</string>
+    <string name="repaymenting">还款中</string>
+    <string name="repayment_success">还款成功</string>
+    <string name="repayment_fail">还款失败</string>
+    <string name="see_wallet">查看钱包</string>
+    <string name="return_to_retry">返回重试</string>
+    <string name="invester_wallet_address">投资方钱包地址</string>
+    <string name="repay">立即还款</string>
+    <string name="amount_invested">已投数量</string>
+    <string name="day">天</string>
+    <string name="days">天</string>
+    <string name="day_amount">%s 天</string>
+    <string name="rate_unit">%s ‰/天</string>
+    <string name="interest_rate_unit">‰/天</string>
+    <string name="need_pay">共需支付</string>
+    <string name="project_profile">项目介绍\t></string>
+    <string name="sure_pay">确认支付</string>
+    <string name="see_contract_detail">查看合约详情</string>
+    <string name="price_to_eth">创建时折合</string>
+    <string name="now_invest">立即投资</string>
+    <string name="invested_effect">投资后生效</string>
+    <string name="borrow_no_repayment">借方未还款</string>
+    <string name="price_to_eth_name">创建时均价</string>
+    <string name="fast_overdue">即将到期</string>
+    <string name="already_released">已释放</string>
+    <string name="already_released_time">已释放时间</string>
+    <string name="project_introduction">项目名称：%1$s | 简称：%2$s</string>
+    <string name="investing">投资中</string>
+    <string name="interest_rate">借币利率</string>
+    <string name="horizontal_bar">-</string>
+    <string name="number_of_available">可投数量</string>
+    <string name="Backup_wallet_description">备份钱包说明</string>
+    <string name="password_error">密码错误</string>
+    <string name="receivables">收款二维码</string>
+
+    <string name="immediate_update">立即更新</string>
+    <string name="download_failure">下载失败</string>
+    <string name="transaction_hash">交易 hash</string>
+
+    <string name="version_update_content">V%s版本更新内容：</string>
+    <string name="transaction_record">交易记录</string>
+    <string name="import_contract">导入合约</string>
+    <string name="step_deploy">1、部署合约</string>
+    <string name="step_mortgage">2、转入抵押资产</string>
+    <string name="step_get_mortgage">2、取回抵押资产</string>
+    <string name="step_invest">3、投资合约</string>
+    <string name="step_repayment">4、还款</string>
+    <string name="retrieve_mortgage">取回抵押资产</string>
+    <string name="step_overdue">5、取回资产</string>
+
+    <string name="step_1_deploy">1、部署合约</string>
+    <string name="step_2_mortgage">2、转入抵押资产</string>
+    <string name="step_3_approve">3、授权</string>
+    <string name="step_3_approve_cancel">3、取消授权</string>
+    <string name="step_4_invest">4、投资合约</string>
+    <string name="step_5_approve">5、授权</string>
+    <string name="step_5_approve_cancel">5、取消授权</string>
+    <string name="step_6_repaymen">6、还款</string>
+    <string name="step_7_overdue">7、取回资产</string>
+
+    <string name="approve">授权</string>
+    <string name="approve_cancel">取消授权</string>
+    <string name="step_invest_approve_hint">投资涉及 ETH 的合约将有额外的挖矿积分奖励</string>
+    <string name="step_repayment_approve_hint">授权后可还款，授权状态可随时取消</string>
+    <string name="approve_amount">授权金额</string>
+
+    <string name="invest">投资</string>
+    <string name="repayment">还款</string>
+
+    <!--zxing-->
+    <string name="msg_camera_framework_bug">相机被占用或没有相机权限，请检查</string>
+    <string name="viewfinderview_status_text1">将二维码/条码放入取景框内</string>
+    <string name="viewfinderview_status_text2">即可自动扫描</string>
+    <string name="exit">退出</string>
+    <string name="open">开启</string>
+    <string name="close">关闭</string>
+    <string name="gallery">相册</string>
+
+    <!--Income-->
+    <string name="my_income">我的收益</string>
+    <string name="view_income">查看收益</string>
+    <string name="my_dividend">我的奖励</string>
+    <string name="dividing_pool">社区总奖励</string>
+    <string name="expected_dividends">预计奖励</string>
+    <string name="dividend_contract_address">合约地址</string>
+    <string name="my_mining">我的挖矿</string>
+    <string name="borrowing_efficiency">借方挖矿效率</string>
+    <string name="credit_efficiency">贷方挖矿效率</string>
+    <string name="nest_token_address">NEST Token 地址</string>
+    <string name="cumulative_dividend">累计奖励</string>
+    <string name="community_cumulative_dividend">社区累计奖励 ETH</string>
+    <string name="cumulative_mining">累计挖矿</string>
+    <string name="dividend_detail">奖励详情</string>
+    <string name="mining_detail">挖矿详情</string>s
+    <string name="digged">已挖 NEST ( %s )</string>
+    <string name="remainder">剩余 NEST ( %s )</string>
+    <string name="nest_mining_dividend_mechanism">了解 NEST 挖矿奖励机制</string>
+
+
+    <string name="modify_wallet_name">修改钱包名称</string>
+    <string name="input_wallet_new_name">请输入字母或数字（限10个字符）</string>
+    <string name="wallet_name_tips">请输入钱包名</string>
+    <string name="wallet_name_same_tips">该名称已存在</string>
+    <string name="about_nest">关于 NEST</string>
+    <string name="modify_wallet_name_tips">只能输入10个英文字母或数字</string>
+    <string name="wallet_number_limit">最多导入五个钱包</string>
+    <string name="wallet_existed">该钱包已存在!</string>
+    <string name="import_create_wallet">导入 / 创建钱包</string>
+    <string name="nonce_error">主链网络不稳，请稍后重试</string>
+    <string name="nest_introduce">NEST，去中心化数字资产抵押借贷平台</string>
+    <string name="privatekey_import_hint">请输入私钥</string>
+    <string name="private_key">私钥</string>
+    <string name="privatekey_error">无效的私钥</string>
+    <string name="export_private_key">导出私钥</string>
+    <string name="backup_safe_tips_title">请在安全环境下备份</string>
+    <string name="export_private_key_tips">请妥善保管私钥数据，确保四周无人及摄像头，禁止截图、拍照，仅限在安全环境下使用，私钥一旦被他人获取将会对您的资产造成不可挽回的损失</string>
+    <string name="copy_private_key">复制私钥</string>
+    <string name="publish_to_market">同时发布合约到市场</string>
+    <string name="earn_detail">收益详情</string>
+    <string name="bonus_notes_tips">1.社区总收益收入来自于借贷合约产生的手续费\n2.奖励将在每周五 12：00进行快照分发\n3.计算收益方式：\n个人收益 = 存入的 NEST 数量 / NEST 总流通数量 × 社区总收益\n4.奖励仅有一天时间可供领取，若未在规定时间内领取，则该期奖励会计入下一期的社区总收益，并供下一期奖励分发使用</string>
+    <string name="current_period_total_income">本期社区总收益</string>
+    <string name="total_community_benefit">社区总收益</string>
+    <!--<string name="countdown_earn">奖励发放倒计时：%s 天 %s 小时 %s 分 %s 秒</string>-->
+    <string name="countdown_time">%s 天 %s 小时 %s 分 %s 秒</string>
+    <string name="countdown_earn">奖励发放倒计时</string>
+    <string name="total_nest">社区 NEST 总流通量</string>
+    <string name="my_saved_nest">我存入的 NEST 数量</string>
+    <string name="my_expect_earning">我的预期收益</string>
+    <string name="option_select">选择操作</string>
+    <string name="deposit">存入</string>
+    <string name="withdraw">取出</string>
+    <string name="deposit_number">存入数量</string>
+    <string name="saved_number_hint">请输入想要存入的 NEST 数量</string>
+    <string name="authrizated_deposit_amount">授权存入数量</string>
+    <string name="dividend_rules">奖励规则</string>
+    <string name="remain_collection_time">剩余领取时间：%s 天 %s 小时 %s 分 %s 秒</string>
+    <string name="current_nest_amount">当前 NEST 余额：%s</string>
+    <string name="withdeaw_number">取出数量</string>
+    <string name="get_number_hint">请输入想要取出的 NEST 数量</string>
+    <string name="withdraw_nest">取出 NEST</string>
+    <string name="authorized">授权</string>
+    <string name="receive_income">领取收益</string>
+    <string name="can_be_withdraw">ETH 可领取</string>
+    <string name="withdraw_success">领取成功</string>
+    <string name="authorized_success">授权成功，请存入</string>
+    <string name="income_details">收益明细</string>
+    <string name="available_benefit">可领取奖励</string>
+    <string name="benefit_tips">在规定时间内未领取的奖励，将计入下一期社区总奖励</string>
+    <string name="saved_nest">存入 NEST</string>
+    <string name="joined_nest">参与收益的 NEST 数量</string>
+    <string name="nest_tips">存入的 NEST 占社区总流通量比例越高，获得奖励将越多</string>
+    <string name="to_dividend">奖励发放倒计时</string>
+    <string name="collection_dividend">奖励领取倒计时</string>
+    <string name="s_existed">该钱包已存在!</string>
+
+
+    <!--借币logo-->
+    <array name="token_logo_list">
+        <item>@drawable/borrow_true</item>
+        <item>@drawable/omg</item>
+        <item>@drawable/bnb</item>
+        <item>@drawable/ht</item>
+        <item>@drawable/iost</item>
+        <item>@drawable/loom</item>
+        <item>@drawable/elf</item>
+        <item>@drawable/zil</item>
+    </array>
+    <!--借币logo-->
+
+</resources>

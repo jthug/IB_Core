@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/rl_all_contract"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_110"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@drawable/all_contract_item_bg"
+        android:fadingEdge="none">
+
+        <TextView
+            android:id="@+id/investment_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/dp_5"
+            android:textColor="@color/clr_059EFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/dp_5" />
+
+        <TextView
+            android:id="@+id/textView32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/investment_amount"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_toRightOf="@id/investment_amount"
+            android:layout_marginBottom="@dimen/dp_2"
+            android:text="ETH"
+            android:textColor="@color/clr_111111"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_toEndOf="@id/investment_amount" />
+
+        <TextView
+            android:id="@+id/time_limit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/investment_amount"
+            android:layout_marginStart="@dimen/dp_130"
+            android:layout_marginLeft="@dimen/dp_130"
+            android:textColor="@color/clr_111111"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/investment_amount"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_toRightOf="@id/time_limit"
+            android:layout_toEndOf="@id/time_limit"
+            android:text="@string/day"
+            android:layout_marginBottom="@dimen/dp_2"
+            android:textColor="@color/clr_111111"
+            android:textSize="12sp"
+            android:layout_marginLeft="@dimen/dp_5" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/investment_amount"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:text="@string/interest_rate_unit"
+            android:textColor="@color/clr_F87962"
+            android:textSize="12sp"
+            android:layout_marginBottom="@dimen/dp_2"
+            android:layout_marginEnd="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/interest_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/investment_amount"
+            android:layout_toLeftOf="@id/textView35"
+            android:layout_toStartOf="@id/textView35"
+            android:layout_marginRight="@dimen/dp_5"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:textColor="@color/clr_F87962"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/investment_amount"
+            android:layout_marginTop="@dimen/dp_45"
+            android:text="@string/mortgaged_assets"
+            android:textSize="10sp"
+            android:textColor="@color/clr_999999"
+            android:layout_alignLeft="@+id/investment_amount" />
+
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/time_limit"
+            android:layout_alignTop="@+id/textView37"
+            android:text="@string/price_to_eth"
+            android:textSize="10sp"
+            android:textColor="@color/clr_999999"
+            android:layout_alignLeft="@+id/time_limit" />
+
+        <TextView
+            android:id="@+id/mortgage_assets_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/investment_amount"
+            android:layout_marginTop="@dimen/dp_60"
+            android:textColor="@color/clr_111111"
+            android:textSize="12sp"
+            android:layout_alignLeft="@+id/investment_amount" />
+
+        <TextView
+            android:id="@+id/price_to_eth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/time_limit"
+            android:layout_alignTop="@+id/mortgage_assets_amount"
+            android:textColor="@color/clr_00BDFD"
+            android:textSize="12sp"
+            android:layout_alignLeft="@+id/time_limit" />
+
+        <ImageView
+            android:id="@+id/contract_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+
+
+    </RelativeLayout>
+
+</layout>
+

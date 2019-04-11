@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SecurityKeyboard</string>
+    <string name="aToz">abcdefghijklmnopqrstuvwxyz</string>
+    <string name="zeroTonine">1234567890</string>
+    <string name="letter">Letter</string>
+    <string name="number">Number</string>
+    <string name="symbol">Symbol</string>
+    <string name="complete">Complete</string>
+</resources>
