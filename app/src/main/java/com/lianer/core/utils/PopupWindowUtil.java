@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,9 @@ import com.lianer.core.contract.ContractOperateAct;
 import com.lianer.core.contract.ContractTusdActivity;
 import com.lianer.core.contract.ImportContractActivity;
 import com.lianer.core.contract.TokenWheelAdapter;
+import com.lianer.core.contract.bean.TokenMortgageBean;
+
+import java.util.List;
 
 import cn.qqtheme.framework.util.ConvertUtils;
 import cn.qqtheme.framework.widget.WheelView;
@@ -388,6 +392,8 @@ public class PopupWindowUtil {
         wheelView.setWheelAdapter(adapter);
         wheelView.setWheelSize(5);
         wheelView.setWheelData(MortgageAssets.getTokenMortgageList(activity));
+        List<TokenMortgageBean> tokenMortgageList = MortgageAssets.getTokenMortgageList(activity);
+        Log.e("xxxxxx",tokenMortgageList.get(0).getTokenAbbreviation());
         wheelView.setSkin(com.wx.wheelview.widget.WheelView.Skin.None);
         wheelView.setLoop(false);
         wheelView.setWheelClickable(true);

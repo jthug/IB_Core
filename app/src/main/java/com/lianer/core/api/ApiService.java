@@ -6,6 +6,9 @@ import com.lianer.core.borrow.Bean.ExchangeRateBean;
 import com.lianer.core.contract.bean.ContractInvestResponse;
 import com.lianer.core.contract.bean.ContractResponse;
 import com.lianer.core.contract.bean.TokenMortgageEntity;
+import com.lianer.core.databean.ContractDetailBean;
+import com.lianer.core.databean.InfoDataBean;
+import com.lianer.core.databean.NormalDataBean;
 import com.lianer.core.invest.model.BannerDelete;
 import com.lianer.core.lauch.bean.VersionResponse;
 import com.lianer.core.market.bean.BannerResponse;
@@ -262,4 +265,90 @@ public interface ApiService {
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @GET("/all/dividend/Get/mining")
     Flowable<String> queryCumulativeMining();
+
+    //=====================================================================
+
+    /**
+     * 获取nonce
+     * @param info
+     * @return
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("/hpb/private/function/getNonce")
+    Call<NormalDataBean> getCoreNonce(@Body RequestBody info);
+
+    /**
+     * 获取余额
+     * @param info
+     * @return
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("/hpb/private/function/getBalance")
+    Call<NormalDataBean> getBalance(@Body RequestBody info);
+
+    /**
+     * 获取平均gasprice
+     * @return
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("/hpb/private/function/getGasPrice")
+    Call<NormalDataBean> getAverageGasPrice();
+
+
+    /**
+     * 发送交易
+     * @param info
+     * @return
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("/hpb/private/function/sendTransaction")
+    Call<NormalDataBean> sendTransaction(@Body RequestBody info);
+
+    /**
+     * 查询交易状态
+     * @param info
+     * @return
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("/hpb/private/function/checkTransactionHashStatus")
+    Call<NormalDataBean> checkTransactionHashStatus(@Body RequestBody info);
+
+    /**
+     * 根据哈希查询借贷合约地址
+     * @param info
+     * @return
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("/hpb/private/function/getContractAddress")
+    Flowable<NormalDataBean> getContractAddress(@Body RequestBody info);
+
+    /**
+     * 查询相关数据
+     * @param info
+     * @return
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("/hpb/private/function/selectTransactionHash")
+    Call<InfoDataBean> selectTransactionHash(@Body RequestBody info);
+
+    /**
+     * 验证是否是借贷合约
+     * @param info
+     * @return
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("/hpb/private/function/isContract")
+    Flowable<NormalDataBean> isCOntract(@Body RequestBody info);
+
+    /**
+     * 获取合约详情
+     * @param info
+     * @return
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("/hpb/private/function/getContractData")
+    Call<ContractDetailBean> getContractData(@Body RequestBody info);
+
+
+
 }

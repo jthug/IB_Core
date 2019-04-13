@@ -267,6 +267,8 @@ public class MainAct extends FragmentActivity implements View.OnClickListener {
                                             e.printStackTrace();
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
                                         }
                                         new UpdateDialogUtil(new CenterDialog(R.layout.dlg_version_update,MainAct.this), MainAct.this, versionBean, null);
                                     }

@@ -547,9 +547,6 @@ public class SecurityKeyboard extends PopupWindow {
      * 隐藏键盘
      */
     private void hideKeyboard() {
-        if (mParentLayout!=null){ //内存泄漏
-            mParentLayout = null;
-        }
         this.dismiss();
     }
 

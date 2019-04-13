@@ -53,6 +53,7 @@ public class UnlockPrivateKeyFragment extends BaseFragment implements View.OnCli
     TextView readConfirm;
     //免责协议
     private boolean isConsent = true;
+    private HLWallet currentWallet;
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -148,11 +149,16 @@ public class UnlockPrivateKeyFragment extends BaseFragment implements View.OnCli
                     protected void success(HLWallet data) {
                         SnackbarUtil.DefaultSnackbar(mView,getString(R.string.mnemonic_success)).show();
                         Flowable.just(1)
+                                .map(s->{
+                                    currentWallet = HLWalletManager.shared().getCurrentWallet(getContext());
+                                    long nonce = IBContractUtil.getNonce(TransferUtil.getWeb3j(), currentWallet.getAddress());
+                                    return nonce;
+                                })
                                 .delay(2000, TimeUnit.MILLISECONDS)
                                 .compose(ScheduleCompat.apply())
-                                .subscribe(integer -> {
-                                    HLWallet currentWallet = HLWalletManager.shared().getCurrentWallet(getContext());
-                                    long nonce = IBContractUtil.getNonce(TransferUtil.getWeb3j(), currentWallet.getAddress());
+                                .subscribe(nonce -> {
+//                                    HLWallet currentWallet = HLWalletManager.shared().getCurrentWallet(getContext());
+//                                    long nonce = IBContractUtil.getNonce(TransferUtil.getWeb3j(), currentWallet.getAddress());
                                     SharedPreferences sp = getContext().getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
                                     sp.edit().putLong(Constants.TRANSACTION_NONCE, nonce).apply();
                                     KLog.w("wallet",currentWallet.getAddress());

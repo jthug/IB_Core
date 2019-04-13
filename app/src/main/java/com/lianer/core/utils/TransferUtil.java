@@ -1,10 +1,15 @@
 package com.lianer.core.utils;
 
 import com.lianer.common.utils.KLog;
+import com.lianer.core.SmartContract.IBContractUtil;
 import com.lianer.core.app.Constants;
+import com.lianer.core.databean.InfoDataBean;
+import com.lianer.core.databean.NormalDataBean;
 import com.lianer.core.manager.ERC20Manager;
 import com.lianer.core.SmartContract.TokenERC20;
 import com.lianer.core.model.HLWallet;
+import com.lianer.core.stuff.HLError;
+import com.lianer.core.stuff.HLSubscriber;
 import com.orhanobut.logger.Logger;
 
 import org.web3j.abi.FunctionEncoder;
@@ -45,6 +50,11 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static org.web3j.tx.ManagedTransaction.GAS_PRICE;
 import static org.web3j.tx.Transfer.GAS_LIMIT;
@@ -287,9 +297,19 @@ public class TransferUtil {
      *
      * @throws
      */
-    public static org.web3j.protocol.core.methods.response.Transaction getTransaction(Web3j web3j, String txHash) throws Exception {
+    public static InfoDataBean.DataBean getTransaction(Web3j web3j, String txHash) throws Exception {
+        String jsonParams = "{\n" +
+                "\t\"transactionHash\": \"" + txHash + "\"\n" +
+                "}";
+        Response<InfoDataBean> execute = HttpUtil.selectTransactionHash(jsonParams).execute();
+        if (execute.code()==200){
+            InfoDataBean.DataBean dataBean = execute.body().getData().get(0);
+            return dataBean;
+        }else {
+            throw new Exception("服务器异常"+execute.code());
+        }
 
-        return web3j.ethGetTransactionByHash(txHash).sendAsync().get().getTransaction();
+//        return web3j.ethGetTransactionByHash(txHash).sendAsync().get().getTransaction();
     }
 
 //    /**
@@ -376,19 +396,72 @@ public class TransferUtil {
 //                });
 //    }
 
-    public static TransactionReceipt getContractDeployStatus(String hash) {
-        Web3j web3j = Web3jFactory.build(new HttpService(netUrl));
-        EthGetTransactionReceipt transactionReceipt = null;
-        try {
-            transactionReceipt = web3j.ethGetTransactionReceipt(hash).sendAsync().get();
-            if (transactionReceipt == null) {
-                return null;
-            }
-        } catch (Exception e) {
-            return null;
-        }
+    public static String getContractDeployStatus(String txhash) {
+//        Web3j web3j = Web3jFactory.build(new HttpService(netUrl));
+//        EthGetTransactionReceipt transactionReceipt = null;
+//        try {
+//            transactionReceipt = web3j.ethGetTransactionReceipt(hash).sendAsync().get();
+//            if (transactionReceipt == null) {
+//                return null;
+//            }
+//        } catch (Exception e) {
+//            return null;
+//        }
+//        return transactionReceipt.getTransactionReceipt();
+        String jsonParams = "{\n" +
+                "\t\"transactionHash\": \"" + txhash + "\"\n" +
+                "}";
 
-        return transactionReceipt.getTransactionReceipt();
+        /**
+         * 查询交易状态：
+         * 返回值：
+         * code：200  => 成功
+         * code: 12001   => 失败
+         * code：12005 => 正在打包中
+         */
+        try {
+            Response<NormalDataBean> execute = HttpUtil.checkTransactionHashStatus(jsonParams).execute();
+            if (execute.code()==200){
+                String code = execute.body().getCode();
+                if (code.equals("200")){
+                    return "200";
+                }else if (code.equals("12001")){
+                    return "12001";
+                }else {
+                    return "12005";
+                }
+            }else if (execute.code()==12001){
+                return "12001";
+            }else {
+                return "12005";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "12005";
+        }
+//        try {
+//            Response<NormalDataBean> execute = HttpUtil.checkTransactionHashStatus(jsonParams).execute();
+//            if (execute.code()==200){
+//                NormalDataBean normalDataBean = execute.body();
+//                if ("200".equals(normalDataBean.getCode())){
+//                    String status = normalDataBean.getData().get(0);
+//                    if ("0x1".equals(status)){
+//                        return "200";
+//                    }else {
+//                        return "12001";
+//                    }
+//                }else {
+//                    return "12005";
+//                }
+//            }else {
+//                return "12005";
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return "12005";
+//        }
+
+
 
     }
 

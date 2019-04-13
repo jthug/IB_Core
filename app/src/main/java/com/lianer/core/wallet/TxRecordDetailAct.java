@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -21,6 +22,8 @@ import com.lianer.core.contract.bean.ContractBean;
 import com.lianer.core.contract.bean.ContractEventBean;
 import com.lianer.core.contract.bean.MessageCenterBean;
 import com.lianer.core.custom.TitlebarView;
+import com.lianer.core.databean.InfoDataBean;
+import com.lianer.core.databean.NormalDataBean;
 import com.lianer.core.databinding.ActivityTxRecordDetailBinding;
 import com.lianer.core.lauch.MainAct;
 import com.lianer.core.manager.HLWalletManager;
@@ -30,6 +33,7 @@ import com.lianer.core.stuff.HLSubscriber;
 import com.lianer.core.stuff.ScheduleCompat;
 import com.lianer.core.utils.CommomUtil;
 import com.lianer.core.utils.DBUtil;
+import com.lianer.core.utils.HttpUtil;
 import com.lianer.core.utils.QRCodeUtil;
 import com.lianer.core.utils.SnackbarUtil;
 import com.lianer.core.utils.TransferUtil;
@@ -45,7 +49,10 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * 交易记录详情
@@ -135,14 +142,13 @@ public class TxRecordDetailAct extends BaseActivity {
                         .map(s -> TransferUtil.getTransaction(TransferUtil.getWeb3j(), s))//通过交易hash获取交易值
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new HLSubscriber<Transaction>() {
+                        .subscribe(new HLSubscriber<InfoDataBean.DataBean>() {
                             @Override
-                            protected void success(Transaction data) {
+                            protected void success(InfoDataBean.DataBean data) {
                                 //交易值
                                 String addOrSub = intent.getStringExtra("txType").equals("转出") ? getString(R.string.sub) : getString(R.string.add);
 //                                txRecordDetailBinding.txAmount.setText(String.format("%s %s", addOrSub, Convert.fromWei(String.valueOf(data.getValue()), Convert.Unit.ETHER).toString()));
                                 txRecordDetailBinding.txAmount.setText(String.format("%s %s", addOrSub, intent.getStringExtra("txValue")));
-
                             }
 
                             @Override
@@ -155,9 +161,18 @@ public class TxRecordDetailAct extends BaseActivity {
                 //加载交易状态图标
                 Flowable.just(txRecordBean.getHash())
                         .map(s -> {
-                            TransactionReceipt transactionReceipt = TransferUtil.getContractDeployStatus(s);
-                            if (transactionReceipt != null) {
-                                return Integer.parseInt(transactionReceipt.getStatus().substring(2));
+//                            TransactionReceipt transactionReceipt = TransferUtil.getContractDeployStatus(s);
+                            String status = TransferUtil.getContractDeployStatus(s);
+//                            if (transactionReceipt != null) {
+//                                return Integer.parseInt(transactionReceipt.getStatus().substring(2));
+//                            }
+                            Log.e("AAAAAAA",status);
+                            if (!status.equals("12005")){
+                                if (status.equals("200")){
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
                             }
                             return 2;//打包中
                         })
@@ -218,12 +233,13 @@ public class TxRecordDetailAct extends BaseActivity {
                 txRecordDetailBinding.txHash.setOnClickListener(v -> CommomUtil.navigateToEthScan(TxRecordDetailAct.this, false, txHash));
 
                 Flowable.just(txHash)
-                        .map(s -> TransferUtil.getTransaction(TransferUtil.getWeb3j(), s))//通过交易hash获取交易值
+//                        .map(s -> TransferUtil.getTransaction(TransferUtil.getWeb3j(), s))//通过交易hash获取交易值
+                        .map(s->TransferUtil.getTransaction(TransferUtil.getWeb3j(),s))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new HLSubscriber<Transaction>(TxRecordDetailAct.this, true) {
+                        .subscribe(new HLSubscriber<InfoDataBean.DataBean>(TxRecordDetailAct.this, true) {
                             @Override
-                            protected void success(Transaction data) {
+                            protected void success(InfoDataBean.DataBean data) {
                                 KLog.i("transaction" + Singleton.gson().toJson(data));
 
                                 //加载交易状态图标
@@ -231,25 +247,26 @@ public class TxRecordDetailAct extends BaseActivity {
                                         .map(TransferUtil::getContractDeployStatus)
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
-                                        .subscribe(new HLSubscriber<TransactionReceipt>() {
+                                        .subscribe(new HLSubscriber<String>() {
                                             @Override
-                                            protected void success(TransactionReceipt transactionReceipt) {
-                                                KLog.i("transactionReceipt" + Singleton.gson().toJson(transactionReceipt));
+                                            protected void success(String status) {
+//                                                KLog.i("transactionReceipt" + Singleton.gson().toJson(transactionReceipt));
 
                                                 //交易状态logo
                                                 //交易时间 and 交易状态
                                                 //矿工费
-                                                if (transactionReceipt != null) {
-                                                    if (transactionReceipt.getStatus().equals("0x0")) {//失败
+                                                if (!status.equals("12005")) {
+                                                    if (status.equals("12001")) {//失败
                                                         txRecordDetailBinding.txStatusLogo.setImageResource(images[0]);
                                                         timeAndStatus = DateUtils.timedate(intent.getStringExtra("txTime")) + getString(R.string.transaction_fail);
                                                     } else {//成功
                                                         txRecordDetailBinding.txStatusLogo.setImageResource(images[1]);
                                                         timeAndStatus = DateUtils.timedate(intent.getStringExtra("txTime")) + getString(R.string.transaction_success);
                                                         //恢复合约
-                                                        restoreContract( transactionReceipt);
+                                                        restoreContract(txHash);
                                                     }
-                                                    double gasUsed = transactionReceipt.getGasUsed().doubleValue();
+
+                                                    double gasUsed = Double.valueOf(data.getGas());
                                                     String gasValue = Utils.doubleFormat(gasUsed * Double.valueOf(data.getGasPrice().toString()));
                                                     txRecordDetailBinding.txGas.setText(String.format(getString(R.string.eth_amount), Convert.fromWei(gasValue, Convert.Unit.ETHER).toString()));
                                                 }
@@ -355,9 +372,9 @@ public class TxRecordDetailAct extends BaseActivity {
                         .map(s -> TransferUtil.getTransaction(TransferUtil.getWeb3j(), s))//通过交易hash获取交易值
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new HLSubscriber<Transaction>(TxRecordDetailAct.this, true) {
+                        .subscribe(new HLSubscriber<InfoDataBean.DataBean>(TxRecordDetailAct.this, true) {
                             @Override
-                            protected void success(Transaction data) {
+                            protected void success(InfoDataBean.DataBean data) {
                                 KLog.i("transaction" + Singleton.gson().toJson(data));
 
                                 //gas费
@@ -415,9 +432,9 @@ public class TxRecordDetailAct extends BaseActivity {
                         .map(s -> TransferUtil.getTransaction(TransferUtil.getWeb3j(), s))//通过交易hash获取交易值
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new HLSubscriber<Transaction>(TxRecordDetailAct.this, true) {
+                        .subscribe(new HLSubscriber<InfoDataBean.DataBean>(TxRecordDetailAct.this, true) {
                             @Override
-                            protected void success(Transaction data) {
+                            protected void success(InfoDataBean.DataBean data) {
                                 KLog.i(new Gson().toJson(data));
 
                                 String value = data.getValue().toString();
@@ -425,9 +442,14 @@ public class TxRecordDetailAct extends BaseActivity {
                                 //加载交易状态图标
                                 Flowable.just(intent.getStringExtra("txHash"))
                                         .map(s -> {
-                                            TransactionReceipt transactionReceipt = TransferUtil.getContractDeployStatus(s);
-                                            if (transactionReceipt != null) {
-                                                return Integer.parseInt(transactionReceipt.getStatus().substring(2));
+//                                            TransactionReceipt transactionReceipt = TransferUtil.getContractDeployStatus(s);
+                                            String status = TransferUtil.getContractDeployStatus(s);
+                                            if (!status.equals("12005")){
+                                                if (status.equals("200")){
+                                                    return 1;
+                                                } else {
+                                                    return 0;
+                                                }
                                             }
                                             return 2;//打包中
                                         })
@@ -471,13 +493,13 @@ public class TxRecordDetailAct extends BaseActivity {
                                         .map(TransferUtil::getContractDeployStatus)
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
-                                        .subscribe(new HLSubscriber<TransactionReceipt>() {
+                                        .subscribe(new HLSubscriber<String>() {
                                             @Override
-                                            protected void success(TransactionReceipt transactionReceipt) {
-                                                if (transactionReceipt != null) {
-                                                    KLog.i("getGasUsed" + transactionReceipt.getGasUsed());
-                                                    double gasUsed = transactionReceipt.getGasUsed().doubleValue();
-                                                    String gasValue = Utils.doubleFormat(gasUsed * Double.valueOf(data.getGasPrice().toString()));
+                                            protected void success(String status) {
+                                                if (!status.equals("12005")) {
+//                                                    KLog.i("getGasUsed" + transactionReceipt.getGasUsed());
+//                                                    double gasUsed = transactionReceipt.getGasUsed().doubleValue();
+                                                    String gasValue = Utils.doubleFormat(0.001 * Double.valueOf(data.getGasPrice().toString()));
                                                     txRecordDetailBinding.txGas.setText(String.format(getString(R.string.eth_amount), Convert.fromWei(gasValue, Convert.Unit.ETHER).toString()));
                                                 }
                                             }
@@ -514,7 +536,7 @@ public class TxRecordDetailAct extends BaseActivity {
 
     }
 
-    private void restoreContract(TransactionReceipt transactionReceipt){
+    private void restoreContract(String txhash){
         switch (getIntent().getStringExtra("txType")) {
             case "部署合约":
             case "投资":
@@ -526,51 +548,103 @@ public class TxRecordDetailAct extends BaseActivity {
             public void onClick(View v) {
                 switch (getIntent().getStringExtra("txType")) {
                     case "部署合约":
-                        getAddressFromLog(transactionReceipt);
+                        getAddressFromLog(txhash);
                         break;
 
                     case "投资":
-                        chekcContract(transactionReceipt.getContractAddress());
+//                        chekcContract(transactionReceipt.getContractAddress());
+                        chekcContract(txhash);
                         break;
                 }
             }
         });
     }
 
-    public  void getAddressFromLog(TransactionReceipt transactionReceipt) {
-        KLog.w(transactionReceipt.toString());
-        String contractAddress = "0x" + transactionReceipt.getLogs().get(0).getData().substring(26);
-
-        chekcContract(contractAddress);
-
-    }
-
-    //合约校验
-    private void chekcContract(String contractAddress) {
-
-        Flowable.just(1)
-                .flatMap(s -> IBContractUtil.isIBContract(TransferUtil.getWeb3j(),mWallet.getAddress(),contractAddress))
-                .subscribeOn(Schedulers.newThread())
+    public  void getAddressFromLog(String txhash) {
+//        KLog.w(transactionReceipt.toString());
+//        String contractAddress = "0x" + transactionReceipt.getLogs().get(0).getData().substring(26);
+        String jsonParams1 = "{\n" +
+                "\t\"transactionHash\": \"" + txhash + "\"\n" +
+                "}";
+        HttpUtil.getContractAddress(jsonParams1)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HLSubscriber<Boolean>(TxRecordDetailAct.this,true) {
+                .subscribe(new HLSubscriber<NormalDataBean>() {
                     @Override
-                    protected void success(Boolean isIBContract) {
-                        if (isIBContract) {
-                            if (DBUtil.queryContractByContractAddress(contractAddress)) {
-                                SnackbarUtil.DefaultSnackbar(txRecordDetailBinding.getRoot(), getString(R.string.import_fail_existed)).show();
-                            } else {
-                                //DataBase 合约不存在
-                                getContract(contractAddress);
-                            }
-                        } else {
-                            //Tusd 合约校验
-                            checkTusdContract(contractAddress);
+                    protected void success(NormalDataBean data) {
+                        if ("200".equals(data.getCode())){
+                            String contractAddress = data.getData().get(0);
+                            chekcContract(contractAddress);
+                        }else {
+                            KLog.e("获取合约地址失败");
                         }
                     }
 
                     @Override
                     protected void failure(HLError error) {
-                        KLog.w(error.getMessage());
+                        KLog.e("获取合约地址失败"+error.getMessage());
+                    }
+                });
+//        chekcContract(contractAddress);
+
+    }
+
+    //合约校验
+    private void chekcContract(String txhash) {
+        String jsonParams1 = "{\n" +
+                "\t\"transactionHash\": \"" + txhash + "\"\n" +
+                "}";
+
+        HttpUtil.getContractAddress(jsonParams1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HLSubscriber<NormalDataBean>() {
+                    @Override
+                    protected void success(NormalDataBean data) {
+                        String code = data.getCode();
+                        if ("200".equals(code)){
+                            String contractAddress = data.getData().get(0);
+                            String jsonParams = "{\n" +
+                                    "\t\"contractAddress\": \"" + contractAddress + "\"\n" +
+                                    "}";
+                            HttpUtil.isCOntract(jsonParams)
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new HLSubscriber<NormalDataBean>() {
+                                        @Override
+                                        protected void success(NormalDataBean data) {
+                                            String code = data.getCode();
+                                            if ("200".equals(code)){
+                                                String isContract = data.getData().get(0);
+                                                if ("true".equals(isContract)) {
+                                                    if (DBUtil.queryContractByContractAddress(contractAddress)) {
+                                                        SnackbarUtil.DefaultSnackbar(txRecordDetailBinding.getRoot(), getString(R.string.import_fail_existed)).show();
+                                                    } else {
+                                                        //DataBase 合约不存在
+                                                        getContract(contractAddress);
+                                                    }
+                                                } else {
+                                                    //Tusd 合约校验
+                                                    checkTusdContract(contractAddress);
+                                                }
+                                            }else {
+                                                KLog.e("合约校验失败-网络异常");
+                                            }
+                                        }
+
+                                        @Override
+                                        protected void failure(HLError error) {
+                                            KLog.e("合约校验失败");
+                                        }
+                                    });
+                        }else {
+                            KLog.e("获取合约地址失败-网络异常");
+                        }
+                    }
+
+                    @Override
+                    protected void failure(HLError error) {
+                        KLog.e("获取合约地址失败");
                     }
                 });
 

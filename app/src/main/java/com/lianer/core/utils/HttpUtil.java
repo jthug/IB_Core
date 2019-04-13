@@ -1,5 +1,7 @@
 package com.lianer.core.utils;
 
+import android.util.Log;
+
 import com.lianer.core.api.ApiService;
 import com.lianer.core.app.Constants;
 import com.lianer.core.base.BaseBean;
@@ -7,6 +9,9 @@ import com.lianer.core.borrow.Bean.ExchangeRateBean;
 import com.lianer.core.contract.bean.ContractInvestResponse;
 import com.lianer.core.contract.bean.ContractResponse;
 import com.lianer.core.contract.bean.TokenMortgageEntity;
+import com.lianer.core.databean.ContractDetailBean;
+import com.lianer.core.databean.InfoDataBean;
+import com.lianer.core.databean.NormalDataBean;
 import com.lianer.core.invest.bean.InvestmentBean;
 import com.lianer.core.invest.model.BannerDelete;
 import com.lianer.core.lauch.bean.VersionResponse;
@@ -68,6 +73,7 @@ public class HttpUtil {
                         connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS).
                         readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS).
                         writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS).build())
+
                 //增加返回值为Gson的支持(以实体类返回)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 //增加返回值为Gson的支持(以实体类返回)
@@ -329,7 +335,7 @@ public class HttpUtil {
         return Flowable.just(1)
                 .flatMap(s -> {
 //                    RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestParams);
-                    return getApiService(Constants.INTERFACE_URL).queryMortgageToken();
+                    return getApiService(Constants.BaseUrl).queryMortgageToken();
                 });
     }
 
@@ -415,6 +421,107 @@ public class HttpUtil {
                     return getApiService(Constants.INTERFACE_INCOME_URL).queryCumulativeDividend();
                 });
     }
+    //=======================================================
+
+    /**
+     * 获取Nonce
+     * @param requestParams
+     * @return
+     */
+    public static Call<NormalDataBean> getCoreNonce(String requestParams){
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestParams);
+        return HttpUtil.getApiService(Constants.BaseUrl)
+                .getCoreNonce(body);
+    }
+
+    /**
+     * 获取余额
+     * @param requestParams
+     * @return
+     */
+    public static Call<NormalDataBean> getBalance(String requestParams){
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestParams);
+        return HttpUtil.getApiService(Constants.BaseUrl)
+                .getBalance(body);
+    }
+
+    /**
+     * 获取gasprice
+     * @return
+     */
+    public static Call<NormalDataBean> getAverageGasPrice(){
+        return HttpUtil.getApiService(Constants.BaseUrl)
+                .getAverageGasPrice();
+    }
+
+    /**
+     * 发送交易
+     * @param requestParams
+     * @return
+     */
+    public static Call<NormalDataBean> sendTransaction(String requestParams){
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestParams);
+        return HttpUtil.getApiService(Constants.BaseUrl)
+                .sendTransaction(body);
+    }
+
+
+    /**
+     * 查询交易状态
+     * @param requestParams
+     * @return
+     */
+    public static Call<NormalDataBean> checkTransactionHashStatus(String requestParams){
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestParams);
+        return HttpUtil.getApiService(Constants.BaseUrl)
+                .checkTransactionHashStatus(body);
+    }
+
+    /**
+     * 根据哈希查询借贷合约地址
+     * @param requestParams
+     * @return
+     */
+    public static Flowable<NormalDataBean> getContractAddress(String requestParams){
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestParams);
+        return HttpUtil.getApiService(Constants.BaseUrl)
+                .getContractAddress(body);
+    }
+
+    /**
+     * 查询相关数据
+     * @param requestParams
+     * @return
+     */
+    public static Call<InfoDataBean> selectTransactionHash(String requestParams){
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestParams);
+        return HttpUtil.getApiService(Constants.BaseUrl)
+                .selectTransactionHash(body);
+    }
+
+    /**
+     * 验证是否是借贷合约
+     * @param requestParams
+     * @return
+     */
+    public static Flowable<NormalDataBean> isCOntract(String requestParams){
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestParams);
+        return HttpUtil.getApiService(Constants.BaseUrl)
+                .isCOntract(body);
+    }
+
+    /**
+     * 获取合约详情
+     * @param requestParams
+     * @return
+     */
+    public static Call<ContractDetailBean> getContractData(String requestParams){
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestParams);
+        return HttpUtil.getApiService(Constants.BaseUrl)
+                .getContractData(body);
+    }
+
+    //=======================================================
 
     public interface HttpCallback {
         void onSuccess(TxRecordReponseBean txRecordReponseBean);

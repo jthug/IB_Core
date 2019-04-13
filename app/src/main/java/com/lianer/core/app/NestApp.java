@@ -20,7 +20,6 @@ import com.lianer.core.greendao.gen.MessageCenterBeanDao;
 import com.lianer.core.model.HLWallet;
 import com.lianer.core.wallet.bean.TokenProfileBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.squareup.leakcanary.LeakCanary;
 import com.tendcloud.tenddata.TCAgent;
 
 import org.greenrobot.greendao.database.Database;
@@ -39,13 +38,12 @@ public class NestApp extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
-        // Normal app init code...
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            // This process is dedicated to LeakCanary for heap analysis.
+//            // You should not init your app in this process.
+//            return;
+//        }
+//        LeakCanary.install(this);
         //开启打印日志
         KLog.init(true);
 
@@ -99,6 +97,18 @@ public class NestApp extends BaseApplication {
                     Constants.tokenProfileBeans.add(tokenProfileBean);
                 }
             }
+
+            //添加HHQ，ZXF
+            TokenProfileBean hhq = new TokenProfileBean();
+            hhq.setAddress(Constants.HHQAddress);
+            hhq.setDecimals("18");
+            hhq.setSymbol("HHQ");
+            TokenProfileBean zxf = new TokenProfileBean();
+            zxf.setAddress(Constants.ZXFAddress);
+            zxf.setDecimals("18");
+            zxf.setSymbol("ZXF");
+            Constants.tokenProfileBeans.add(hhq);
+            Constants.tokenProfileBeans.add(zxf);
         }
     }
 

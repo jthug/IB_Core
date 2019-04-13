@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.lianer.common.utils.ACache;
 import com.lianer.common.utils.KLog;
+import com.lianer.common.utils.Singleton;
 import com.lianer.core.SmartContract.IBContractUtil;
 import com.lianer.core.base.BaseBean;
 import com.lianer.core.config.ContractStatus;
@@ -11,6 +12,9 @@ import com.lianer.core.config.Tag;
 import com.lianer.core.contract.bean.ContractBean;
 import com.lianer.core.contract.bean.ContractEventBean;
 import com.lianer.core.contract.bean.MessageCenterBean;
+import com.lianer.core.databean.ContractDetailBean;
+import com.lianer.core.databean.InfoDataBean;
+import com.lianer.core.databean.NormalDataBean;
 import com.lianer.core.manager.HLWalletManager;
 import com.lianer.core.stuff.HLError;
 import com.lianer.core.stuff.HLSubscriber;
@@ -24,6 +28,7 @@ import java.util.List;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 /**
  * 轮询工具类
@@ -35,20 +40,19 @@ public class PollingUtil {
                 .map(s -> TransferUtil.getTransaction(TransferUtil.getWeb3j(), s))//通过交易hash获取交易值
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HLSubscriber<Transaction>() {
+                .subscribe(new HLSubscriber<InfoDataBean.DataBean>() {
                     @Override
-                    protected void success(Transaction data) {
-//                        KLog.i("transaction" + Singleton.gson().toJson(data));
-
+                    protected void success(InfoDataBean.DataBean  data) {
+                        KLog.i("transaction" + Singleton.gson().toJson(data));
                         //加载交易状态图标
                         Flowable.just(txHash)
                                 .map(TransferUtil::getContractDeployStatus)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new HLSubscriber<TransactionReceipt>() {
+                                .subscribe(new HLSubscriber<String>() {
                                                @Override
-                                               protected void success(TransactionReceipt transactionReceipt) {
-//                                        KLog.i("transactionReceipt" + Singleton.gson().toJson(transactionReceipt));
+                                               protected void success(String status) {
+                                        KLog.i("transactionReceipt" + Singleton.gson().toJson(status));
 
                                                    if (!pollingBooleanList.get(position)) {
                                                        pollingBooleanList.set(position, true);
@@ -56,8 +60,7 @@ public class PollingUtil {
                                                        ACache.get(context).put(Tag.IS_RED_NOTIFICATION, "true");
 
 //                                        KLog.i("TransactionReceipt不为空，说明交易已经完成-->" + transactionReceipt.toString());
-                                                       String status = transactionReceipt.getStatus();
-                                                       if (status.substring(2).equals("1")) {
+                                                       if (status.equals("200")) {
                                                            KLog.i("交易成功");
 
 //                                                           //把本地缓存数据改成'交易成功'状态
@@ -70,7 +73,7 @@ public class PollingUtil {
                                                                switch (messageCenterBean.getTxStatusValue()) {
                                                                    //部署成功
                                                                    case ContractStatus.MESSAGE_STSTUS_ONE:
-                                                                       generateContract(context, transactionReceipt,messageCenterBean);
+                                                                       generateContract(context, txHash,messageCenterBean);
                                                                        break;
 
                                                                    case ContractStatus.MESSAGE_STSTUS_APPROVE:
@@ -150,7 +153,7 @@ public class PollingUtil {
                                                            if (onUpdatePageData != null) {
                                                                onUpdatePageData.onTxSuccess(messageCenterBean);
                                                            }
-                                                       } else {
+                                                       } else if (status.equals("12001")){
                                                            KLog.i("交易失败");
 
                                                            //把本地缓存数据改成'打包失败'状态并且更新当前item的状态
@@ -160,6 +163,16 @@ public class PollingUtil {
                                                            if (onUpdatePageData != null) {
                                                                onUpdatePageData.onTxFailure(messageCenterBean);
                                                            }
+                                                       }else {
+                                                           //交易处于pending状态
+                                                           new Thread(() -> {
+                                                               try {
+                                                                   Thread.sleep(5000);
+                                                                   startPolling(context, pollingBooleanList, position, txHash, messageCenterBean, onUpdatePageData);
+                                                               } catch (InterruptedException e) {
+                                                                   e.printStackTrace();
+                                                               }
+                                                           }).start();
                                                        }
                                                    }
 
@@ -167,8 +180,8 @@ public class PollingUtil {
 
                                                @Override
                                                protected void failure(HLError error) {
-                                                   //交易处于pending状态
-//                                                   KLog.i("pending===" + error.getMessage());
+//                                                   交易处于pending状态
+                                                   KLog.i("pending===" + error.getMessage());
 
                                                    new Thread(() -> {
                                                        try {
@@ -209,12 +222,39 @@ public class PollingUtil {
         void onTxFailure(MessageCenterBean centerBean);
     }
 
-    public static void generateContract(Context context, TransactionReceipt transactionReceipt,MessageCenterBean messageCenterBean) {
-        KLog.w(transactionReceipt.toString());
-        String contractAddress = "0x" + transactionReceipt.getLogs().get(0).getData().substring(26);
-        if(!DBUtil.queryContractByContractAddress(contractAddress)){
-            getContract(context, contractAddress,messageCenterBean);
-        }
+    public static void generateContract(Context context, String txhash,MessageCenterBean messageCenterBean) {
+//        KLog.w(transactionReceipt.toString());
+//        String contractAddress = "0x" + transactionReceipt.getLogs().get(0).getData().substring(26);
+//        if(!DBUtil.queryContractByContractAddress(contractAddress)){
+//            getContract(context, contractAddress,messageCenterBean);
+//        }
+        String jsonParams = "{\n" +
+                "\t\"transactionHash\": \"" + txhash + "\"\n" +
+                "}";
+        HttpUtil.getContractAddress(jsonParams)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HLSubscriber<NormalDataBean>() {
+                    @Override
+                    protected void success(NormalDataBean data) {
+                        String code = data.getCode().trim();
+                        if ("200".equals(code)){
+                            String contractAddress = data.getData().get(0).trim();
+                            if(!DBUtil.queryContractByContractAddress(contractAddress)){
+                                getContract(context, contractAddress,messageCenterBean);
+                            }
+                        }else {
+                            KLog.e("generateContract:"+"交易生成失败");
+                        }
+
+                    }
+
+                    @Override
+                    protected void failure(HLError error) {
+                        KLog.e("generateContract:"+"交易生成失败");
+                    }
+                });
+
     }
 
     //获取合约信息

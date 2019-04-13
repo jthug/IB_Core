@@ -142,8 +142,8 @@ public class Constants {
 
     public static boolean IS_BUGGLY = true;
 //-----------------------------------------------------------------------------------------------
-    public final static String DataAddress = "0x13b6ea8244c485910006d151e7fcd139d8307a97";    //数据合约地址
-    public final static String FactoryAddress = "0x94dd49b4fc8c599e75f7dd4ef171d749be6d6557"; //工厂合约地址
+    public final static String DataAddress = "0x7660e457b3f4ba5f149a4b122425ef5d1f0701ae";    //数据合约地址
+    public final static String FactoryAddress = "0xe7a973c0f3259b54065f1648d6fa3e093351951c"; //工厂合约地址
 
     //ERC20代币地址
     public final static String HHQAddress = "0x0a8d545088a1c74d40888f8793335a0f19b9bb74";

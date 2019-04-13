@@ -7,8 +7,8 @@ android {
         applicationId "com.lianer.core"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 45
-        versionName "2.0.35"
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         // Enabling multidex support.
@@ -40,7 +40,7 @@ android {
 
 apply plugin: 'org.greenrobot.greendao'
 greendao {
-    schemaVersion 5
+    schemaVersion 1
     daoPackage 'com.lianer.core.greendao.gen'
     targetGenDir 'src/main/java'
 }
@@ -97,8 +97,8 @@ dependencies {
     implementation project(':lazykeyboard')
 
     //leakcanary检测内存泄漏
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
-    // Optional, if you use support library fragments:
-    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+//    // Optional, if you use support library fragments:
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
 }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.lianer.common.utils.ACache;
 import com.lianer.core.base.BaseFragment;
 import com.lianer.core.R;
@@ -17,25 +18,24 @@ import com.lianer.core.contract.bean.ContractBean;
 import com.lianer.core.contract.bean.ContractEventBean;
 import com.lianer.core.contract.bean.MessageCenterEventBean;
 import com.lianer.core.contract.model.ContractModel;
+import com.lianer.core.databean.NormalDataBean;
 import com.lianer.core.databinding.FragmentContractBinding;
 import com.lianer.core.lauch.MainAct;
 import com.lianer.core.manager.HLWalletManager;
-import com.lianer.core.model.HLWallet;
-import com.lianer.core.stuff.LWallet;
+import com.lianer.core.stuff.HLError;
+import com.lianer.core.stuff.HLSubscriber;
+import com.lianer.core.utils.HttpUtil;
 import com.lianer.core.utils.PopupWindowUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.web3j.crypto.CipherException;
-import org.web3j.crypto.Credentials;
-import org.web3j.crypto.RawTransaction;
-import org.web3j.crypto.TransactionEncoder;
-import org.web3j.tx.ChainId;
-import org.web3j.utils.Numeric;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 合约页

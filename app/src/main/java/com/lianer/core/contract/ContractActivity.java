@@ -1,11 +1,13 @@
 package com.lianer.core.contract;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -842,7 +844,8 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
 
     //token 小数位
     private String tokenDecimals(String tokenValue) {
-        BigDecimal decimals = new BigDecimal("10").pow(IBContractUtil.getTokenDecimals(TransferUtil.getWeb3j(), mWallet.getAddress(), mContractBean.getTokenAddress()));
+//        BigDecimal decimals = new BigDecimal("10").pow(IBContractUtil.getTokenDecimals(TransferUtil.getWeb3j(), mWallet.getAddress(), mContractBean.getTokenAddress()));
+        BigDecimal decimals = new BigDecimal("10").pow(18);
         BigInteger value = new BigDecimal(tokenValue).multiply(decimals).toBigInteger();
         return value.toString();
     }
@@ -856,29 +859,61 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
 
 
     //交易确认弹窗
+    @SuppressLint("CheckResult")
     private void transferConfirm(String status, String transferType, String transferAmount, String transferAddress) {
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
-        long nonce = sharedPreferences.getLong(Constants.TRANSACTION_NONCE,0);
+//        SharedPreferences sharedPreferences = getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
+//        long nonce = sharedPreferences.getLong(Constants.TRANSACTION_NONCE,0);
         //当前有交易正在执行
 //        if(IBContractUtil.getNonce(TransferUtil.getWeb3j(),mWallet.getAddress()) <=  nonce && !isKnow&&nonce!=0){
 //            nonceDialog();
 //            return;
 //        }
 
-        long nonce1 = 0;
-        try {
-            nonce1 = IBContractUtil.getNonce(TransferUtil.getWeb3j(), mWallet.getAddress());
-        } catch (Exception e) {
-            e.printStackTrace();
-            SnackbarUtil.DefaultSnackbar(mBinding.getRoot(),getString(R.string.nonce_error)).show();
-            return;
-        }
-        if( nonce1> nonce && !isKnow){
-            nonceDialog();
-            return;
-        }
+//        long nonce1 = 0;
+//        try {
+//            nonce1 = IBContractUtil.getNonce(TransferUtil.getWeb3j(), mWallet.getAddress());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+////            Log.e("xxxxxx111",e.getMessage());
+//            SnackbarUtil.DefaultSnackbar(mBinding.getRoot(),getString(R.string.nonce_error)).show();
+//            return;
+//        }
+//        if( nonce1> nonce && !isKnow){
+//            nonceDialog();
+//            return;
+//        }
+        Flowable.just(1)
+                .map(s->{
+                    long nonce1 = IBContractUtil.getNonce(TransferUtil.getWeb3j(), mWallet.getAddress());
+                    return nonce1;
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new HLSubscriber<Long>() {
+                    @Override
+                    protected void success(Long nonce1) {
+                        Log.e("成功",nonce1+"xxx");
+                        SharedPreferences sharedPreferences = getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
+                        long nonce = sharedPreferences.getLong(Constants.TRANSACTION_NONCE,0);
+                        if( nonce1> nonce && !isKnow){
+                            nonceDialog();
+                            return;
+                        }
+                        doOnNext(status,transferType,transferAmount,transferAddress);
+                    }
 
+                    @Override
+                    protected void failure(HLError error) {
+                        Log.e("失败",error.getMessage()+"xxx");
+                        SnackbarUtil.DefaultSnackbar(mBinding.getRoot(),getString(R.string.nonce_error)).show();
+                    }
+                });
+
+
+    }
+
+    private void doOnNext(String status, String transferType, String transferAmount, String transferAddress) {
         PopupWindow popupWindow = PopupWindowUtil.contracTransactionPopupWindow(ContractActivity.this);
         View popupView = popupWindow.getContentView();
         ((TextView) popupView.findViewById(R.id.transfer_type)).setText(transferType);
@@ -1121,7 +1156,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
                                 dataProcessing(mContractBean.getAmount()),
                                 MortgageAssets.getTokenTypeByAddress(getApplicationContext(), mContractBean.getTokenAddress()),
                                 mContractBean.getCycle(), ((int) (Double.valueOf(mContractBean.getInterest()) * 10)) + ""))
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new HLSubscriber<String>(ContractActivity.this, true) {
                     @Override
@@ -1134,7 +1169,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
 
                     @Override
                     protected void failure(HLError error) {
-                        KLog.w("error : " + error);
+                        KLog.w("error : " + error.getMessage()+Thread.currentThread().getName());
                         SnackbarUtil.DefaultSnackbar(mBinding.getRoot(), getString(R.string.send_transaction_failed));
                     }
                 });

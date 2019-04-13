@@ -204,35 +204,72 @@ public class ContractModel {
                                 .flatMap(s -> IBContractUtil.readOnlyIBTUSDContract(TransferUtil.getWeb3j(), HLWalletManager.shared().getCurrentWallet(mContext).getAddress(), contractBean.getContractAddress()))
                                 .subscribeOn(Schedulers.newThread())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new HLSubscriber<IBTUSDContract>() {
+                                .subscribe(new HLSubscriber<String>() {
                                     @Override
-                                    protected void success(IBTUSDContract contract) {
-                                        IBTUSDContractStatues ibContractStatues = null;
-                                        try {
-                                            ibContractStatues = IBContractUtil.getTUSDContractStatus(contract);
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                        String contractState = ibContractStatues.getContractState();
-                                        KLog.i("链上合约状态===" + contractState);
-                                        KLog.i("本地数据库合约状态===" + contractBean.getContractState());
+                                    protected void success(String contractAddress) {
+//                                        IBTUSDContractStatues ibContractStatues = null;
+//                                        try {
+//                                            ibContractStatues = IBContractUtil.getTUSDContractStatus(contractAddress);
+//                                        } catch (Exception e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                        String contractState = ibContractStatues.getContractState();
+//                                        KLog.i("链上合约状态===" + contractState);
+//                                        KLog.i("本地数据库合约状态===" + contractBean.getContractState());
+//
+//                                        boolean isContractStateMatch = contractState.equals(contractBean.getContractState());
+//                                        KLog.i("链上合约状态是否和本地数据库合约状态相同===" + isContractStateMatch);
+//
+//                                        itemPolling.setSelected(false);
+//                                        itemPolling.clearAnimation();
+//
+//                                        if (!isContractStateMatch) {
+//                                            //如果合约状态不同，更新链上合约状态到本地数据库
+//                                            ContractBean tempContractBean = IBContractUtil.getTusdContractBean(ibContractStatues);
+//                                            tempContractBean.setContractId(contractBean.getContractId());
+//                                            DBUtil.update(tempContractBean);
+//
+//                                            //更新页面数据
+//                                            mDataList.set(position, tempContractBean);
+//                                            notifyItemChanged(position);
+//                                        }
 
-                                        boolean isContractStateMatch = contractState.equals(contractBean.getContractState());
-                                        KLog.i("链上合约状态是否和本地数据库合约状态相同===" + isContractStateMatch);
+                                        Flowable.just(contractAddress)
+                                                .map(s->IBContractUtil.getTUSDContractStatus(s))
+                                                .subscribeOn(Schedulers.io())
+                                                .observeOn(AndroidSchedulers.mainThread())
+                                                .subscribe(new HLSubscriber<IBTUSDContractStatues>() {
+                                                    @Override
+                                                    protected void success(IBTUSDContractStatues ibContractStatues) {
+                                                        String contractState = ibContractStatues.getContractState();
+                                                        KLog.i("链上合约状态===" + contractState);
+                                                        KLog.i("本地数据库合约状态===" + contractBean.getContractState());
 
-                                        itemPolling.setSelected(false);
-                                        itemPolling.clearAnimation();
+                                                        boolean isContractStateMatch = contractState.equals(contractBean.getContractState());
+                                                        KLog.i("链上合约状态是否和本地数据库合约状态相同===" + isContractStateMatch);
 
-                                        if (!isContractStateMatch) {
-                                            //如果合约状态不同，更新链上合约状态到本地数据库
-                                            ContractBean tempContractBean = IBContractUtil.getTusdContractBean(ibContractStatues);
-                                            tempContractBean.setContractId(contractBean.getContractId());
-                                            DBUtil.update(tempContractBean);
+                                                        itemPolling.setSelected(false);
+                                                        itemPolling.clearAnimation();
 
-                                            //更新页面数据
-                                            mDataList.set(position, tempContractBean);
-                                            notifyItemChanged(position);
-                                        }
+                                                        if (!isContractStateMatch) {
+                                                            //如果合约状态不同，更新链上合约状态到本地数据库
+                                                            ContractBean tempContractBean = IBContractUtil.getTusdContractBean(ibContractStatues);
+                                                            tempContractBean.setContractId(contractBean.getContractId());
+                                                            DBUtil.update(tempContractBean);
+
+                                                            //更新页面数据
+                                                            mDataList.set(position, tempContractBean);
+                                                            notifyItemChanged(position);
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    protected void failure(HLError error) {
+
+                                                    }
+                                                });
+
+
                                     }
 
                                     @Override

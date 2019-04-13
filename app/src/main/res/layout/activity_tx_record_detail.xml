@@ -175,7 +175,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tx_hash_name"
                     android:layout_marginTop="@dimen/dp_5"
-                    android:lineSpacingExtra="@dimen/dp_5" />
+                    android:lineSpacingExtra="@dimen/dp_5"
+                    android:textIsSelectable="true"/>
 
                 <ImageView
                     android:id="@+id/qr_code"

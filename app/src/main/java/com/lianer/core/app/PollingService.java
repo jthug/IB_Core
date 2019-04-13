@@ -102,6 +102,8 @@ public class PollingService extends Service {
                                                 e.printStackTrace();
                                             } catch (InterruptedException e) {
                                                 e.printStackTrace();
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
                                             }
                                             CommomUtil.pushNotification(getApplicationContext(), centerBean.getTxHash(), getString(ContractStatus.MESSAGE_STATUS[messageCenterBean.getTxStatusValue()]));
                                         }
@@ -118,6 +120,8 @@ public class PollingService extends Service {
                                             } catch (ExecutionException e) {
                                                 e.printStackTrace();
                                             } catch (InterruptedException e) {
+                                                e.printStackTrace();
+                                            } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
                                             CommomUtil.pushNotification(getApplicationContext(), centerBean.getTxHash(), getString(ContractStatus.MESSAGE_STATUS[messageCenterBean.getTxStatusValue()]));

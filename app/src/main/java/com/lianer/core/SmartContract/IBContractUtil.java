@@ -2,8 +2,10 @@ package com.lianer.core.SmartContract;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.lianer.common.utils.KLog;
 import com.lianer.core.SmartContract.ETH.IBContract;
 import com.lianer.core.SmartContract.ETH.IBDataContract;
@@ -13,8 +15,13 @@ import com.lianer.core.SmartContract.TUSD.IBTUSDContractStatues;
 import com.lianer.core.SmartContract.TUSD.IBTUSDDataContract;
 import com.lianer.core.app.Constants;
 import com.lianer.core.contract.bean.ContractBean;
+import com.lianer.core.databean.ContractDetailBean;
+import com.lianer.core.databean.NormalDataBean;
+import com.lianer.core.databean.requestbean.RequestBalanceBean;
 import com.lianer.core.manager.ERC20Manager;
 import com.lianer.core.model.HLWallet;
+import com.lianer.core.utils.HttpUtil;
+import com.lianer.core.wallet.bean.TokenProfileBean;
 
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
@@ -29,15 +36,13 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
-import org.web3j.protocol.core.methods.response.EthGasPrice;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tuples.generated.Tuple14;
 import org.web3j.tuples.generated.Tuple2;
-import org.web3j.tuples.generated.Tuple3;
 import org.web3j.tuples.generated.Tuple9;
+import org.web3j.tx.ChainId;
 import org.web3j.tx.ReadonlyTransactionManager;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
@@ -49,6 +54,7 @@ import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
 import io.reactivex.Flowable;
+import retrofit2.Response;
 
 /**
  * Created by TT on 2018/5/29.
@@ -119,85 +125,110 @@ public class IBContractUtil extends BaseContract {
 
 
     //获取Nonce
-    public static long getNonce(Web3j web3j, String walletAddress) throws ExecutionException, InterruptedException {
+    public static long getNonce(Web3j web3j, String walletAddress) throws Exception {
 
-        EthGetTransactionCount ethGetTransactionCount = null;
-        ethGetTransactionCount = web3j.ethGetTransactionCount(
-                walletAddress, DefaultBlockParameterName.PENDING).sendAsync().get();
-        BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-        return nonce.longValue();
-//        try {
-//            ethGetTransactionCount = web3j.ethGetTransactionCount(
-//                    walletAddress, DefaultBlockParameterName.PENDING).sendAsync().get();
-//            BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-//            return nonce.longValue();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//            return Constants.ERROR_NONCE;
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//            return Constants.ERROR_NONCE;
-//        }
+        String jsonParams = "{\n" +
+                "\t\"walletAddress\": \"" + walletAddress + "\"\n" +
+                "}";
 
-
+        Response<NormalDataBean> execute = HttpUtil.getCoreNonce(jsonParams).execute();
+        int code = execute.code();
+        if (200 == code) {
+            NormalDataBean body = execute.body();
+            String code1 = body.getCode();
+            if (TextUtils.equals("200", code1)) {
+                BigInteger integer = new BigInteger(body.getData().get(0).trim());
+                return integer.longValue();
+            } else {
+                throw new Exception("网络异常");
+            }
+        } else {
+            throw new Exception("网络异常");
+        }
 
     }
 
     //获取交易Nonce并同步到本地
-    public static BigInteger transactionNonce(Context context,Web3j web3j, String walletAddress) throws ExecutionException, InterruptedException {
+    public static BigInteger transactionNonce(Context context, Web3j web3j, String walletAddress) throws Exception {
 
-        EthGetTransactionCount ethGetTransactionCount = null;
+        String jsonParams = "{\n" +
+                "\t\"walletAddress\": \"" + walletAddress + "\"\n" +
+                "}";
 
-            ethGetTransactionCount = web3j.ethGetTransactionCount(
-                    walletAddress, DefaultBlockParameterName.PENDING).sendAsync().get();
 
-        BigInteger nonce = ethGetTransactionCount.getTransactionCount();
-        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
-        sharedPreferences.edit().putLong(Constants.TRANSACTION_NONCE,nonce.longValue()).apply();
+        Response<NormalDataBean> execute = HttpUtil.getCoreNonce(jsonParams).execute();
+        int code = execute.code();
+        if (200 == code) {
+            NormalDataBean body = execute.body();
+            String code1 = body.getCode();
+            if (TextUtils.equals("200", code1)) {
+                BigInteger bigInteger = new BigInteger(body.getData().get(0).trim());
+                SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
+                sharedPreferences.edit().putLong(Constants.TRANSACTION_NONCE, bigInteger.longValue()).apply();
+                return bigInteger;
+            } else {
+                throw new Exception("网络异常");
+            }
+        } else {
+            throw new Exception("网络异常");
+        }
 
-        return nonce;
     }
 
     //ETH 借贷合约部署
-    public static Flowable<String> deployContract(Context context ,Web3j web3j, Credentials credentials, String factoryAddress ,BigInteger gasPrice, BigInteger gasLimit, String assetsAmount, String ethAmount, String tokenType, String cycle, String interest) {
-        return Flowable.just(1)
-                        .flatMap(s -> {
+    public static Flowable<String> deployContract(Context context, Web3j web3j, Credentials credentials, String factoryAddress, BigInteger gasPrice, BigInteger gasLimit, String assetsAmount, String ethAmount, String tokenType, String cycle, String interest) throws Exception {
 
-                    //抵押金额（代币）
-                    BigInteger borrowerAmount = new BigInteger(assetsAmount);
-                    //贷款金额（ETH）
-                    BigInteger lenderAmount = new BigInteger(ethAmount);
+        //抵押金额（代币）
+        BigInteger borrowerAmount = new BigInteger(assetsAmount);
+        //贷款金额（ETH）
+        BigInteger lenderAmount = new BigInteger(ethAmount);
 
-                    BigInteger tokenId = new BigInteger(tokenType);
-                    //限制天数
-                    BigInteger limitdays = new BigInteger(cycle);
-                    //利率
-                    BigInteger interestRate = new BigInteger(interest);
+        BigInteger tokenId = new BigInteger(tokenType);
+        //限制天数
+        BigInteger limitdays = new BigInteger(cycle);
+        //利率
+        BigInteger interestRate = new BigInteger(interest);
 
 
-                    BigInteger nonce = transactionNonce(context,web3j,credentials.getAddress());
+        BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
 
-                            final Function function = new Function(
-                                    "creatContract",
-                                    Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(borrowerAmount),
-                                            new org.web3j.abi.datatypes.generated.Uint256(lenderAmount),
-                                            new org.web3j.abi.datatypes.generated.Uint256(tokenId),
-                                            new org.web3j.abi.datatypes.generated.Uint256(limitdays),
-                                            new org.web3j.abi.datatypes.generated.Uint256(interestRate)),
-                                    Collections.<TypeReference<?>>emptyList());
-                            String encodedFunction = FunctionEncoder.encode(function);
-                            RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, factoryAddress, encodedFunction);
+        final Function function = new Function(
+                "creatContract",
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(borrowerAmount),
+                        new org.web3j.abi.datatypes.generated.Uint256(lenderAmount),
+                        new org.web3j.abi.datatypes.generated.Uint256(tokenId),
+                        new org.web3j.abi.datatypes.generated.Uint256(limitdays),
+                        new org.web3j.abi.datatypes.generated.Uint256(interestRate)),
+                Collections.<TypeReference<?>>emptyList());
+        String encodedFunction = FunctionEncoder.encode(function);
+        RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, BigInteger.valueOf(5000000), Constants.FactoryAddress, encodedFunction);
 
 
-                    String hexValue = signData(rawTransaction, credentials);
+        String hexValue = signData(rawTransaction, credentials);
+        Log.e("xxxxxx-2", "gasprice=" + gasPrice + " gasLimit=" + gasLimit + " assetsAmount=" + assetsAmount + " ethAmount=" + ethAmount + " tokenType=" + tokenType + " cycle=" + cycle + " interest=" + interest);
+//                    String txHash = web3j.ethSendRawTransaction(hexValue).sendAsync().get().getTransactionHash();
+        String jsonParams = "{\n" +
+                "\t\"hexValue\": \"" + hexValue + "\"\n" +
+                "}";
 
-                    String txHash = web3j.ethSendRawTransaction(hexValue).sendAsync().get().getTransactionHash();
-                    return Flowable.just(txHash);
-                });
+        Response<NormalDataBean> execute = HttpUtil.sendTransaction(jsonParams).execute();
+        if (execute.code() == 200) {
+            NormalDataBean bean = execute.body();
+            if (TextUtils.equals("200", bean.getCode())) {
+                String txHash = bean.getData().get(0);
+                return Flowable.just(txHash);
+            } else {
+                throw new Exception("网络异常");
+            }
+        } else {
+            throw new Exception("网络异常");
+        }
+
+
     }
 
     //TUSD 部署
-    public static Flowable<String> deployTUSDContract(Context context ,Web3j web3j, Credentials credentials, String factoryAddress ,BigInteger gasPrice, BigInteger gasLimit, String mortgageAmount,String mortgageType, String loanAmount, String loanType, String cycle, String interest) {
+    public static Flowable<String> deployTUSDContract(Context context, Web3j web3j, Credentials credentials, String factoryAddress, BigInteger gasPrice, BigInteger gasLimit, String mortgageAmount, String mortgageType, String loanAmount, String loanType, String cycle, String interest) {
         return Flowable.just(1)
                 .flatMap(s -> {
 
@@ -216,7 +247,7 @@ public class IBContractUtil extends BaseContract {
                     BigInteger interestRate = new BigInteger(interest);
 
 
-                    BigInteger nonce = transactionNonce(context,web3j,credentials.getAddress());
+                    BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
 
                     final Function function = new Function(
                             "creatContract",
@@ -237,7 +268,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     //合约部署gas预计消耗
-    public static Flowable<BigInteger> getDeployContractEstimateGas(Web3j web3j, String walletAddress, String fAddress ,BigInteger gasPrice, BigInteger gasLimit, String assetsAmount, String ethAmount, String tokenType, String cycle, String interest) {
+    public static Flowable<BigInteger> getDeployContractEstimateGas(Web3j web3j, String walletAddress, String fAddress, BigInteger gasPrice, BigInteger gasLimit, String assetsAmount, String ethAmount, String tokenType, String cycle, String interest) {
         return Flowable.just(1)
                 .flatMap(s -> {
                     //抵押金额（代币）
@@ -286,7 +317,7 @@ public class IBContractUtil extends BaseContract {
                     BigInteger interestRate = new BigInteger(interest);
 
                     //调用工厂合约创建合约
-                    TransactionReceipt transactionReceipt  = contract.creatContract(borrowerAmount,lenderAmount,tokenId,limitdays,interestRate).sendAsync().get();
+                    TransactionReceipt transactionReceipt = contract.creatContract(borrowerAmount, lenderAmount, tokenId, limitdays, interestRate).sendAsync().get();
 
                     String txHash = transactionReceipt.getTransactionHash();
                     return Flowable.just(txHash);
@@ -294,10 +325,8 @@ public class IBContractUtil extends BaseContract {
     }
 
 
-
-
     //get DataContract Address
-    public static  Flowable<String> getDataContractAddress(Web3j web3j, String walletAddress) throws Exception {
+    public static Flowable<String> getDataContractAddress(Web3j web3j, String walletAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -329,7 +358,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     //load IBContract
-    public static  Flowable<IBContract> loadIBContract(Web3j web3j, Credentials credentials, String contractAddress) throws Exception {
+    public static Flowable<IBContract> loadIBContract(Web3j web3j, Credentials credentials, String contractAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -341,7 +370,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     // readOnly IBContract
-    public static  Flowable<IBContract> readOnlyIBContract(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
+    public static Flowable<IBContract> readOnlyIBContract(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -355,9 +384,8 @@ public class IBContractUtil extends BaseContract {
     }
 
 
-
     //readOnly IBContract State
-    public static  Flowable<IBContractStatues> readOnlyIBContractState(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
+    public static Flowable<IBContractStatues> readOnlyIBContractState(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -368,26 +396,26 @@ public class IBContractUtil extends BaseContract {
 
                     IBContractStatues ibContractStatues = new IBContractStatues();
                     if (ibContract == null) {
-                        return  Flowable.just(ibContractStatues);
+                        return Flowable.just(ibContractStatues);
                     }
                     Tuple14<BigInteger, String, String, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, String, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger> result = ibContract.getContractInfo().sendAsync().get();
 
-                    ibContractStatues.setContractState(result.getValue1()+"");
+                    ibContractStatues.setContractState(result.getValue1() + "");
                     ibContractStatues.setBorrowerAddress(result.getValue2());
                     ibContractStatues.setInvestorAddress(result.getValue3());
-                    ibContractStatues.setAmount(result.getValue4()+"");
-                    ibContractStatues.setCycle(result.getValue5()+"");
+                    ibContractStatues.setAmount(result.getValue4() + "");
+                    ibContractStatues.setCycle(result.getValue5() + "");
 
-                    ibContractStatues.setInterest(result.getValue6()+"");
-                    ibContractStatues.setMortgage(result.getValue7()+"");
-                    ibContractStatues.setNeedMortgage(result.getValue8()+"");
-                    ibContractStatues.setTokenAddress(result.getValue9()+"");
+                    ibContractStatues.setInterest(result.getValue6() + "");
+                    ibContractStatues.setMortgage(result.getValue7() + "");
+                    ibContractStatues.setNeedMortgage(result.getValue8() + "");
+                    ibContractStatues.setTokenAddress(result.getValue9() + "");
 
-                    ibContractStatues.setInvestmentTime(result.getValue10()+"");
-                    ibContractStatues.setEndTime(result.getValue11()+"");
-                    ibContractStatues.setExpire(result.getValue12()+"");
-                    ibContractStatues.setExpiryTime(result.getValue13()+"");
-                    ibContractStatues.setCreateTime(result.getValue14()+"");
+                    ibContractStatues.setInvestmentTime(result.getValue10() + "");
+                    ibContractStatues.setEndTime(result.getValue11() + "");
+                    ibContractStatues.setExpire(result.getValue12() + "");
+                    ibContractStatues.setExpiryTime(result.getValue13() + "");
+                    ibContractStatues.setCreateTime(result.getValue14() + "");
                     ibContractStatues.setContractAddress(ibContract.getContractAddress());
                     KLog.w(ibContractStatues.toString());
                     return Flowable.just(ibContractStatues);
@@ -396,7 +424,7 @@ public class IBContractUtil extends BaseContract {
 
 
     //load IBDateContract
-    public static  Flowable<IBDataContract> loadIBDateContract(Web3j web3j, Credentials credentials, BigInteger  gasPrice, BigInteger gasLimit, String contractAddress) throws Exception {
+    public static Flowable<IBDataContract> loadIBDateContract(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit, String contractAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     IBDataContract contract = IBDataContract.load(contractAddress, web3j, credentials, gasPrice, gasLimit);
@@ -420,7 +448,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     //load IBFactoryContract
-    public static Flowable<IBFactoryContract> loadIBFactoryContract(Web3j web3j, Credentials credentials,BigInteger  gasPrice,BigInteger gasLimit,String contractAddress) throws Exception {
+    public static Flowable<IBFactoryContract> loadIBFactoryContract(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit, String contractAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     IBFactoryContract contract = IBFactoryContract.load(contractAddress, web3j, credentials, gasPrice, gasLimit);
@@ -429,7 +457,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     //合约校验
-    public static Flowable<Boolean> isIBContract(IBDataContract contract,String contractAddress) throws Exception {
+    public static Flowable<Boolean> isIBContract(IBDataContract contract, String contractAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     boolean isIBContract = contract.checkContract(contractAddress).sendAsync().get();
@@ -438,7 +466,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     //合约校验
-    public static Flowable<Boolean> isIBContract(Web3j web3j, String walletAddress,String contractAddress) throws Exception {
+    public static Flowable<Boolean> isIBContract(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -458,7 +486,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     //合约校验
-    public static Flowable<Boolean> isIBTusdContract(Web3j web3j, String walletAddress,String contractAddress) throws Exception {
+    public static Flowable<Boolean> isIBTusdContract(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -477,20 +505,21 @@ public class IBContractUtil extends BaseContract {
     }
 
     //readOnly IBTUSDContract
-    public static Flowable<IBTUSDContract> readOnlyIBTUSDContract(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
+    public static Flowable<String> readOnlyIBTUSDContract(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
-                    BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
-                    BigInteger gasLimit = BigInteger.valueOf(1000000);
-                    ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
-                    IBTUSDContract ibTusdContract = IBTUSDContract.load(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
-                    return Flowable.just(ibTusdContract);
+//                    BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
+//                    BigInteger gasLimit = BigInteger.valueOf(1000000);
+//                    ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
+//                    IBTUSDContract ibTusdContract = IBTUSDContract.load(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+//                    return Flowable.just(ibTusdContract);
+                    return Flowable.just(contractAddress);
                 });
 
     }
 
     //get TUSD DataContract Address
-    public static  Flowable<String> getTUSDDataContractAddress(Web3j web3j, String walletAddress) throws Exception {
+    public static Flowable<String> getTUSDDataContractAddress(Web3j web3j, String walletAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -522,7 +551,7 @@ public class IBContractUtil extends BaseContract {
 
 
     // get TUSDFactoryContract Address
-    public static  Flowable<String> getTUSDFactoryContractAddress(Web3j web3j, String walletAddress) throws Exception {
+    public static Flowable<String> getTUSDFactoryContractAddress(Web3j web3j, String walletAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -539,14 +568,15 @@ public class IBContractUtil extends BaseContract {
 
     /**
      * 领取分红
+     *
      * @param web3j
      * @param credentials
      * @return
      */
 
-    public static Flowable<TransactionReceipt> getEarn(Web3j web3j,Credentials credentials){
+    public static Flowable<TransactionReceipt> getEarn(Web3j web3j, Credentials credentials) {
         return Flowable.just(1)
-                .flatMap(s->{
+                .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
                     BigInteger gasLimit = BigInteger.valueOf(1000000);
 
@@ -560,15 +590,16 @@ public class IBContractUtil extends BaseContract {
     }
 
     /**
-     *  取回nest
+     * 取回nest
+     *
      * @param web3j
      * @param credentials
      * @param amout
      * @return
      */
-    public static Flowable<TransactionReceipt> retrieve(Web3j web3j,Credentials credentials,BigInteger amout){
+    public static Flowable<TransactionReceipt> retrieve(Web3j web3j, Credentials credentials, BigInteger amout) {
         return Flowable.just(1)
-                .flatMap(s->{
+                .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
                     BigInteger gasLimit = BigInteger.valueOf(1000000);
 
@@ -583,14 +614,15 @@ public class IBContractUtil extends BaseContract {
 
     /**
      * 存入Nest
+     *
      * @param web3j
      * @param credentials
      * @param amout
      * @return
      */
-    public static Flowable<TransactionReceipt> depositIn(Web3j web3j, Credentials credentials,BigInteger amout){
+    public static Flowable<TransactionReceipt> depositIn(Web3j web3j, Credentials credentials, BigInteger amout) {
         return Flowable.just(1)
-                .flatMap(s->{
+                .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
                     BigInteger gasLimit = BigInteger.valueOf(1000000);
 
@@ -606,9 +638,9 @@ public class IBContractUtil extends BaseContract {
     }
 
     //获取分红信息
-    public static Flowable<Tuple9<BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger>> getAbonusInfo(Web3j web3j, String walletAddress){
+    public static Flowable<Tuple9<BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger>> getAbonusInfo(Web3j web3j, String walletAddress) {
         return Flowable.just(1)
-                .flatMap(s->{
+                .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
                     BigInteger gasLimit = BigInteger.valueOf(1000000);
 
@@ -623,7 +655,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     //get Dividend Amount 分红数额
-    public static  Flowable<BigInteger> getDividendAmount(Web3j web3j, String walletAddress) throws Exception {
+    public static Flowable<BigInteger> getDividendAmount(Web3j web3j, String walletAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -634,7 +666,7 @@ public class IBContractUtil extends BaseContract {
 
                     String address = contract.checkAddress("abonus").sendAsync().get();
                     IBDividendContract ibDividendContract = IBDividendContract.load(address, web3j, transactionManager, gasPrice, gasLimit);
-                    BigInteger ethValue  = ibDividendContract.getnum().sendAsync().get();
+                    BigInteger ethValue = ibDividendContract.getnum().sendAsync().get();
 
                     return Flowable.just(ethValue);
                 });
@@ -642,7 +674,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     //get Dividend Nest Amount 参与分红Nest数额
-    public static  Flowable<BigInteger> getDividendNestAmount(Web3j web3j, String walletAddress) throws Exception {
+    public static Flowable<BigInteger> getDividendNestAmount(Web3j web3j, String walletAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -653,7 +685,7 @@ public class IBContractUtil extends BaseContract {
 
                     String address = contract.checkAddress("abonus").sendAsync().get();
                     IBDividendContract ibDividendContract = IBDividendContract.load(address, web3j, transactionManager, gasPrice, gasLimit);
-                    BigInteger nestAmount  = ibDividendContract.allValue().sendAsync().get();
+                    BigInteger nestAmount = ibDividendContract.allValue().sendAsync().get();
 
                     return Flowable.just(nestAmount);
                 });
@@ -673,20 +705,20 @@ public class IBContractUtil extends BaseContract {
                     String address = contract.checkAddress("abonus").sendAsync().get();
                     IBDividendContract ibDividendContract = IBDividendContract.load(address, web3j, transactionManager, gasPrice, gasLimit);
                     //分红池金额
-                    BigInteger ethValue  = ibDividendContract.getnum().sendAsync().get();
+                    BigInteger ethValue = ibDividendContract.getnum().sendAsync().get();
                     //参与分红nest总额
-                    BigInteger nestAmount  = ibDividendContract.allValue().sendAsync().get();
+                    BigInteger nestAmount = ibDividendContract.allValue().sendAsync().get();
                     String[] dividendInfo = new String[3];
                     dividendInfo[0] = address;
-                    dividendInfo[1] = ethValue+"";
-                    dividendInfo[2] = nestAmount+"";
+                    dividendInfo[1] = ethValue + "";
+                    dividendInfo[2] = nestAmount + "";
                     return Flowable.just(dividendInfo);
                 });
 
     }
 
     //get Nest Amount 已挖数量
-    public static  Flowable<BigInteger> getNestAmount(Web3j web3j, String walletAddress) throws Exception {
+    public static Flowable<BigInteger> getNestAmount(Web3j web3j, String walletAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -697,7 +729,7 @@ public class IBContractUtil extends BaseContract {
 
                     String address = contract.checkAddress("mining").sendAsync().get();
                     IBMinePoolContract ibMinePoolContract = IBMinePoolContract.load(address, web3j, transactionManager, gasPrice, gasLimit);
-                    BigInteger nestValue  = ibMinePoolContract.getNestAmount().sendAsync().get();
+                    BigInteger nestValue = ibMinePoolContract.getNestAmount().sendAsync().get();
 
                     return Flowable.just(nestValue);
                 });
@@ -705,7 +737,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     //get MinePool Parameter 获取时间衰减和总数衰减
-    public static  Flowable<BigInteger[]> getMinePoolParameter(Web3j web3j, String walletAddress) throws Exception {
+    public static Flowable<BigInteger[]> getMinePoolParameter(Web3j web3j, String walletAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -716,8 +748,8 @@ public class IBContractUtil extends BaseContract {
 
                     String address = contract.checkAddress("mining").sendAsync().get();
                     IBMinePoolContract ibMinePoolContract = IBMinePoolContract.load(address, web3j, transactionManager, gasPrice, gasLimit);
-                    Tuple2<BigInteger,BigInteger> tuple2 = ibMinePoolContract.getParameter().sendAsync().get();
-                    BigInteger[] minePoolParameter  = new BigInteger[2];
+                    Tuple2<BigInteger, BigInteger> tuple2 = ibMinePoolContract.getParameter().sendAsync().get();
+                    BigInteger[] minePoolParameter = new BigInteger[2];
                     minePoolParameter[0] = tuple2.getValue1();
                     minePoolParameter[1] = tuple2.getValue2();
 
@@ -739,13 +771,13 @@ public class IBContractUtil extends BaseContract {
 
                     String address = contract.checkAddress("mining").sendAsync().get();
                     IBMinePoolContract ibMinePoolContract = IBMinePoolContract.load(address, web3j, transactionManager, gasPrice, gasLimit);
-                    BigInteger[] minePoolParameter  = new BigInteger[3];
+                    BigInteger[] minePoolParameter = new BigInteger[3];
 
-                    BigInteger nestValue  = ibMinePoolContract.getNestAmount().sendAsync().get();
+                    BigInteger nestValue = ibMinePoolContract.getNestAmount().sendAsync().get();
                     //已挖总量
                     minePoolParameter[0] = nestValue;
 
-                    Tuple2<BigInteger,BigInteger> tuple2 = ibMinePoolContract.getParameter().sendAsync().get();
+                    Tuple2<BigInteger, BigInteger> tuple2 = ibMinePoolContract.getParameter().sendAsync().get();
                     //时间衰减
                     minePoolParameter[1] = tuple2.getValue1();
                     //总数衰减
@@ -757,7 +789,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     //getMiningAttenuate  d经过了多少天、a：衰减参数
-    public static  Flowable<BigInteger[]> getMiningAttenuate(Web3j web3j, String walletAddress) throws Exception {
+    public static Flowable<BigInteger[]> getMiningAttenuate(Web3j web3j, String walletAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
@@ -768,8 +800,8 @@ public class IBContractUtil extends BaseContract {
 
                     String address = contract.checkAddress("borrowMining").sendAsync().get();
                     IBMiningContract ibMiningContract = IBMiningContract.load(address, web3j, transactionManager, gasPrice, gasLimit);
-                    Tuple2<BigInteger,BigInteger> tuple2 = ibMiningContract.amountPartOne().sendAsync().get();
-                    BigInteger[] mining  = new BigInteger[2];
+                    Tuple2<BigInteger, BigInteger> tuple2 = ibMiningContract.amountPartOne().sendAsync().get();
+                    BigInteger[] mining = new BigInteger[2];
                     mining[0] = tuple2.getValue1();
                     mining[1] = tuple2.getValue2();
 
@@ -779,31 +811,30 @@ public class IBContractUtil extends BaseContract {
     }
 
 
-
     //get IBContract Status
-    public static  IBContractStatues getIBContractStatus(IBContract contract) throws Exception {
+    public static IBContractStatues getIBContractStatus(IBContract contract) throws Exception {
         IBContractStatues ibContractStatues = new IBContractStatues();
         if (contract == null) {
             return ibContractStatues;
         }
         Tuple14<BigInteger, String, String, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, String, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger> result = contract.getContractInfo().sendAsync().get();
 
-        ibContractStatues.setContractState(result.getValue1()+"");
+        ibContractStatues.setContractState(result.getValue1() + "");
         ibContractStatues.setBorrowerAddress(result.getValue2());
         ibContractStatues.setInvestorAddress(result.getValue3());
-        ibContractStatues.setAmount(result.getValue4()+"");
-        ibContractStatues.setCycle(result.getValue5()+"");
+        ibContractStatues.setAmount(result.getValue4() + "");
+        ibContractStatues.setCycle(result.getValue5() + "");
 
-        ibContractStatues.setInterest(result.getValue6()+"");
-        ibContractStatues.setMortgage(result.getValue7()+"");
-        ibContractStatues.setNeedMortgage(result.getValue8()+"");
-        ibContractStatues.setTokenAddress(result.getValue9()+"");
+        ibContractStatues.setInterest(result.getValue6() + "");
+        ibContractStatues.setMortgage(result.getValue7() + "");
+        ibContractStatues.setNeedMortgage(result.getValue8() + "");
+        ibContractStatues.setTokenAddress(result.getValue9() + "");
 
-        ibContractStatues.setInvestmentTime(result.getValue10()+"");
-        ibContractStatues.setEndTime(result.getValue11()+"");
-        ibContractStatues.setExpire(result.getValue12()+"");
-        ibContractStatues.setExpiryTime(result.getValue13()+"");
-        ibContractStatues.setCreateTime(result.getValue14()+"");
+        ibContractStatues.setInvestmentTime(result.getValue10() + "");
+        ibContractStatues.setEndTime(result.getValue11() + "");
+        ibContractStatues.setExpire(result.getValue12() + "");
+        ibContractStatues.setExpiryTime(result.getValue13() + "");
+        ibContractStatues.setCreateTime(result.getValue14() + "");
         ibContractStatues.setContractAddress(contract.getContractAddress());
         KLog.w(ibContractStatues.toString());
 
@@ -813,59 +844,96 @@ public class IBContractUtil extends BaseContract {
     }
 
     //get IBTUSDContract Status
-    public static IBTUSDContractStatues getTUSDContractStatus(IBTUSDContract contract) throws Exception {
+    public static IBTUSDContractStatues getTUSDContractStatus(String contractAddress) throws Exception {
 
         IBTUSDContractStatues ibTusdContractStatues = new IBTUSDContractStatues();
-        if (contract == null) {
+
+        String jsonParams = "{\n" +
+                "\t\"contractAddress\": \"" + contractAddress + "\"\n" +
+                "}";
+        Response<ContractDetailBean> execute = HttpUtil.getContractData(jsonParams).execute();
+        if (execute.code() == 200) {
+            if (execute.body().getCode().equals("200")) {
+                ContractDetailBean.DataBean dataBean = execute.body().getData().get(0);
+
+                ibTusdContractStatues.setContractState(dataBean.getState());
+                ibTusdContractStatues.setBorrowerAddress(dataBean.getBorrowerAddress());
+                ibTusdContractStatues.setInvestorAddress(dataBean.getInvestorAddress());
+                ibTusdContractStatues.setAmount(dataBean.getAmount());
+                ibTusdContractStatues.setCycle(dataBean.getCycle());
+
+                ibTusdContractStatues.setInterest(dataBean.getInterest());
+                ibTusdContractStatues.setMortgage(dataBean.getMortgage());
+                ibTusdContractStatues.setNeedMortgage(dataBean.getNeedMortgage());
+                ibTusdContractStatues.setTokenAddress(dataBean.getTokenAddress());
+
+                ibTusdContractStatues.setInvestmentTime(dataBean.getInvestmentTime());
+                ibTusdContractStatues.setEndTime(dataBean.getEndTime());
+                ibTusdContractStatues.setExpire(dataBean.getExpire());
+                ibTusdContractStatues.setExpiryTime(dataBean.getExpiryTime());
+                ibTusdContractStatues.setCreateTime(dataBean.getCreateTime());
+            } else {
+                return ibTusdContractStatues;
+            }
+        } else {
             return ibTusdContractStatues;
         }
-        Tuple14<BigInteger, String, String, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, String, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger> result = contract.getContractInfo().sendAsync().get();
 
-        ibTusdContractStatues.setContractState(result.getValue1()+"");
-        ibTusdContractStatues.setBorrowerAddress(result.getValue2());
-        ibTusdContractStatues.setInvestorAddress(result.getValue3());
-        ibTusdContractStatues.setAmount(result.getValue4()+"");
-        ibTusdContractStatues.setCycle(result.getValue5()+"");
 
-        ibTusdContractStatues.setInterest(result.getValue6()+"");
-        ibTusdContractStatues.setMortgage(result.getValue7()+"");
-        ibTusdContractStatues.setNeedMortgage(result.getValue8()+"");
-        ibTusdContractStatues.setTokenAddress(result.getValue9()+"");
+//        if (contract == null) {
+//            return ibTusdContractStatues;
+//        }
+//        Tuple14<BigInteger, String, String, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger, String, BigInteger, BigInteger, BigInteger, BigInteger, BigInteger> result = contract.getContractInfo().sendAsync().get();
 
-        ibTusdContractStatues.setInvestmentTime(result.getValue10()+"");
-        ibTusdContractStatues.setEndTime(result.getValue11()+"");
-        ibTusdContractStatues.setExpire(result.getValue12()+"");
-        ibTusdContractStatues.setExpiryTime(result.getValue13()+"");
-        ibTusdContractStatues.setCreateTime(result.getValue14()+"");
+//        ibTusdContractStatues.setContractState(result.getValue1() + "");
+//        ibTusdContractStatues.setBorrowerAddress(result.getValue2());
+//        ibTusdContractStatues.setInvestorAddress(result.getValue3());
+//        ibTusdContractStatues.setAmount(result.getValue4() + "");
+//        ibTusdContractStatues.setCycle(result.getValue5() + "");
+//
+//        ibTusdContractStatues.setInterest(result.getValue6() + "");
+//        ibTusdContractStatues.setMortgage(result.getValue7() + "");
+//        ibTusdContractStatues.setNeedMortgage(result.getValue8() + "");
+//        ibTusdContractStatues.setTokenAddress(result.getValue9() + "");
+//
+//        ibTusdContractStatues.setInvestmentTime(result.getValue10() + "");
+//        ibTusdContractStatues.setEndTime(result.getValue11() + "");
+//        ibTusdContractStatues.setExpire(result.getValue12() + "");
+//        ibTusdContractStatues.setExpiryTime(result.getValue13() + "");
+//        ibTusdContractStatues.setCreateTime(result.getValue14() + "");
 
-        try{
-            Tuple3<BigInteger, String, String> tokenInfo = contract.getTokenInfo().sendAsync().get();
-            ibTusdContractStatues.setContractType(tokenInfo.getValue1()+"");
-            ibTusdContractStatues.setBorrowerToken(tokenInfo.getValue2()+"");
-            ibTusdContractStatues.setLenderToken(tokenInfo.getValue3()+"");
-        }catch (Exception e){
-            ibTusdContractStatues.setContractType("0");
-            ibTusdContractStatues.setBorrowerToken(result.getValue9()+"");
-            ibTusdContractStatues.setLenderToken("ETH");
-        }
 
-        ibTusdContractStatues.setContractAddress(contract.getContractAddress());
-        KLog.w(ibTusdContractStatues.toString());
+//        try {
+//            Tuple3<BigInteger, String, String> tokenInfo = contract.getTokenInfo().sendAsync().get();
+//            ibTusdContractStatues.setContractType(tokenInfo.getValue1() + "");
+//            ibTusdContractStatues.setBorrowerToken(tokenInfo.getValue2() + "");
+//            ibTusdContractStatues.setLenderToken(tokenInfo.getValue3() + "");
+//        } catch (Exception e) {
+//            ibTusdContractStatues.setContractType("0");
+//            ibTusdContractStatues.setBorrowerToken(result.getValue9() + "");
+//            ibTusdContractStatues.setLenderToken("ETH");
+//        }
+//
+//        ibTusdContractStatues.setContractAddress(contract.getContractAddress());
+//        KLog.w(ibTusdContractStatues.toString());
+
 
         return ibTusdContractStatues;
     }
 
     //get IBTUSDContract Status
-    public  static  Flowable<ContractBean> getTUSDContractInfo(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
+    public static Flowable<ContractBean> getTUSDContractInfo(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
 
         return Flowable.just(1)
                 .flatMap(s -> {
-                    BigInteger gasPrice = new BigInteger("1000000000");
-                    BigInteger gasLimit = BigInteger.valueOf(1000000);
-                    ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
-                    IBTUSDContract ibTusdContract = IBTUSDContract.load(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+//                    BigInteger gasPrice = new BigInteger("1000000000");
+//                    BigInteger gasLimit = BigInteger.valueOf(1000000);
+//                    ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
+//                    IBTUSDContract ibTusdContract = IBTUSDContract.load(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+//
+//                    ContractBean bean = getTusdContractBean(getTUSDContractStatus(ibTusdContract));
+                    ContractBean bean = getTusdContractBean(getTUSDContractStatus(contractAddress));
 
-                    ContractBean bean = getTusdContractBean(getTUSDContractStatus(ibTusdContract));
                     return Flowable.just(bean);
                 });
 
@@ -873,18 +941,18 @@ public class IBContractUtil extends BaseContract {
 
 
     //Invest
-    public static Flowable<String> investSend(Context context,Web3j web3j, Credentials credentials, String contractAddress ,BigInteger gasPrice, BigInteger gasLimit,BigInteger value) {
+    public static Flowable<String> investSend(Context context, Web3j web3j, Credentials credentials, String contractAddress, BigInteger gasPrice, BigInteger gasLimit, BigInteger value) {
         return Flowable.just(1)
                 .flatMap(s -> {
 
-                    BigInteger nonce =  transactionNonce(context,web3j,credentials.getAddress());
+                    BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
 
                     final Function function = new Function(
                             "sendLendAsset",
                             Arrays.<Type>asList(),
                             Collections.<TypeReference<?>>emptyList());
                     String encodedFunction = FunctionEncoder.encode(function);
-                    RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, contractAddress,value ,encodedFunction);
+                    RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, contractAddress, value, encodedFunction);
 
                     String hexValue = signData(rawTransaction, credentials);
 
@@ -894,18 +962,18 @@ public class IBContractUtil extends BaseContract {
     }
 
     //Repayment
-    public static Flowable<String> sendRepayment(Context context,Web3j web3j, Credentials credentials, String contractAddress ,BigInteger gasPrice, BigInteger gasLimit,BigInteger value) {
+    public static Flowable<String> sendRepayment(Context context, Web3j web3j, Credentials credentials, String contractAddress, BigInteger gasPrice, BigInteger gasLimit, BigInteger value) {
         return Flowable.just(1)
                 .flatMap(s -> {
 
-                    BigInteger nonce =  transactionNonce(context,web3j,credentials.getAddress());
+                    BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
 
                     final Function function = new Function(
                             "sendRepayment",
                             Arrays.<Type>asList(),
                             Collections.<TypeReference<?>>emptyList());
                     String encodedFunction = FunctionEncoder.encode(function);
-                    RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, contractAddress,value ,encodedFunction);
+                    RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, contractAddress, value, encodedFunction);
 
                     String hexValue = signData(rawTransaction, credentials);
 
@@ -916,18 +984,18 @@ public class IBContractUtil extends BaseContract {
 
 
     //OverDue
-    public static Flowable<String> applyForAssets(Context context,Web3j web3j, Credentials credentials, String contractAddress ,BigInteger gasPrice, BigInteger gasLimit) {
+    public static Flowable<String> applyForAssets(Context context, Web3j web3j, Credentials credentials, String contractAddress, BigInteger gasPrice, BigInteger gasLimit) {
         return Flowable.just(1)
                 .flatMap(s -> {
 
-                    BigInteger nonce =  transactionNonce(context,web3j,credentials.getAddress());
+                    BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
 
                     final Function function = new Function(
                             "applyForAssets",
                             Arrays.<Type>asList(),
                             Collections.<TypeReference<?>>emptyList());
                     String encodedFunction = FunctionEncoder.encode(function);
-                    RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, contractAddress ,encodedFunction);
+                    RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, contractAddress, encodedFunction);
 
                     String hexValue = signData(rawTransaction, credentials);
 
@@ -938,11 +1006,11 @@ public class IBContractUtil extends BaseContract {
 
 
     //cancel Contract
-    public static Flowable<String> cancelContract(Context context,Web3j web3j, Credentials credentials, String contractAddress ,BigInteger gasPrice, BigInteger gasLimit) {
+    public static Flowable<String> cancelContract(Context context, Web3j web3j, Credentials credentials, String contractAddress, BigInteger gasPrice, BigInteger gasLimit) {
         return Flowable.just(1)
                 .flatMap(s -> {
 
-                    BigInteger nonce =  transactionNonce(context,web3j,credentials.getAddress());
+                    BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
 
                     final Function function = new Function(
                             "cancelContract",
@@ -960,18 +1028,18 @@ public class IBContractUtil extends BaseContract {
 
 
     //TUSD MortgageETH 抵押以太坊
-    public static Flowable<String> MortgageETH(Context context,Web3j web3j, Credentials credentials, String contractAddress ,BigInteger gasPrice, BigInteger gasLimit,BigInteger weiValue) {
+    public static Flowable<String> MortgageETH(Context context, Web3j web3j, Credentials credentials, String contractAddress, BigInteger gasPrice, BigInteger gasLimit, BigInteger weiValue) {
         return Flowable.just(1)
                 .flatMap(s -> {
 
-                    BigInteger nonce =  transactionNonce(context,web3j,credentials.getAddress());
+                    BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
 
                     final Function function = new Function(
                             "payEth",
                             Arrays.<Type>asList(),
                             Collections.<TypeReference<?>>emptyList());
                     String encodedFunction = FunctionEncoder.encode(function);
-                    RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, contractAddress, weiValue,encodedFunction);
+                    RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, contractAddress, weiValue, encodedFunction);
 
                     String hexValue = signData(rawTransaction, credentials);
 
@@ -981,11 +1049,11 @@ public class IBContractUtil extends BaseContract {
     }
 
     //TUSD Invest
-    public static Flowable<String> investmentContracts(Context context,Web3j web3j, Credentials credentials, String factoryAddress ,String contractAddress ,BigInteger gasPrice, BigInteger gasLimit) {
+    public static Flowable<String> investmentContracts(Context context, Web3j web3j, Credentials credentials, String factoryAddress, String contractAddress, BigInteger gasPrice, BigInteger gasLimit) {
         return Flowable.just(1)
                 .flatMap(s -> {
 
-                    BigInteger nonce =  transactionNonce(context,web3j,credentials.getAddress());
+                    BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
                     final Function function = new Function(
                             "investmentContracts",
                             Arrays.<Type>asList(new Address(contractAddress)),
@@ -1003,11 +1071,11 @@ public class IBContractUtil extends BaseContract {
     }
 
     //TUSD Repayment
-    public static Flowable<String> sendRepayment(Context context,Web3j web3j, Credentials credentials, String factoryAddress,String contractAddress ,BigInteger gasPrice, BigInteger gasLimit) {
+    public static Flowable<String> sendRepayment(Context context, Web3j web3j, Credentials credentials, String factoryAddress, String contractAddress, BigInteger gasPrice, BigInteger gasLimit) {
         return Flowable.just(1)
                 .flatMap(s -> {
 
-                    BigInteger nonce =  transactionNonce(context,web3j,credentials.getAddress());
+                    BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
                     final Function function = new Function(
                             "sendRepayment",
                             Arrays.<Type>asList(new Address(contractAddress)),
@@ -1026,26 +1094,51 @@ public class IBContractUtil extends BaseContract {
     //getEthBanlance 查询以太币账户余额
     public static Flowable<String> getEthBanlance(Admin web3j, String userAddress) throws Exception {
 
-        return Flowable.just(1)
-                .flatMap(s -> {
-                    //获取指定钱包的以太币余额
-                    EthGetBalance balance = web3j.ethGetBalance(userAddress, DefaultBlockParameterName.PENDING).sendAsync().get();
-                    //eth默认会部18个0
-                    String decimal = toDecimal(18, balance.getBalance());
-                    return Flowable.just(decimal);
-                });
+//        return Flowable.just(1)
+//                .flatMap(s -> {
+//                    //获取指定钱包的以太币余额
+//                    EthGetBalance balance = web3j.ethGetBalance(userAddress, DefaultBlockParameterName.PENDING).sendAsync().get();
+//                    //eth默认会部18个0
+//                    String decimal = toDecimal(18, balance.getBalance());
+//                    return Flowable.just(decimal);
+//                });
+        final String[] result = {null};
+        RequestBalanceBean requestBalanceBean = new RequestBalanceBean();
+        requestBalanceBean.setAddress(userAddress);
+        requestBalanceBean.setContractAddress("666");
+        String json = new Gson().toJson(requestBalanceBean);
+        Response<NormalDataBean> execute = HttpUtil.getBalance(json).execute();
+        int code = execute.code();
+        if (200 == code) {
+            NormalDataBean body = execute.body();
+            if (TextUtils.equals("200", body.getCode())) {
+                String s = toDecimal(18, new BigInteger(body.getData().get(0).trim()));
+                return Flowable.just(s);
+            } else {
+                throw new Exception("网络异常");
+            }
+        } else {
+            throw new Exception("网络异常");
+        }
+
     }
 
     //getEthGasPrice 返回当前的gas价格,这个值由最近几个块的gas价格的中值决定
     public static Flowable<BigInteger> getEthGasPrice(Admin web3j) throws Exception {
 
-        return Flowable.just(1)
-                .flatMap(s -> {
-                    //获取指定钱包的以太币余额
-                    EthGasPrice balance = web3j.ethGasPrice().sendAsync().get();
+        Response<NormalDataBean> execute = HttpUtil.getAverageGasPrice().execute();
+        if (execute.code() == 200) {
+            NormalDataBean body = execute.body();
+            if (TextUtils.equals("200", body.getCode())) {
+                BigInteger bigInteger = new BigInteger(body.getData().get(0).trim());
+                return Flowable.just(bigInteger);
+            } else {
+                throw new Exception("网络异常");
+            }
+        } else {
+            throw new Exception("网络异常");
+        }
 
-                    return Flowable.just(balance.getGasPrice());
-                });
     }
 
     //转换成符合 decimal 的数值
@@ -1062,10 +1155,10 @@ public class IBContractUtil extends BaseContract {
 
     //ETH 转账离线签名
 
-    public static Flowable<String> rawTransaction(Context context,Web3j web3j, String to, BigInteger gasPrice, BigInteger gasLimit, String amount, HLWallet wallet, Credentials credentials) throws Exception {
+    public static Flowable<String> rawTransaction(Context context, Web3j web3j, String to, BigInteger gasPrice, BigInteger gasLimit, String amount, HLWallet wallet, Credentials credentials) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
-                    BigInteger nonce =  transactionNonce(context,web3j,credentials.getAddress());
+                    BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
                     String hexValue = signedEthTransactionData(to, nonce, gasPrice, gasLimit, amount, wallet, credentials);
                     String txHash = web3j.ethSendRawTransaction(hexValue).sendAsync().get().getTransactionHash();
 
@@ -1081,23 +1174,23 @@ public class IBContractUtil extends BaseContract {
     }
 
     private static String signData(RawTransaction rawTransaction, HLWallet wallet, Credentials credentials) throws Exception {
-        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction,credentials);
-        return Numeric.toHexString(signMessage);
-    }
-
-    private static String signData(RawTransaction rawTransaction, Credentials credentials) throws Exception {
         byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
         return Numeric.toHexString(signMessage);
     }
 
+    private static String signData(RawTransaction rawTransaction, Credentials credentials) throws Exception {
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, ChainId.MAINNET, credentials);
+        return Numeric.toHexString(signMessage);
+    }
+
     //erc20转账
-    public static Flowable<String> ERC20Transfer(Context context,Web3j web3j, Credentials credentials, String contractAddress, String toAddress, BigInteger gasPrice, BigInteger gasLimit, String amount) throws Exception {
+    public static Flowable<String> ERC20Transfer(Context context, Web3j web3j, Credentials credentials, String contractAddress, String toAddress, BigInteger gasPrice, BigInteger gasLimit, String amount) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
-                    BigDecimal decimals  = new BigDecimal("10").pow(getTokenDecimals(web3j,credentials.getAddress(),contractAddress));
+                    BigDecimal decimals = new BigDecimal("10").pow(getTokenDecimals(web3j, credentials.getAddress(), contractAddress));
                     BigInteger amountInWei = new BigDecimal(amount).multiply(decimals).toBigInteger();
 
-                    BigInteger nonce =  transactionNonce(context,web3j,credentials.getAddress());
+                    BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
                     Function function = new Function(
                             "transfer",
                             Arrays.asList(new Address(toAddress), new Uint256(amountInWei)),
@@ -1123,12 +1216,12 @@ public class IBContractUtil extends BaseContract {
     }
 
     //erc20 授权  允许_spender多次取回您的帐户，最高达_value金额
-    public static Flowable<String> ERC20Approve(Context context,Web3j web3j, Credentials credentials, String tokenAddress, String addressSpender, BigInteger gasPrice, BigInteger gasLimit, String amount) throws Exception {
+    public static Flowable<String> ERC20Approve(Context context, Web3j web3j, Credentials credentials, String tokenAddress, String addressSpender, BigInteger gasPrice, BigInteger gasLimit, String amount) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
                     BigInteger amountInWei = new BigInteger(amount);
 
-                    BigInteger nonce =  transactionNonce(context,web3j,credentials.getAddress());
+                    BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
 
                     final Function function = new Function(
                             "approve",
@@ -1155,16 +1248,16 @@ public class IBContractUtil extends BaseContract {
     }
 
     //erc20 授权查询
-    public static Flowable<BigInteger> ERC20Allowance(Web3j web3j, String tokenAddress ,String walletAddress, String contractAddress) throws Exception {
+    public static Flowable<BigInteger> ERC20Allowance(Web3j web3j, String tokenAddress, String walletAddress, String contractAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
-                    BigInteger gasPrice =  BigInteger.valueOf(1000000000);
+                    BigInteger gasPrice = BigInteger.valueOf(1000000000);
                     BigInteger gasLimit = BigInteger.valueOf(1000000);
                     ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
                     ERC20Manager erc20Manager = ERC20Manager.load(tokenAddress, web3j, transactionManager, gasPrice, gasLimit);
                     BigInteger remaining = null;
                     try {
-                        remaining = erc20Manager.allowance(walletAddress,contractAddress).sendAsync().get();
+                        remaining = erc20Manager.allowance(walletAddress, contractAddress).sendAsync().get();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (InterruptedException e) {
@@ -1175,10 +1268,10 @@ public class IBContractUtil extends BaseContract {
     }
 
     //Token转账gas预估
-    public static Flowable<BigInteger> getTokenEstimateGas(Web3j web3j, String walletAddress,String contractAddress, String toAddress,String amount)  throws Exception{
+    public static Flowable<BigInteger> getTokenEstimateGas(Web3j web3j, String walletAddress, String contractAddress, String toAddress, String amount) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
-                    BigDecimal decimals  = new BigDecimal("10").pow(getTokenDecimals(web3j,walletAddress,contractAddress));
+                    BigDecimal decimals = new BigDecimal("10").pow(getTokenDecimals(web3j, walletAddress, contractAddress));
                     BigInteger amountInWei = new BigDecimal(amount).multiply(decimals).toBigInteger();
 
                     EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(walletAddress, DefaultBlockParameterName.PENDING).sendAsync().get();
@@ -1194,7 +1287,7 @@ public class IBContractUtil extends BaseContract {
                     Transaction transaction = Transaction.createFunctionCallTransaction(walletAddress, nonce, null, null, contractAddress, encodedFunction);
 
                     BigInteger value = web3j.ethEstimateGas(transaction).sendAsync().get().getAmountUsed();
-                    KLog.w("TokenEstimateGas = "+value);
+                    KLog.w("TokenEstimateGas = " + value);
 
                     return Flowable.just(value);
                 });
@@ -1202,26 +1295,35 @@ public class IBContractUtil extends BaseContract {
 
     //get Token Balance
     public static Flowable<String> getTokenBalance(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
-        return Flowable.just(1)
-                .flatMap(s -> {
-                    BigInteger gasPrice =  BigInteger.valueOf(1000000000);
-                    BigInteger gasLimit = BigInteger.valueOf(1000000);
-                    ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
-                    ERC20Manager erc20Manager = ERC20Manager.load(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
-                    BigInteger tokenBalance = null;
-                    BigInteger decimals =null;
-                    try {
-                        decimals = erc20Manager.decimals().sendAsync().get();
-                        tokenBalance = erc20Manager.balanceOf(walletAddress).sendAsync().get();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    KLog.w("tokenBalance = " +tokenBalance);
-                    KLog.w("decimals = " +decimals);
-                    String value = toDecimal(decimals.intValue(), tokenBalance);
-                    return Flowable.just(value);
-                });
+        RequestBalanceBean bean = new RequestBalanceBean();
+        bean.setAddress(walletAddress);
+        bean.setContractAddress(contractAddress);
+        String json = new Gson().toJson(bean);
+        Response<NormalDataBean> execute = HttpUtil.getBalance(json).execute();
+        int code = execute.code();
+        if (code == 200) {
+            NormalDataBean body = execute.body();
+            if (TextUtils.equals("200", body.getCode())) {
+                String decimals = getTokenDecimals(contractAddress);
+                String value = toDecimal(Integer.parseInt(decimals), new BigInteger(body.getData().get(0).trim()));
+                return Flowable.just(value);
+            } else {
+                throw new Exception("网络异常");
+            }
+        } else {
+            throw new Exception("网络异常");
+        }
 
+
+    }
+
+    private static String getTokenDecimals(String tokenAddress) {
+        for (TokenProfileBean tokenProfileBean : Constants.tokenProfileBeans) {
+            if (TextUtils.equals(tokenAddress, tokenProfileBean.getAddress())) {
+                return tokenProfileBean.getDecimals();
+            }
+        }
+        return "";
     }
 
     //获取代币余额
@@ -1242,7 +1344,7 @@ public class IBContractUtil extends BaseContract {
 
     //获取 Token Decimals 位数
     public static int getTokenDecimals(Web3j web3j, String walletAddress, String contractAddress) {
-        BigInteger gasPrice =  BigInteger.valueOf(1000000000);
+        BigInteger gasPrice = BigInteger.valueOf(1000000000);
         BigInteger gasLimit = BigInteger.valueOf(1000000);
         ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
         ERC20Manager erc20Manager = ERC20Manager.load(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
@@ -1260,7 +1362,7 @@ public class IBContractUtil extends BaseContract {
 
 
     //get ContractBean
-    public  static ContractBean getContractBean( IBContractStatues ibContractStatues ){
+    public static ContractBean getContractBean(IBContractStatues ibContractStatues) {
 
         ContractBean contractBean = new ContractBean();
         //合约地址
@@ -1280,9 +1382,9 @@ public class IBContractUtil extends BaseContract {
         //抵押资产数量
         contractBean.setMortgage(ibContractStatues.getMortgage());
         //手续费
-        contractBean.setServiceCharge(new BigDecimal(ibContractStatues.getAmount()).divide(new BigDecimal("100"))+"");
+        contractBean.setServiceCharge(new BigDecimal(ibContractStatues.getAmount()).divide(new BigDecimal("100")) + "");
         // 实际到账
-        contractBean.setActualAccount(new BigDecimal(ibContractStatues.getAmount()).subtract(new BigDecimal(contractBean.getServiceCharge()))+"");
+        contractBean.setActualAccount(new BigDecimal(ibContractStatues.getAmount()).subtract(new BigDecimal(contractBean.getServiceCharge())) + "");
         // 需转入抵押资产
         contractBean.setNeedMortgage(ibContractStatues.getNeedMortgage());
         // Token地址
@@ -1303,7 +1405,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     //get Tusd ContractBean
-    public  static ContractBean getTusdContractBean( IBTUSDContractStatues statues){
+    public static ContractBean getTusdContractBean(IBTUSDContractStatues statues) {
 
         ContractBean contractBean = new ContractBean();
         //合约地址
@@ -1344,15 +1446,15 @@ public class IBContractUtil extends BaseContract {
         //借币token
         contractBean.setLenderToken(statues.getLenderToken());
 
-        if(statues.getContractType() == null || statues.getContractType().equals("0")){
+        if (statues.getContractType() == null || statues.getContractType().equals("0")) {
             //手续费 1%
-            contractBean.setServiceCharge(new BigDecimal(statues.getAmount()).divide(new BigDecimal("100"))+"");
-            contractBean.setActualAccount(new BigDecimal(statues.getAmount()).subtract(new BigDecimal(contractBean.getServiceCharge()))+"");
-        }else if(statues.getContractType().equals("1")){
+            contractBean.setServiceCharge(new BigDecimal(statues.getAmount()).divide(new BigDecimal("100")) + "");
+            contractBean.setActualAccount(new BigDecimal(statues.getAmount()).subtract(new BigDecimal(contractBean.getServiceCharge())) + "");
+        } else if (statues.getContractType().equals("1")) {
             //手续费 0.5%
-            contractBean.setServiceCharge(new BigDecimal(statues.getMortgage()).divide(new BigDecimal("200"))+"");
+            contractBean.setServiceCharge(new BigDecimal(statues.getMortgage()).divide(new BigDecimal("200")) + "");
             contractBean.setActualAccount(statues.getAmount());
-        }else if(statues.getContractType().equals("2")){
+        } else if (statues.getContractType().equals("2")) {
             //无手续费
             contractBean.setServiceCharge("0");
             contractBean.setActualAccount(statues.getAmount());
