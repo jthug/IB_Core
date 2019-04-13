@@ -1199,7 +1199,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
 
                     @Override
                     protected void failure(HLError error) {
-                        SnackbarUtil.DefaultSnackbar(mBinding.getRoot(), getString(R.string.send_transaction_failed));
+                        SnackbarUtil.DefaultSnackbar(mBinding.getRoot(), getString(R.string.send_transaction_failed)).show();
                         KLog.w(error.getMessage());
                     }
                 });

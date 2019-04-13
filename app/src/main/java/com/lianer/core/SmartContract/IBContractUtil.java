@@ -205,7 +205,7 @@ public class IBContractUtil extends BaseContract {
 
 
         String hexValue = signData(rawTransaction, credentials);
-        Log.e("xxxxxx-2", "gasprice=" + gasPrice + " gasLimit=" + gasLimit + " assetsAmount=" + assetsAmount + " ethAmount=" + ethAmount + " tokenType=" + tokenType + " cycle=" + cycle + " interest=" + interest);
+        Log.e("xxxxxx-2", "gasprice=" + gasPrice + " gasLimit=" + gasLimit + " assetsAmount=" + assetsAmount + " ethAmount=" + ethAmount + " tokenType=" + tokenType + " cycle=" + cycle + " interest=" + interest+" tokenId="+tokenId);
 //                    String txHash = web3j.ethSendRawTransaction(hexValue).sendAsync().get().getTransactionHash();
         String jsonParams = "{\n" +
                 "\t\"hexValue\": \"" + hexValue + "\"\n" +
@@ -914,7 +914,7 @@ public class IBContractUtil extends BaseContract {
 //            ibTusdContractStatues.setLenderToken("ETH");
 //        }
 //
-//        ibTusdContractStatues.setContractAddress(contract.getContractAddress());
+        ibTusdContractStatues.setContractAddress(contractAddress);
 //        KLog.w(ibTusdContractStatues.toString());
 
 
@@ -923,7 +923,6 @@ public class IBContractUtil extends BaseContract {
 
     //get IBTUSDContract Status
     public static Flowable<ContractBean> getTUSDContractInfo(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
-
         return Flowable.just(1)
                 .flatMap(s -> {
 //                    BigInteger gasPrice = new BigInteger("1000000000");
@@ -1021,8 +1020,21 @@ public class IBContractUtil extends BaseContract {
 
                     String hexValue = signData(rawTransaction, credentials);
 
-                    String txHash = web3j.ethSendRawTransaction(hexValue).sendAsync().get().getTransactionHash();
-                    return Flowable.just(txHash);
+
+                    String jsonParams = "{\n" +
+                            "\t\"hexValue\": \"" + hexValue + "\"\n" +
+                            "}";
+                    Response<NormalDataBean> execute = HttpUtil.sendTransaction(jsonParams).execute();
+                    if (execute.code()==200){
+                        if (execute.body().getCode().equals("200")){
+                            String txHash = execute.body().getData().get(0);
+                            return Flowable.just(txHash);
+                        }else {
+                            throw new Exception("网络或服务器异常");
+                        }
+                    }else {
+                        throw new Exception("网络或服务器异常");
+                    }
                 });
     }
 
@@ -1199,19 +1211,36 @@ public class IBContractUtil extends BaseContract {
                     String encodedFunction = FunctionEncoder.encode(function);
                     RawTransaction rawTransaction = RawTransaction.createTransaction(nonce, gasPrice, gasLimit, contractAddress, encodedFunction);
 
-                    byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+                    byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction,ChainId.MAINNET, credentials);
                     String hexValue = Numeric.toHexString(signedMessage);
 
-                    EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).sendAsync().get();
-                    if (ethSendTransaction.hasError()) {
-                        Log.w(TAG, ethSendTransaction.getError().getMessage());
+//                    EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).sendAsync().get();
+//                    if (ethSendTransaction.hasError()) {
+//                        Log.w(TAG, ethSendTransaction.getError().getMessage());
+//
+//                    } else {
+//                        String transactionHash = ethSendTransaction.getTransactionHash();
+//                        Log.w(TAG, transactionHash);
+//
+//                    }
 
-                    } else {
-                        String transactionHash = ethSendTransaction.getTransactionHash();
-                        Log.w(TAG, transactionHash);
-
+                    String jsonParams = "{\n" +
+                            "\t\"hexValue\": \"" + hexValue + "\"\n" +
+                            "}";
+                    Response<NormalDataBean> execute = HttpUtil.sendTransaction(jsonParams).execute();
+                    if (execute.code()==200){
+                        if (execute.body().getCode().equals("200")){
+                            String txHash = execute.body().getData().get(0);
+                            return Flowable.just(txHash);
+                        }else {
+                            KLog.e("失败2");
+                            throw new Exception("网络或服务器异常");
+                        }
+                    }else {
+                        KLog.e("失败1");
+                        throw new Exception("网络或服务器异常");
                     }
-                    return Flowable.just(ethSendTransaction.getTransactionHash());
+
                 });
     }
 
@@ -1344,19 +1373,20 @@ public class IBContractUtil extends BaseContract {
 
     //获取 Token Decimals 位数
     public static int getTokenDecimals(Web3j web3j, String walletAddress, String contractAddress) {
-        BigInteger gasPrice = BigInteger.valueOf(1000000000);
-        BigInteger gasLimit = BigInteger.valueOf(1000000);
-        ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
-        ERC20Manager erc20Manager = ERC20Manager.load(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
-        BigInteger decimals = null;
-        try {
-            decimals = erc20Manager.decimals().sendAsync().get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return decimals.intValue();
+//        BigInteger gasPrice = BigInteger.valueOf(1000000000);
+//        BigInteger gasLimit = BigInteger.valueOf(1000000);
+//        ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
+//        ERC20Manager erc20Manager = ERC20Manager.load(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+//        BigInteger decimals = null;
+//        try {
+//            decimals = erc20Manager.decimals().sendAsync().get();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        return decimals.intValue();
+        return 18;
 
     }
 

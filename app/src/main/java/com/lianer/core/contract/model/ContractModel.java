@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.SimpleItemAnimator;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -333,6 +334,7 @@ public class ContractModel {
                 else if(contractBean.getContractType().equals("2")){
                     holder.setText(R.id.item_contract_coins_type, mContext.getString(R.string.tusd));
                     tokenSymbol = MortgageAssets.getTokenSymbolByAddress(mContext, contractBean.getTokenAddress());
+                    KLog.e("tokenAddress="+contractBean.getTokenAddress()+" tokenSymbol="+tokenSymbol);
                     String mortgage = CommomUtil.getTokenValue(mContext,contractBean.getTokenAddress(),contractBean.getMortgage());
                     holder.setText(R.id.item_contract_token_value, CommomUtil.doubleFormat(mortgage) + " " + tokenSymbol);
                 }

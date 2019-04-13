@@ -1,6 +1,7 @@
 package com.lianer.core.config;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.lianer.common.utils.KLog;
@@ -31,6 +32,7 @@ public class MortgageAssets {
     public static List<TokenMortgageBean> getTokenMortgageList(Context context) {
         if (tokenMortgageList.size() == 0) {
             String result = load(context);
+            KLog.e("xxxxxxresult="+result);
             if(result != null){
                 result = result.replaceAll("\\u0000","");
                 TokenMortgageEntity response = new Gson().fromJson(result,TokenMortgageEntity.class);

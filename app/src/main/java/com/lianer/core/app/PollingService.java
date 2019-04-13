@@ -1,5 +1,6 @@
 package com.lianer.core.app;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -90,21 +91,40 @@ public class PollingService extends Service {
                                 try {
                                     new Thread(() -> PollingUtil.startPolling(getApplicationContext(), pollingBooleanList, finalI, messageCenterBean.getTxHash(), messageCenterBean, new PollingUtil.OnUpdatePageData() {
 
+                                        @SuppressLint("CheckResult")
                                         @Override
                                         public void onTxSuccess(MessageCenterBean centerBean) {
                                             KLog.i("service 推送成功通知");
                                             //改变消息图标为带红点图标
                                             EventBus.getDefault().post(new MessageCenterEventBean());
-                                            try {
-                                                //同步本地nonce
-                                                BigInteger nonce = IBContractUtil.transactionNonce(PollingService.this, TransferUtil.getWeb3j(), HLWalletManager.shared().getCurrentWallet(PollingService.this).getAddress());
-                                            } catch (ExecutionException e) {
-                                                e.printStackTrace();
-                                            } catch (InterruptedException e) {
-                                                e.printStackTrace();
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
+//                                            try {
+//                                                //同步本地nonce
+//                                                BigInteger nonce = IBContractUtil.transactionNonce(PollingService.this, TransferUtil.getWeb3j(), HLWalletManager.shared().getCurrentWallet(PollingService.this).getAddress());
+//                                            } catch (ExecutionException e) {
+//                                                e.printStackTrace();
+//                                            } catch (InterruptedException e) {
+//                                                e.printStackTrace();
+//                                            } catch (Exception e) {
+//                                                e.printStackTrace();
+//                                            }
+                                            Flowable.just(1)
+                                                    .map(s->{
+                                                        BigInteger nonce = IBContractUtil.transactionNonce(PollingService.this, TransferUtil.getWeb3j(), HLWalletManager.shared().getCurrentWallet(PollingService.this).getAddress());
+                                                        return nonce;
+                                                    }).subscribeOn(Schedulers.io())
+                                                    .observeOn(AndroidSchedulers.mainThread())
+                                                    .subscribe(new HLSubscriber<BigInteger>() {
+                                                        @Override
+                                                        protected void success(BigInteger data) {
+                                                            KLog.i("同步本地nonce成功");
+                                                        }
+
+                                                        @Override
+                                                        protected void failure(HLError error) {
+                                                            KLog.i("同步本地nonce失败");
+                                                        }
+                                                    });
+
                                             CommomUtil.pushNotification(getApplicationContext(), centerBean.getTxHash(), getString(ContractStatus.MESSAGE_STATUS[messageCenterBean.getTxStatusValue()]));
                                         }
 
@@ -114,16 +134,34 @@ public class PollingService extends Service {
                                             //改变消息图标为带红点图标
                                             EventBus.getDefault().post(new MessageCenterEventBean());
 
-                                            try {
-                                                //同步本地nonce
-                                                BigInteger nonce = IBContractUtil.transactionNonce(PollingService.this, TransferUtil.getWeb3j(), HLWalletManager.shared().getCurrentWallet(PollingService.this).getAddress());
-                                            } catch (ExecutionException e) {
-                                                e.printStackTrace();
-                                            } catch (InterruptedException e) {
-                                                e.printStackTrace();
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
+//                                            try {
+//                                                //同步本地nonce
+//                                                BigInteger nonce = IBContractUtil.transactionNonce(PollingService.this, TransferUtil.getWeb3j(), HLWalletManager.shared().getCurrentWallet(PollingService.this).getAddress());
+//                                            } catch (ExecutionException e) {
+//                                                e.printStackTrace();
+//                                            } catch (InterruptedException e) {
+//                                                e.printStackTrace();
+//                                            } catch (Exception e) {
+//                                                e.printStackTrace();
+//                                            }
+
+                                            Flowable.just(1)
+                                                    .map(s->{
+                                                        BigInteger nonce = IBContractUtil.transactionNonce(PollingService.this, TransferUtil.getWeb3j(), HLWalletManager.shared().getCurrentWallet(PollingService.this).getAddress());
+                                                        return nonce;
+                                                    }).subscribeOn(Schedulers.io())
+                                                    .observeOn(AndroidSchedulers.mainThread())
+                                                    .subscribe(new HLSubscriber<BigInteger>() {
+                                                        @Override
+                                                        protected void success(BigInteger data) {
+                                                            KLog.i("同步本地nonce成功");
+                                                        }
+
+                                                        @Override
+                                                        protected void failure(HLError error) {
+                                                            KLog.i("同步本地nonce失败");
+                                                        }
+                                                    });
                                             CommomUtil.pushNotification(getApplicationContext(), centerBean.getTxHash(), getString(ContractStatus.MESSAGE_STATUS[messageCenterBean.getTxStatusValue()]));
                                         }
                                     })).start();

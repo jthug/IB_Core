@@ -251,7 +251,7 @@ public class PollingUtil {
 
                     @Override
                     protected void failure(HLError error) {
-                        KLog.e("generateContract:"+"交易生成失败");
+                        KLog.e("generateContract:"+"交易生成失败"+error.getMessage()+"  code="+error.code);
                     }
                 });
 
