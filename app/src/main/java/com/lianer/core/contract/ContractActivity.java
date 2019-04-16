@@ -399,15 +399,15 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
         }
 
         //投资金额
-        mBinding.contractStep3.investAmount.setText(toEther(mContractBean.getAmount()) + " ETH");
+        mBinding.contractStep3.investAmount.setText(toEther(mContractBean.getAmount()) + " HPB");
         //到期收益
-        mBinding.contractStep3.dueIncome.setText(toEther(mContractBean.getExpire()) + " ETH");
+        mBinding.contractStep3.dueIncome.setText(toEther(mContractBean.getExpire()) + " HPB");
         if (mContractBean.getInvestmentTime() != null && !mContractBean.getInvestmentTime().equals("0")) {
             mBinding.contractStep3.investTime.setText(DateUtils.timedate(mContractBean.getInvestmentTime()));
         }
 
         //还款信息
-        mBinding.contractStep4.duePayment.setText(toEther(mContractBean.getExpire()) + " ETH");
+        mBinding.contractStep4.duePayment.setText(toEther(mContractBean.getExpire()) + " HPB");
         mBinding.contractStep4.retrieveMortgage.setText(mortgageAssets);
         if (mContractBean.getContractState().equals(ContractStatus.CONTRACT_STATUS_REPAID)) {
             mBinding.contractStep4.repaymentTime.setText(DateUtils.timedate(mContractBean.getEndTime()));
@@ -744,13 +744,13 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
 
             case R.id.contract_step_3:
                 transferConfirm(CONTRACT_INVEST, getString(R.string.invest),
-                        toEther(mContractBean.getAmount()) + " ETH",
+                        toEther(mContractBean.getAmount()) + " HPB",
                         mContractBean.getContractAddress());
                 break;
 
             case R.id.contract_step_4:
                 transferConfirm(CONTRACT_REPAYMENT, getString(R.string.repayment),
-                        toEther(mContractBean.getExpire()) + " ETH",
+                        toEther(mContractBean.getExpire()) + " HPB",
                         mContractBean.getContractAddress());
                 break;
 
@@ -769,7 +769,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
                         break;
                     //合约部署
                     case CONTRACT_DEPLOY:
-                        transferConfirm(CONTRACT_DEPLOY, getString(R.string.deploy_contract), "0 ETH", "----");
+                        transferConfirm(CONTRACT_DEPLOY, getString(R.string.deploy_contract), "0 HPB", "----");
                         break;
                     //转入抵押
                     case CONTRACT_MORTGAGE:
@@ -784,13 +784,13 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
                     //投资
                     case CONTRACT_INVEST:
                         transferConfirm(CONTRACT_INVEST, getString(R.string.invest),
-                                toEther(mContractBean.getAmount()) + " ETH",
+                                toEther(mContractBean.getAmount()) + " HPB",
                                 mContractBean.getContractAddress());
                         break;
                     //还款
                     case CONTRACT_REPAYMENT:
                         transferConfirm(CONTRACT_REPAYMENT, getString(R.string.repayment),
-                                toEther(mContractBean.getExpire()) + " ETH",
+                                toEther(mContractBean.getExpire()) + " HPB",
                                 mContractBean.getContractAddress());
                         break;
                     //逾期
@@ -1023,7 +1023,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
                         //保留小数点后四位
                         mEthBalance = CommomUtil.decimalTo4Point(data);
                         //ETH余额
-                        ethAvailableAmount.setText(getString(R.string.available_amount, "ETH", mEthBalance));
+                        ethAvailableAmount.setText(getString(R.string.available_amount, "HPB", mEthBalance));
                         //gas均价
                         getEthPrice(seekBar);
                     }
@@ -1364,9 +1364,9 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
 
         String needMortgageAssets = new BigDecimal(mContractBean.getNeedMortgage()).setScale(0, BigDecimal.ROUND_UP).longValue() + " " + tokenymbol;
         mBinding.contractStep2.mortgageAmount.setText(needMortgageAssets);
-        mBinding.contractStep3.investAmount.setText(mContractBean.getAmount() + " ETH");
-        mBinding.contractStep3.dueIncome.setText(mContractBean.getExpire() + " ETH");
-        mBinding.contractStep4.duePayment.setText(mContractBean.getExpire() + " ETH");
+        mBinding.contractStep3.investAmount.setText(mContractBean.getAmount() + " HPB");
+        mBinding.contractStep3.dueIncome.setText(mContractBean.getExpire() + " HPB");
+        mBinding.contractStep4.duePayment.setText(mContractBean.getExpire() + " HPB");
         mBinding.contractStep4.retrieveMortgage.setText(needMortgageAssets);
         mBinding.contractStep5.getMortgage.setText(needMortgageAssets);
     }
@@ -1391,7 +1391,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onSelected(int index) {
                 mContractBean.setAmount(amoutData.get(index) + "");
-                textView.setText(totalCalculation() + " ETH");
+                textView.setText(totalCalculation() + " HPB");
             }
         });
         if (Integer.valueOf(mContractBean.getAmount()) != 0) {
@@ -1415,7 +1415,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onSelected(int index) {
                 mContractBean.setCycle(cycleData.get(index) + "");
-                textView.setText(totalCalculation() + " ETH");
+                textView.setText(totalCalculation() + " HPB");
             }
         });
         if (Integer.valueOf(mContractBean.getCycle()) != 0) {
@@ -1444,7 +1444,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
             public void onSelected(int index) {
                 mContractBean.setInterest(rateData.get(index) + "");
                 ;
-                textView.setText(totalCalculation() + " ETH");
+                textView.setText(totalCalculation() + " HPB");
             }
         });
         if (Double.valueOf(mContractBean.getInterest()) != 0) {
@@ -1511,7 +1511,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
-        textView.setText(totalCalculation() + " ETH");
+        textView.setText(totalCalculation() + " HPB");
 
         contractParamPopupWindow.showAtLocation(mBinding.getRoot(), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
@@ -1530,7 +1530,7 @@ public class ContractActivity extends BaseActivity implements View.OnClickListen
         mortgageAssetsAmount.setText(mContractBean.getNeedMortgage() + " " + data.getTokenAbbreviation());
         mContractBean.setTokenAddress(data.getTokenAddress());
         //折合
-        equivalent.setText(fourFormat.format(Double.valueOf(mContractBean.getNeedMortgage()) * mExchangeRate) + " ETH");
+        equivalent.setText(fourFormat.format(Double.valueOf(mContractBean.getNeedMortgage()) * mExchangeRate) + " HPB");
         //手续费
         mContractBean.setServiceCharge(Double.valueOf(mContractBean.getAmount()) * COMMISSION_RATE + "");
         //实际到账

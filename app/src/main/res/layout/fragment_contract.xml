@@ -99,7 +99,8 @@
                     style="@style/c6t2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/or" />
+                    android:text="@string/or"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/deploy_tusd_contract"
@@ -108,7 +109,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_10"
-                    android:text="@string/new_tusd_contract" />
+                    android:text="@string/new_tusd_contract"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
