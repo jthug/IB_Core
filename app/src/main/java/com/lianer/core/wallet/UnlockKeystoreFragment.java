@@ -1,7 +1,9 @@
 package com.lianer.core.wallet;
 
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -20,6 +22,7 @@ import com.gs.keyboard.SecurityConfigure;
 import com.gs.keyboard.SecurityKeyboard;
 import com.lianer.common.utils.ACache;
 import com.lianer.common.utils.KLog;
+import com.lianer.core.SmartContract.IBContractUtil;
 import com.lianer.core.app.Constants;
 import com.lianer.core.base.BaseFragment;
 import com.lianer.core.R;
@@ -33,6 +36,7 @@ import com.lianer.core.stuff.HLError;
 import com.lianer.core.stuff.HLSubscriber;
 import com.lianer.core.stuff.ScheduleCompat;
 import com.lianer.core.utils.SnackbarUtil;
+import com.lianer.core.utils.TransferUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -55,6 +59,7 @@ public class UnlockKeystoreFragment extends BaseFragment implements View.OnClick
     TextView readConfirm;
     //免责协议
     private boolean isAgree = true;
+    private HLWallet currentWallet;
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -117,12 +122,18 @@ public class UnlockKeystoreFragment extends BaseFragment implements View.OnClick
                     protected void success(HLWallet data) {
                         SnackbarUtil.DefaultSnackbar(mView,getString(R.string.import_success)).show();
                         Flowable.just(1)
+                                .map(s->{
+                                    currentWallet = HLWalletManager.shared().getCurrentWallet(getContext());
+                                    long nonce = IBContractUtil.getNonce(TransferUtil.getWeb3j(), currentWallet.getAddress());
+                                    return nonce;
+                                })
                                 .delay(2000, TimeUnit.MILLISECONDS)
                                 .compose(ScheduleCompat.apply())
-                                .subscribe(integer -> {
+                                .subscribe(nonce -> {
 
-                                    HLWallet currentWallet = HLWalletManager.shared().getCurrentWallet(getContext());
                                     Log.w("wallet",currentWallet.getAddress());
+                                    SharedPreferences sp = getContext().getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
+                                    sp.edit().putLong(Constants.TRANSACTION_NONCE, nonce).apply();
                                     ACache.get(getContext()).put(Tag.IS_BACKUP, "true");
                                     Intent intent = new Intent(mActivity, MainAct.class);
                                     intent.putExtra(Tag.INDEX,1);

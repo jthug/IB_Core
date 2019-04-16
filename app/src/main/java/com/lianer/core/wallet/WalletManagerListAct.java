@@ -110,26 +110,38 @@ public class WalletManagerListAct extends BaseActivity implements WalletListAdap
             case WalletListAdapter.SWITCHWALLET:
 
                 //每次切换钱包重新缓存当前钱包nonce
-                long nonce = 0;
-                try {
-                    nonce = IBContractUtil.getNonce(TransferUtil.getWeb3j(), mWallets.get(position).getAddress());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    SnackbarUtil.DefaultSnackbar(mBinding.getRoot(),getString(R.string.nonce_error)).show();
-                    return;
-                }
-                SharedPreferences sp = getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
-                HLWalletManager.shared().switchCurrentWallet(WalletManagerListAct.this, mWallets.get(position));
-                mWalletListAdapter.refreshData();
+//                long nonce = 0;
+//                try {
+//                    nonce = IBContractUtil.getNonce(TransferUtil.getWeb3j(), mWallets.get(position).getAddress());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    SnackbarUtil.DefaultSnackbar(mBinding.getRoot(),getString(R.string.nonce_error)).show();
+//                    return;
+//                }
+//                SharedPreferences sp = getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
+//                HLWalletManager.shared().switchCurrentWallet(WalletManagerListAct.this, mWallets.get(position));
+//                mWalletListAdapter.refreshData();
 
-                sp.edit().putLong(Constants.TRANSACTION_NONCE, nonce).apply();
+//                sp.edit().putLong(Constants.TRANSACTION_NONCE, nonce).apply();
+
+
+//                每次切换钱包重新缓存当前钱包nonce
                 Flowable.just(1)
+                        .map(s->{
+                            long nonce = IBContractUtil.getNonce(TransferUtil.getWeb3j(), mWallets.get(position).getAddress());
+                            return nonce;
+                        })
                         .delay(300,TimeUnit.MILLISECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Consumer<Integer>() {
+                        .subscribe(new Consumer<Long>() {
                             @Override
-                            public void accept(Integer integer) throws Exception {
+                            public void accept(Long nonce) throws Exception {
+                                SharedPreferences sp = getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
+                                HLWalletManager.shared().switchCurrentWallet(WalletManagerListAct.this, mWallets.get(position));
+                                mWalletListAdapter.refreshData();
+
+                                sp.edit().putLong(Constants.TRANSACTION_NONCE, nonce).apply();
                                 finish();
                             }
                         });

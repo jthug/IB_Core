@@ -955,8 +955,25 @@ public class IBContractUtil extends BaseContract {
 
                     String hexValue = signData(rawTransaction, credentials);
 
-                    String txHash = web3j.ethSendRawTransaction(hexValue).sendAsync().get().getTransactionHash();
-                    return Flowable.just(txHash);
+//                    String txHash = web3j.ethSendRawTransaction(hexValue).sendAsync().get().getTransactionHash();
+//                    return Flowable.just(txHash);
+
+                    String jsonParams = "{\n" +
+                            "\t\"hexValue\": \"" + hexValue + "\"\n" +
+                            "}";
+
+                    Response<NormalDataBean> execute = HttpUtil.sendTransaction(jsonParams).execute();
+                    if (execute.code() == 200) {
+                        NormalDataBean bean = execute.body();
+                        if (TextUtils.equals("200", bean.getCode())) {
+                            String txHash = bean.getData().get(0);
+                            return Flowable.just(txHash);
+                        } else {
+                            throw new Exception("网络异常");
+                        }
+                    } else {
+                        throw new Exception("网络异常");
+                    }
                 });
     }
 
@@ -976,8 +993,25 @@ public class IBContractUtil extends BaseContract {
 
                     String hexValue = signData(rawTransaction, credentials);
 
-                    String txHash = web3j.ethSendRawTransaction(hexValue).sendAsync().get().getTransactionHash();
-                    return Flowable.just(txHash);
+//                    String txHash = web3j.ethSendRawTransaction(hexValue).sendAsync().get().getTransactionHash();
+//                    return Flowable.just(txHash);
+
+                    String jsonParams = "{\n" +
+                            "\t\"hexValue\": \"" + hexValue + "\"\n" +
+                            "}";
+
+                    Response<NormalDataBean> execute = HttpUtil.sendTransaction(jsonParams).execute();
+                    if (execute.code() == 200) {
+                        NormalDataBean bean = execute.body();
+                        if (TextUtils.equals("200", bean.getCode())) {
+                            String txHash = bean.getData().get(0);
+                            return Flowable.just(txHash);
+                        } else {
+                            throw new Exception("网络异常");
+                        }
+                    } else {
+                        throw new Exception("网络异常");
+                    }
                 });
     }
 
@@ -1114,7 +1148,6 @@ public class IBContractUtil extends BaseContract {
 //                    String decimal = toDecimal(18, balance.getBalance());
 //                    return Flowable.just(decimal);
 //                });
-        final String[] result = {null};
         RequestBalanceBean requestBalanceBean = new RequestBalanceBean();
         requestBalanceBean.setAddress(userAddress);
         requestBalanceBean.setContractAddress("666");

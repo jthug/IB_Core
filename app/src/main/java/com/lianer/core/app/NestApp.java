@@ -98,7 +98,11 @@ public class NestApp extends BaseApplication {
                 }
             }
 
-            //添加HHQ，ZXF
+            //添加HHQ，ZXF,PHB
+            TokenProfileBean hpb = new TokenProfileBean();
+            hpb.setAddress("");
+            hpb.setDecimals("18");
+            hpb.setSymbol("HPB");
             TokenProfileBean hhq = new TokenProfileBean();
             hhq.setAddress(Constants.HHQAddress);
             hhq.setDecimals("18");
@@ -109,6 +113,7 @@ public class NestApp extends BaseApplication {
             zxf.setSymbol("ZXF");
             Constants.tokenProfileBeans.add(hhq);
             Constants.tokenProfileBeans.add(zxf);
+            Constants.tokenProfileBeans.add(hpb);
         }
     }
 

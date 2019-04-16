@@ -1,10 +1,14 @@
 package com.lianer.core.utils;
 
+import android.text.TextUtils;
+
+import com.google.gson.Gson;
 import com.lianer.common.utils.KLog;
 import com.lianer.core.SmartContract.IBContractUtil;
 import com.lianer.core.app.Constants;
 import com.lianer.core.databean.InfoDataBean;
 import com.lianer.core.databean.NormalDataBean;
+import com.lianer.core.databean.requestbean.RequestBalanceBean;
 import com.lianer.core.manager.ERC20Manager;
 import com.lianer.core.SmartContract.TokenERC20;
 import com.lianer.core.model.HLWallet;
@@ -95,12 +99,29 @@ public class TransferUtil {
      * @throws IOException
      */
     public static String getEthBanlance(Admin web3j, String userAddress) throws Exception {
-        //获取指定钱包的以太币余额
-        EthGetBalance balance = web3j.ethGetBalance(userAddress, DefaultBlockParameterName.LATEST).sendAsync().get();
-        //eth默认会部18个0
-        String decimal = toDecimal(18, balance.getBalance());
-        Logger.i("ETH:" + decimal);
-        return decimal;
+//        //获取指定钱包的以太币余额
+//        EthGetBalance balance = web3j.ethGetBalance(userAddress, DefaultBlockParameterName.LATEST).sendAsync().get();
+//        //eth默认会部18个0
+//        String decimal = toDecimal(18, balance.getBalance());
+//        Logger.i("ETH:" + decimal);
+//        return decimal;
+        RequestBalanceBean requestBalanceBean = new RequestBalanceBean();
+        requestBalanceBean.setAddress(userAddress);
+        requestBalanceBean.setContractAddress("666");
+        String json = new Gson().toJson(requestBalanceBean);
+        Response<NormalDataBean> execute = HttpUtil.getBalance(json).execute();
+        int code = execute.code();
+        if (200 == code) {
+            NormalDataBean body = execute.body();
+            if (TextUtils.equals("200", body.getCode())) {
+                String s = toDecimal(18, new BigInteger(body.getData().get(0).trim()));
+                return s;
+            } else {
+                throw new Exception("网络异常");
+            }
+        } else {
+            throw new Exception("网络异常");
+        }
     }
 
     /**
@@ -335,26 +356,45 @@ public class TransferUtil {
      * @throws
      */
     public static String getTokenBalance(Web3j web3j, String walletAddress, String tokenAddress) throws Exception {
-        BigInteger gasPrice =  BigInteger.valueOf(1000000000);
-        BigInteger gasLimit = BigInteger.valueOf(1000000);
-        ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
-        ERC20Manager erc20Manager = ERC20Manager.load(tokenAddress, web3j, transactionManager, gasPrice, gasLimit);
-        BigInteger tokenBalance = null;
-        BigInteger decimals =null;
-        try {
-            decimals = erc20Manager.decimals().sendAsync().get();
-            tokenBalance = erc20Manager.balanceOf(walletAddress).sendAsync().get();
-        } catch (Exception e) {
-            e.printStackTrace();
+//        BigInteger gasPrice =  BigInteger.valueOf(1000000000);
+//        BigInteger gasLimit = BigInteger.valueOf(1000000);
+//        ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
+//        ERC20Manager erc20Manager = ERC20Manager.load(tokenAddress, web3j, transactionManager, gasPrice, gasLimit);
+//        BigInteger tokenBalance = null;
+//        BigInteger decimals =null;
+//        try {
+////            decimals = erc20Manager.decimals().sendAsync().get();
+//            decimals = BigInteger.valueOf(18);
+//            tokenBalance = erc20Manager.balanceOf(walletAddress).sendAsync().get();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        if(decimals == null){
+//            return "0";
+//        }
+//        String value = toDecimal(decimals.intValue(), tokenBalance);
+//        KLog.w("tokenBalance = " +tokenBalance);
+//        KLog.w("decimals = " +decimals);
+//        KLog.w("value = " +value);
+//        return value;
+
+        RequestBalanceBean requestBalanceBean = new RequestBalanceBean();
+        requestBalanceBean.setAddress(walletAddress);
+        requestBalanceBean.setContractAddress(tokenAddress);
+        String json = new Gson().toJson(requestBalanceBean);
+        Response<NormalDataBean> execute = HttpUtil.getBalance(json).execute();
+        int code = execute.code();
+        if (200 == code) {
+            NormalDataBean body = execute.body();
+            if (TextUtils.equals("200", body.getCode())) {
+                String s = toDecimal(18, new BigInteger(body.getData().get(0).trim()));
+                return s;
+            } else {
+                throw new Exception("网络异常");
+            }
+        } else {
+            throw new Exception("网络异常");
         }
-        if(decimals == null){
-            return "0";
-        }
-        String value = toDecimal(decimals.intValue(), tokenBalance);
-        KLog.w("tokenBalance = " +tokenBalance);
-        KLog.w("decimals = " +decimals);
-        KLog.w("value = " +value);
-        return value;
     }
 
 //    public static  IBContract  deploymentContract( Web3j web3j,Credentials credentials, BigInteger gasPrice, BigInteger gasLimit,int assetsAmount,int ethAmount,  String tokenAddress,int cycle, int interest ) throws Exception {

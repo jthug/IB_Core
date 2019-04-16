@@ -4,7 +4,7 @@
     <string name="borrow">Loan</string>
 
     <string name="nest">NEST</string>
-    <string name="eth">ETH</string>
+    <string name="eth">HPB</string>
     <string name="my_contract">我的合约</string>
     <string name="launcher_info">去中心化数字资产抵押借贷 DApp</string>
 
@@ -119,8 +119,8 @@
 
     <!-- 市场模块 -->
     <string name="publish_time">发布时间</string>
-    <string name="borrow_amount">借 ETH 数量</string>
-    <string name="borrowing_amount">借入数量(ETH)</string>
+    <string name="borrow_amount">借 HPB 数量</string>
+    <string name="borrowing_amount">借入数量(HPB)</string>
     <string name="borrow_tusd_amount">借入数量(TUSD)</string>
     <string name="discount_rate">抵押率</string>
     <string name="mortgage_rate">抵押率</string>
@@ -136,7 +136,7 @@
     <string name="mortgaged_assets">抵押资产</string>
     <string name="market_day">/ 天</string>
     <string name="mortgage_assets_type">抵押资产类型</string>
-    <string name="transaction_record_statistics" formatted="false">已成交%s单，累计交易%sETH，%sTUSD</string>
+    <string name="transaction_record_statistics" formatted="false">已成交%s单，累计交易%sHPB，%sTUSD</string>
 
     <!-- 合约管理模块 -->
     <string name="contract_management">合约管理</string>
@@ -167,7 +167,7 @@
     <string name="contract_type">合约类型</string>
     <string name="contract_address">合约地址</string>
     <string name="invest_assets">投资资产</string>
-    <string name="contract_eth">ETH 借贷合约</string>
+    <string name="contract_eth">HPB 借贷合约</string>
     <string name="effect_time">生效时间</string>
     <string name="overdue_time">逾期时间</string>
     <string name="time_4">逾期时间</string>
@@ -196,7 +196,7 @@
     <string name="compromise">折合</string>
     <string name="equivalent">折合</string>
     <string name="tx_type">交易类型</string>
-    <string name="new_eth_contract">借 ETH</string>
+    <string name="new_eth_contract">借 HPB</string>
     <string name="new_tusd_contract">借 TUSD</string>
     <string name="deploy_contract">部署合约</string>
     <string name="message_status_1">部署合约</string>
@@ -313,8 +313,8 @@
 
     <string name="contract_restore">导入合约 ></string>
     <string name="send_transaction_failed">发起交易失败,请重试</string>
-    <string name="eth_wallet">ETH wallet</string>
-    <string name="eth_amount">%s ETH</string>
+    <string name="eth_wallet">HPB wallet</string>
+    <string name="eth_amount">%s HPB</string>
     <string name="tusd">TUSD</string>
     <string name="tusd_amount">%s TUSD</string>
     <string name="token_send">%s 转账</string>
@@ -390,7 +390,7 @@
     <string name="time_limit_desc">timeLimit desc</string>
     <string name="time_limit_asc">timeLimit asc</string>
     <string name="invest_assets_amount">投资资产数量</string>
-    <string name="current_eth_balance">当前 ETH 余额：%s</string>
+    <string name="current_eth_balance">当前 HPB 余额：%s</string>
     <string name="no_contract_sheet">暂无可投资合约单</string>
     <string name="invested">已投资</string>
     <string name="repaymented">借方已还款</string>
@@ -404,17 +404,17 @@
     <string name="current_dynamic_contract">当前有 %d 条动态合约单</string>
     <string name="current_token_amount" formatted="false">当前 %s 余额: %s</string>
     <string name="borrowing_description">借币说明</string>
-    <string name="borrowing_rule">每种抵押资产最多可借计算方式如下：\n最多可借 = 当前余额×折扣率×资产昨日均价\n资产昨日均价为该抵押资产前一天兑ETH的平均价格\n* 提前还款也需偿还全部本息</string>
-    <string name="maximum_loanable">最多可借: %s ETH</string>
-    <string name="maximum_loanable_0">最大可借: -.---- ETH</string>
-    <string name="borrowing_now">马上借 ETH</string>
+    <string name="borrowing_rule">每种抵押资产最多可借计算方式如下：\n最多可借 = 当前余额×折扣率×资产昨日均价\n资产昨日均价为该抵押资产前一天兑HPB的平均价格\n* 提前还款也需偿还全部本息</string>
+    <string name="maximum_loanable">最多可借: %s HPB</string>
+    <string name="maximum_loanable_0">最大可借: -.---- HPB</string>
+    <string name="borrowing_now">马上借 HPB</string>
     <string name="select_borrowing_amount">请选择借币数量</string>
     <string name="select_borrowing_interest">请选择借币利息</string>
     <string name="select_borrowing_cycle">请选择借币天数</string>
     <string name="assets_average_price">资产昨日均价</string>
     <string name="mortgage_assets_amount">抵押资产数量</string>
     <string name="mortgage_discount_rate">抵押折扣率（%）</string>
-    <string name="mortgage_assets_equivalent">抵押资产折合ETH</string>
+    <string name="mortgage_assets_equivalent">抵押资产折合HPB</string>
     <string name="have_read">已阅读</string>
 
     <string name="create_contract">创建合约单</string>
@@ -512,7 +512,7 @@
 
     <string name="approve">授权</string>
     <string name="approve_cancel">取消授权</string>
-    <string name="step_invest_approve_hint">投资涉及 ETH 的合约将有额外的挖矿积分奖励</string>
+    <string name="step_invest_approve_hint">投资涉及 HPB 的合约将有额外的挖矿积分奖励</string>
     <string name="step_repayment_approve_hint">授权后可还款，授权状态可随时取消</string>
     <string name="approve_amount">授权金额</string>
 
@@ -540,7 +540,7 @@
     <string name="credit_efficiency">贷方挖矿效率</string>
     <string name="nest_token_address">NEST Token 地址</string>
     <string name="cumulative_dividend">累计奖励</string>
-    <string name="community_cumulative_dividend">社区累计奖励 ETH</string>
+    <string name="community_cumulative_dividend">社区累计奖励 HPB</string>
     <string name="cumulative_mining">累计挖矿</string>
     <string name="dividend_detail">奖励详情</string>
     <string name="mining_detail">挖矿详情</string>s
@@ -592,7 +592,7 @@
     <string name="withdraw_nest">取出 NEST</string>
     <string name="authorized">授权</string>
     <string name="receive_income">领取收益</string>
-    <string name="can_be_withdraw">ETH 可领取</string>
+    <string name="can_be_withdraw">HPB 可领取</string>
     <string name="withdraw_success">领取成功</string>
     <string name="authorized_success">授权成功，请存入</string>
     <string name="income_details">收益明细</string>

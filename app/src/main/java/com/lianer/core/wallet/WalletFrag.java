@@ -154,17 +154,41 @@ public class WalletFrag extends BaseFragment {
                 //当前钱包地址
                 String walletAddress = HLWalletManager.shared().getCurrentWallet(getContext()).getWalletFile().getAddress();
 
+//                //代币logo
+//                ImageView tokenLogo = holder.getView(R.id.token_logo);
+//                if (symbol.equalsIgnoreCase(Constants.ASSETS_ETH)) {
+//                    tokenLogo.setImageResource(R.drawable.ic_eth);
+//                }
+//
+//
+//                //TODO nest代币
+//                else if (symbol.equalsIgnoreCase(Constants.ASSETS_NEST)) {
+//                    tokenLogo.setImageResource(R.drawable.ic_nest);
+//                }
+//                else {
+//                    RequestOptions options = new RequestOptions()
+//                            .placeholder(R.drawable.ic_default_eth)
+//                            .transform(new GlideRoundTransform(getContext(), (int) getResources().getDimension(R.dimen.dp_20)));
+//                    Glide.with(getContext())
+//                            .load(Constants.ASSET_IMAGE_ADDRESS + data.getAddress() + Constants.PNG)
+//                            .apply(options)
+//                            .into(tokenLogo);
+////                            .transform(new GlideRoundTransform(getContext(), (int) getResources().getDimension(R.dimen.dp_20))).into(tokenLogo);
+//                }
+
                 //代币logo
                 ImageView tokenLogo = holder.getView(R.id.token_logo);
-                if (symbol.equalsIgnoreCase(Constants.ASSETS_ETH)) {
-                    tokenLogo.setImageResource(R.drawable.ic_eth);
+                if (symbol.equalsIgnoreCase("HPB")) {
+                    tokenLogo.setImageResource(R.drawable.ic_default_eth);
                 }
 
+
                 //TODO nest代币
-                else if (symbol.equalsIgnoreCase(Constants.ASSETS_NEST)) {
-                    tokenLogo.setImageResource(R.drawable.ic_nest);
-                }
-                else {
+                else if (symbol.equalsIgnoreCase("ZXF")) {
+                    tokenLogo.setImageResource(R.drawable.ic_default_eth);
+                }else if (symbol.equalsIgnoreCase("HHQ")){
+                    tokenLogo.setImageResource(R.drawable.ic_default_eth);
+                } else {
                     RequestOptions options = new RequestOptions()
                             .placeholder(R.drawable.ic_default_eth)
                             .transform(new GlideRoundTransform(getContext(), (int) getResources().getDimension(R.dimen.dp_20)));
@@ -221,7 +245,10 @@ public class WalletFrag extends BaseFragment {
                 //币种条目的币值获取
                 Flowable.just(walletAddress)
                         .map(s -> {
-                            if (symbol.equalsIgnoreCase(Constants.ASSETS_ETH)) {
+//                            if (symbol.equalsIgnoreCase(Constants.ASSETS_ETH)) {
+//                                return TransferUtil.getEthBanlance(TransferUtil.getWeb3j(), Constant.PREFIX_16 + walletAddress);
+//                            }
+                            if (symbol.equalsIgnoreCase("hpb")) {
                                 return TransferUtil.getEthBanlance(TransferUtil.getWeb3j(), Constant.PREFIX_16 + walletAddress);
                             }
                             return TransferUtil.getTokenBalance(TransferUtil.getWeb3j(), Constant.PREFIX_16 + walletAddress, data.getAddress());
@@ -268,16 +295,35 @@ public class WalletFrag extends BaseFragment {
         TokenProfileBean ethTokenProfileBean = null;
         //TODO nest代币
         TokenProfileBean nestTokenProfileBean = null;
+        //hhq
+        TokenProfileBean hhqProfileBean = null;
         for (TokenProfileBean tokenProfileBean : Constants.tokenProfileBeans) {
-            //固定添加ETH
-            if (tokenProfileBean.getSymbol().equalsIgnoreCase(Constants.ASSETS_ETH)) {
+            if (tokenProfileBean.getSymbol().equalsIgnoreCase("HHQ"))
+            KLog.e("symbol="+tokenProfileBean.getSymbol());
+//            //固定添加ETH
+//            if (tokenProfileBean.getSymbol().equalsIgnoreCase(Constants.ASSETS_ETH)) {
+//                ethTokenProfileBean = tokenProfileBean;
+//            }
+//            //TODO nest代币
+//            else if (tokenProfileBean.getSymbol().equalsIgnoreCase(Constants.ASSETS_NEST)) {
+//                nestTokenProfileBean = tokenProfileBean;
+//            }
+//            else {
+//                if (SPUtils.getInstance().getBoolean(tokenProfileBean.getSymbol())) {
+//                    tempTokenProfileBeanList.add(tokenProfileBean);
+//                }
+//            }
+
+            //固定添加hpb
+            if (tokenProfileBean.getSymbol().equalsIgnoreCase("HPB")) {
                 ethTokenProfileBean = tokenProfileBean;
             }
-            //TODO nest代币
-            else if (tokenProfileBean.getSymbol().equalsIgnoreCase(Constants.ASSETS_NEST)) {
+            //TODO zxf代币
+            else if (tokenProfileBean.getSymbol().equalsIgnoreCase("ZXF")) {
                 nestTokenProfileBean = tokenProfileBean;
-            }
-            else {
+            }else if (tokenProfileBean.getSymbol().equalsIgnoreCase("HHQ")){ //hhq
+                hhqProfileBean = tokenProfileBean;
+            } else {
                 if (SPUtils.getInstance().getBoolean(tokenProfileBean.getSymbol())) {
                     tempTokenProfileBeanList.add(tokenProfileBean);
                 }
@@ -290,6 +336,8 @@ public class WalletFrag extends BaseFragment {
         tokenProfileBeans.add(ethTokenProfileBean);
         //TODO nest代币
         tokenProfileBeans.add(nestTokenProfileBean);
+        //hhq
+        tokenProfileBeans.add(hhqProfileBean);
         if (tempTokenProfileBeanList.size() != 0) {
             //对已添加资产进行排序
             Collections.sort(tempTokenProfileBeanList);

@@ -178,7 +178,15 @@ public class AddTokenTypeAct extends BaseActivity {
                     switchButton.setVisibility(View.GONE);
                 } else if (data.getSymbol().equalsIgnoreCase("nest")) {
                     switchButton.setVisibility(View.GONE);
-                } else {
+                }
+//                else if (data.getSymbol().equalsIgnoreCase("hhq")){
+//                    switchButton.setVisibility(View.GONE);
+//                } else if (data.getSymbol().equalsIgnoreCase("zxf")){
+//                    switchButton.setVisibility(View.GONE);
+//                }else if (data.getSymbol().equalsIgnoreCase("hpb")){
+//                    switchButton.setVisibility(View.GONE);
+//                }
+                else {
                     switchButton.setVisibility(View.VISIBLE);
                     switchButton.setChecked(SPUtils.getInstance().getBoolean(data.getSymbol(), false));
                 }
@@ -223,6 +231,11 @@ public class AddTokenTypeAct extends BaseActivity {
                         else if (tokenProfileBean.getSymbol().equalsIgnoreCase(Constants.ASSETS_NEST)) {
                             nestTokenProfileBean[0] = tokenProfileBean;
                         }
+//                        else if (tokenProfileBean.getSymbol().equalsIgnoreCase("hhq")){
+//                            nestTokenProfileBean[1] = tokenProfileBean;
+//                        }else if (tokenProfileBean.getSymbol().equalsIgnoreCase("zxf")){
+//                            nestTokenProfileBean[2] = tokenProfileBean;
+//                        }
                         else {
                             if (!SPUtils.getInstance().getBoolean(tokenProfileBean.getSymbol(), false)) {
                                 tempSelectedAssets.add(tokenProfileBean);
@@ -243,6 +256,8 @@ public class AddTokenTypeAct extends BaseActivity {
                     allTempTokenProfileBeans.add(ethTokenProfileBean[0]);
                     //TODO nest代币
                     allTempTokenProfileBeans.add(nestTokenProfileBean[0]);
+//                    allTempTokenProfileBeans.add(nestTokenProfileBean[1]);
+//                    allTempTokenProfileBeans.add(nestTokenProfileBean[2]);
                     //添加未选资产
                     allTempTokenProfileBeans.addAll(tempUnselectAssets);
                     //添加已选资产

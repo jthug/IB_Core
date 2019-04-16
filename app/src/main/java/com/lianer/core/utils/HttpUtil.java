@@ -35,6 +35,7 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,6 +57,10 @@ public class HttpUtil {
 
     public static ApiService getApiService(String baseUrl) {
         String tempTime = String.valueOf(System.currentTimeMillis());
+
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(new OkHttpClient.Builder().
@@ -69,7 +74,8 @@ public class HttpUtil {
                                     .build();
 
                             return chain.proceed(request);
-                        }).
+                        })
+                        .addNetworkInterceptor(logging).
                         connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS).
                         readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS).
                         writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS).build())
@@ -113,7 +119,7 @@ public class HttpUtil {
      * @return
      */
     public static Flowable<BannerResponse> getBanners() {
-        return HttpUtil.getApiService(Constants.INTERFACE_URL).getBanners();
+        return HttpUtil.getApiService(Constants.OLD_INTERFACE_URL).getBanners();
     }
 
     /**
@@ -122,7 +128,7 @@ public class HttpUtil {
      * @return
      */
     public static Flowable<TransactionRecordResponse> getTransactionRecord() {
-        return HttpUtil.getApiService(Constants.INTERFACE_URL).getTransactionRecord();
+        return HttpUtil.getApiService(Constants.OLD_INTERFACE_URL).getTransactionRecord();
     }
 
 

@@ -67,7 +67,7 @@
     <string name="assets_detail">Assets Details</string>
     <string name="turn_out">Out</string>
     <string name="switch_to">In</string>
-    <string name="eth_rewards">ETH rewards</string>
+    <string name="eth_rewards">HPB rewards</string>
     <string name="nest_rewards">NEST rewards</string>
     <string name="no_have_record">No records</string>
     <string name="transfer">Send</string>
@@ -123,7 +123,7 @@
     <!-- 市场模块 -->
     <string name="publish_time">Time</string>
     <string name="borrow_amount">Amount of loan</string>
-    <string name="borrowing_amount">Amount of loan \n(ETH)</string>
+    <string name="borrowing_amount">Amount of loan \n(HPB)</string>
     <string name="discount_rate">Mortgage rate</string>
     <string name="mortgage_rate">Mortgage\nRate</string>
     <string name="market_mortgage_rate">Mortgage</string>
@@ -168,7 +168,7 @@
     <string name="contract_type">Contract type</string>
     <string name="contract_address">Contract address</string>
     <string name="invest_assets">investment assets</string>
-    <string name="contract_eth">ETH Loan contract</string>
+    <string name="contract_eth">HPB Loan contract</string>
     <string name="effect_time">Time in force</string>
     <string name="overdue_time">Overdue time</string>
     <string name="time_4">Time</string>
@@ -198,7 +198,7 @@
     <string name="compromise">Convert</string>
     <string name="equivalent">Convert</string>
     <string name="tx_type">Transaction type</string>
-    <string name="new_eth_contract">ETH Loan</string>
+    <string name="new_eth_contract">HPB Loan</string>
     <string name="new_tusd_contract">TUSD Loan</string>
     <string name="import_contract">Import</string>
     <string name="deploy_contract">Deploy contract</string>
@@ -301,7 +301,7 @@
     <string name="step_6_repaymen">6、Repay</string>
     <string name="step_7_overdue">7、Retrieve assets</string>
 
-    <string name="step_invest_approve_hint">Investment contracts involving ETH will have NEST Token rewards</string>
+    <string name="step_invest_approve_hint">Investment contracts involving HPB will have NEST Token rewards</string>
     <string name="step_repayment_approve_hint">Reimbursement after authorization, authorization status can be cancelled at any time</string>
 
     <string name="approve_amount">Authorized amount</string>
@@ -396,7 +396,7 @@
     <string name="interest_rate_desc">interestRate desc</string>
     <string name="time_limit_desc">timeLimit asc</string>
     <string name="invest_assets_amount">Amount of investment assets</string>
-    <string name="current_eth_balance">ETH balance：%s</string>
+    <string name="current_eth_balance">HPB balance：%s</string>
     <string name="no_contract_sheet">No investable contract</string>
     <string name="invested">invested</string>
     <string name="repaymented">repayment paid by debtor</string>
@@ -408,20 +408,20 @@
     <string name="disband_time">Dissolution time</string>
     <string name="terminated_time">Contract terminated</string>
     <string name="current_dynamic_contract">Currently have %d Pieces of dynamic contract</string>
-    <string name="eth_amount">%s ETH</string>
+    <string name="eth_amount">%s HPB</string>
     <string name="current_token_amount" formatted="false">%s Balance %s</string>
     <string name="borrowing_description">Statement of loan</string>
     <string name="borrowing_rule">The calculation of maximum of loan for each mortgage assets is as follows:\nMaximum amount of loan=current balance × discount rate × Average price of assets yesterday\nAverage price of assets yesterday is the average price of the mortgage assets exchanged to ETH the day before\n * All principle and interest should be repaid on prepayment</string>
-    <string name="maximum_loanable">Maximum amount of loan: %s ETH</string>
-    <string name="maximum_loanable_0">Maximum amount of loan: 0 ETH</string>
-    <string name="borrowing_now">Loan ETH immediately</string>
+    <string name="maximum_loanable">Maximum amount of loan: %s HPB</string>
+    <string name="maximum_loanable_0">Maximum amount of loan: 0 HPB</string>
+    <string name="borrowing_now">Loan HPB immediately</string>
     <string name="select_borrowing_amount">Choose quantity of loan</string>
     <string name="select_borrowing_interest">Choose loan rate</string>
     <string name="select_borrowing_cycle">Choose days of loan</string>
     <string name="assets_average_price">Average price of assets yesterday</string>
     <string name="mortgage_assets_amount">Mortgage amount</string>
     <string name="mortgage_discount_rate">Mortgage discount rate（%）</string>
-    <string name="mortgage_assets_equivalent">Mortgage assets are converted into ETH</string>
+    <string name="mortgage_assets_equivalent">Mortgage assets are converted into HPB</string>
     <string name="have_read">Already read</string>
     <string name="create_contract">Creating contract</string>
     <string name="actual_payment">Total payment</string>
@@ -517,8 +517,8 @@
     <string name="borrowing_efficiency">Borrowing mining efficiency</string>
     <string name="credit_efficiency">Lend mining efficiency</string>
     <string name="nest_token_address">NEST token address</string>
-    <string name="cumulative_dividend">Accumulated dividends ETH</string>
-    <string name="community_cumulative_dividend">Accumulated dividends ETH</string>
+    <string name="cumulative_dividend">Accumulated dividends HPB</string>
+    <string name="community_cumulative_dividend">Accumulated dividends HPB</string>
     <string name="cumulative_mining">Cumulative mining</string>
     <string name="dividend_detail">Dividend details</string>
     <string name="mining_detail">Mining details</string>s
@@ -570,7 +570,7 @@
     <string name="withdraw_nest">Withdraw NEST</string>
     <string name="authorized">Authorized</string>
     <string name="receive_income">Income received</string>
-    <string name="can_be_withdraw">ETH can be withdraw</string>
+    <string name="can_be_withdraw">HPB can be withdraw</string>
     <string name="withdraw_success">Withdraw successful</string>
     <string name="authorized_success">Authorization  successful,deposit now</string>
     <string name="income_details">Income details</string>
