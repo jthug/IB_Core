@@ -510,10 +510,21 @@ public class HttpUtil {
      * @param requestParams
      * @return
      */
-    public static Flowable<NormalDataBean> isCOntract(String requestParams){
+    public static Flowable<NormalDataBean> isContract(String requestParams){
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestParams);
         return HttpUtil.getApiService(Constants.BaseUrl)
-                .isCOntract(body);
+                .isContract(body);
+    }
+
+    /**
+     * 验证是否是借贷合约
+     * @param requestParams
+     * @return
+     */
+    public static Call<NormalDataBean> checkContract(String requestParams){
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestParams);
+        return HttpUtil.getApiService(Constants.BaseUrl)
+                .checkContract(body);
     }
 
     /**

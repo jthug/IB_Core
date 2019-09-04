@@ -20,6 +20,8 @@ import com.lianer.core.databean.NormalDataBean;
 import com.lianer.core.databean.requestbean.RequestBalanceBean;
 import com.lianer.core.manager.ERC20Manager;
 import com.lianer.core.model.HLWallet;
+import com.lianer.core.stuff.HLError;
+import com.lianer.core.stuff.HLSubscriber;
 import com.lianer.core.utils.HttpUtil;
 import com.lianer.core.wallet.bean.TokenProfileBean;
 
@@ -54,6 +56,8 @@ import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
 import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 /**
@@ -469,19 +473,39 @@ public class IBContractUtil extends BaseContract {
     public static Flowable<Boolean> isIBContract(Web3j web3j, String walletAddress, String contractAddress) throws Exception {
         return Flowable.just(1)
                 .flatMap(s -> {
-                    BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
-                    BigInteger gasLimit = BigInteger.valueOf(1000000);
+//                    BigInteger gasPrice = Convert.toWei("3", Convert.Unit.GWEI).toBigInteger();
+//                    BigInteger gasLimit = BigInteger.valueOf(1000000);
+//
+//                    ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
+////                    MappingContract contract = MappingContract.load(Constants.MappingAddress, web3j, transactionManager, gasPrice, gasLimit);
+//                    //获取数据合约地址 0x13b6ea8244c485910006d151e7fcd139d8307a97
+////                    String address = contract.checkAddress("loanData").sendAsync().get();
+//                    String address = Constants.DataAddress;
+//                    //加载数据合约
+//                    IBDataContract ibDataContract = IBDataContract.load(address, web3j, transactionManager, gasPrice, gasLimit);
+//                    //校验
+//                    boolean isIBContract = ibDataContract.checkContract(contractAddress).sendAsync().get();
+//                    return Flowable.just(isIBContract);
+                    String jsonParams = "{\n" +
+                            "\t\"contractAddress\": \"" + contractAddress + "\"\n" +
+                            "}";
 
-                    ReadonlyTransactionManager transactionManager = new ReadonlyTransactionManager(web3j, walletAddress);
-//                    MappingContract contract = MappingContract.load(Constants.MappingAddress, web3j, transactionManager, gasPrice, gasLimit);
-                    //获取数据合约地址 0x13b6ea8244c485910006d151e7fcd139d8307a97
-//                    String address = contract.checkAddress("loanData").sendAsync().get();
-                    String address = Constants.DataAddress;
-                    //加载数据合约
-                    IBDataContract ibDataContract = IBDataContract.load(address, web3j, transactionManager, gasPrice, gasLimit);
-                    //校验
-                    boolean isIBContract = ibDataContract.checkContract(contractAddress).sendAsync().get();
-                    return Flowable.just(isIBContract);
+                    Response<NormalDataBean> execute = HttpUtil.checkContract(jsonParams).execute();
+                    if (execute.code()==200){
+                        String code = execute.body().getCode();
+                        if (code.equals("200")){
+                            String s1 = execute.body().getData().get(0);
+                            if ("true".equals(s1)){
+                                return Flowable.just(true);
+                            }else {
+                                return Flowable.just(false);
+                            }
+                        }else {
+                            throw new Exception("网络或服务器异常");
+                        }
+                    }else {
+                        throw new Exception("网络或服务器异常");
+                    }
                 });
     }
 
@@ -1205,9 +1229,25 @@ public class IBContractUtil extends BaseContract {
                 .flatMap(s -> {
                     BigInteger nonce = transactionNonce(context, web3j, credentials.getAddress());
                     String hexValue = signedEthTransactionData(to, nonce, gasPrice, gasLimit, amount, wallet, credentials);
-                    String txHash = web3j.ethSendRawTransaction(hexValue).sendAsync().get().getTransactionHash();
+//                    String txHash = web3j.ethSendRawTransaction(hexValue).sendAsync().get().getTransactionHash();
+//
+//                    return Flowable.just(txHash);
+                    String jsonParams = "{\n" +
+                            "\t\"hexValue\": \"" + hexValue + "\"\n" +
+                            "}";
 
-                    return Flowable.just(txHash);
+                    Response<NormalDataBean> execute = HttpUtil.sendTransaction(jsonParams).execute();
+                    if (execute.code() == 200) {
+                        NormalDataBean bean = execute.body();
+                        if (TextUtils.equals("200", bean.getCode())) {
+                            String txHash = bean.getData().get(0);
+                            return Flowable.just(txHash);
+                        } else {
+                            throw new Exception("网络异常");
+                        }
+                    } else {
+                        throw new Exception("网络异常");
+                    }
                 });
     }
 
@@ -1219,7 +1259,7 @@ public class IBContractUtil extends BaseContract {
     }
 
     private static String signData(RawTransaction rawTransaction, HLWallet wallet, Credentials credentials) throws Exception {
-        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction,ChainId.MAINNET,credentials);
         return Numeric.toHexString(signMessage);
     }
 

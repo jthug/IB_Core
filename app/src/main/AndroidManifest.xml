@@ -138,21 +138,22 @@
 
         <meta-data
             android:name="com.lianer.core.https.OkHttpGlideModule"
-            android:value="GlideModule" /> <!-- TalkingData -->
-        <service
-            android:name="com.talkingdata.sdk.TDAntiCheatingService"
-            android:process="com.talkingdata.sdk.TDAntiCheatingService"> <!-- 用户质量评估Service可以配置在主进程或者单独进程 -->
-            <intent-filter>
-                <action android:name="com.talkingdata.sdk.TDAntiCheatingService" />
-            </intent-filter>
-        </service>
+            android:value="GlideModule" />
+        <!-- TalkingData -->
+        <!--<service-->
+            <!--android:name="com.talkingdata.sdk.TDAntiCheatingService"-->
+            <!--android:process="com.talkingdata.sdk.TDAntiCheatingService"> &lt;!&ndash; 用户质量评估Service可以配置在主进程或者单独进程 &ndash;&gt;-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.talkingdata.sdk.TDAntiCheatingService" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
 
-        <meta-data
-            android:name="TD_APP_ID"
-            android:value="E74A5D2D0C944D0189A93BAFBC813FB5" />
-        <meta-data
-            android:name="TD_CHANNEL_ID"
-            android:value="official" />
+        <!--<meta-data-->
+            <!--android:name="TD_APP_ID"-->
+            <!--android:value="E74A5D2D0C944D0189A93BAFBC813FB5" />-->
+        <!--<meta-data-->
+            <!--android:name="TD_CHANNEL_ID"-->
+            <!--android:value="official" />-->
     </application>
 
 </manifest>

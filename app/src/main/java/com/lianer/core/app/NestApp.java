@@ -61,13 +61,13 @@ public class NestApp extends BaseApplication {
 //        );
 
         //TalkingData SDK
-        if (Constants.IS_TEST){  //测试环境不开启bug统计
-
-        }else {
-            TCAgent.LOG_ON = true;
-            TCAgent.init(this);
-            TCAgent.setReportUncaughtExceptions(true);
-        }
+//        if (Constants.IS_TEST){  //测试环境不开启bug统计
+//
+//        }else {
+//            TCAgent.LOG_ON = true;
+//            TCAgent.init(this);
+//            TCAgent.setReportUncaughtExceptions(true);
+//        }
 
     }
 

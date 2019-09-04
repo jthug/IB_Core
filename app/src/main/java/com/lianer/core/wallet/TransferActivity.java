@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.PopupWindow;
@@ -164,25 +165,52 @@ public class TransferActivity extends BaseActivity implements View.OnClickListen
         mBinding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
-                long nonce = sharedPreferences.getLong(Constants.TRANSACTION_NONCE,0);
-//                if(IBContractUtil.getNonce(TransferUtil.getWeb3j(),mWallet.getAddress()) <=  nonce && !isKnow){
+//                SharedPreferences sharedPreferences = getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
+//                long nonce = sharedPreferences.getLong(Constants.TRANSACTION_NONCE,0);
+////                if(IBContractUtil.getNonce(TransferUtil.getWeb3j(),mWallet.getAddress()) <=  nonce && !isKnow){
+////                    nonceDialog();
+////                    return;
+////                }
+//                long nonce1 = 0;
+//                try {
+//                    nonce1 = IBContractUtil.getNonce(TransferUtil.getWeb3j(), mWallet.getAddress());
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    SnackbarUtil.DefaultSnackbar(mBinding.getRoot(),getString(R.string.nonce_error)).show();
+//                    return;
+//                }
+//                if(nonce1> nonce && !isKnow){
 //                    nonceDialog();
 //                    return;
 //                }
-                long nonce1 = 0;
-                try {
-                    nonce1 = IBContractUtil.getNonce(TransferUtil.getWeb3j(), mWallet.getAddress());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    SnackbarUtil.DefaultSnackbar(mBinding.getRoot(),getString(R.string.nonce_error)).show();
-                    return;
-                }
-                if(nonce1> nonce && !isKnow){
-                    nonceDialog();
-                    return;
-                }
-                transferConfirm();
+//                transferConfirm();
+
+                Flowable.just(1)
+                        .map(s->{
+                            long nonce1 = IBContractUtil.getNonce(TransferUtil.getWeb3j(), mWallet.getAddress());
+                            return nonce1;
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new HLSubscriber<Long>() {
+                            @Override
+                            protected void success(Long nonce1) {
+                                Log.e("成功",nonce1+"xxx");
+                                SharedPreferences sharedPreferences = getSharedPreferences(Constants.TRANSACTION_INFO, Context.MODE_PRIVATE);
+                                long nonce = sharedPreferences.getLong(Constants.TRANSACTION_NONCE,0);
+                                if( nonce1> nonce && !isKnow){
+                                    nonceDialog();
+                                    return;
+                                }
+                                transferConfirm();
+                            }
+
+                            @Override
+                            protected void failure(HLError error) {
+                                Log.e("失败",error.getMessage()+"xxx");
+                                SnackbarUtil.DefaultSnackbar(mBinding.getRoot(),getString(R.string.nonce_error)).show();
+                            }
+                        });
             }
         });
         mBinding.seekBar.setEnabled(false);
@@ -220,7 +248,14 @@ public class TransferActivity extends BaseActivity implements View.OnClickListen
 
         mBinding.transferType.setText(mTokenName);
 
-        if (!mTokenName.equals("ETH")) {
+//        if (!mTokenName.equals("ETH")) {
+//            //查询Token余额
+//            getTokenBanlace();
+//        } else {
+//            //查询ETH余额
+//            getEthBanlance();
+//        }
+        if (!mTokenName.equalsIgnoreCase("hpb")) {
             //查询Token余额
             getTokenBanlace();
         } else {
@@ -302,7 +337,7 @@ public class TransferActivity extends BaseActivity implements View.OnClickListen
                                         mETHBalance = CommomUtil.decimalTo4Point(data);
 
                                         //ETH余额
-                                        mBinding.ethAvailableAmount.setText(getString(R.string.available_amount, "ETH", mETHBalance));
+                                        mBinding.ethAvailableAmount.setText(getString(R.string.available_amount, "HPB", mETHBalance));
                                         //gas均价
                                         getEthPrice();
                                     }
@@ -322,7 +357,7 @@ public class TransferActivity extends BaseActivity implements View.OnClickListen
 
     private void invokeTransfer() {
         try {
-            if (!mTokenName.equals("ETH")) {
+            if (!mTokenName.equalsIgnoreCase("hpb")) {
                 //Token转账
                 Flowable.just(1)
                         .flatMap(s -> IBContractUtil.ERC20Transfer(TransferActivity.this,

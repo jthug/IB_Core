@@ -607,7 +607,7 @@ public class TxRecordDetailAct extends BaseActivity {
                             String jsonParams = "{\n" +
                                     "\t\"contractAddress\": \"" + contractAddress + "\"\n" +
                                     "}";
-                            HttpUtil.isCOntract(jsonParams)
+                            HttpUtil.isContract(jsonParams)
                                     .subscribeOn(Schedulers.io())
                                     .observeOn(AndroidSchedulers.mainThread())
                                     .subscribe(new HLSubscriber<NormalDataBean>() {

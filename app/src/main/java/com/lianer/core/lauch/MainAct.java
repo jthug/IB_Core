@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -261,15 +262,33 @@ public class MainAct extends FragmentActivity implements View.OnClickListener {
                                     if (isUpdate) {
 
                                         //同步链上与本地nonce
-                                        try {
-                                            BigInteger nonce = IBContractUtil.transactionNonce(MainAct.this, TransferUtil.getWeb3j(), HLWalletManager.shared().getCurrentWallet(MainAct.this).getAddress());
-                                        } catch (ExecutionException e) {
-                                            e.printStackTrace();
-                                        } catch (InterruptedException e) {
-                                            e.printStackTrace();
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
+//                                        try {
+//                                            BigInteger nonce = IBContractUtil.transactionNonce(MainAct.this, TransferUtil.getWeb3j(), HLWalletManager.shared().getCurrentWallet(MainAct.this).getAddress());
+//                                        } catch (ExecutionException e) {
+//                                            e.printStackTrace();
+//                                        } catch (InterruptedException e) {
+//                                            e.printStackTrace();
+//                                        } catch (Exception e) {
+//                                            e.printStackTrace();
+//                                        }
+                                        Flowable.just(1)
+                                                .map(s->{
+                                                    BigInteger nonce = IBContractUtil.transactionNonce(MainAct.this, TransferUtil.getWeb3j(), HLWalletManager.shared().getCurrentWallet(MainAct.this).getAddress());
+                                                    return nonce;
+                                                }).subscribeOn(Schedulers.io())
+                                                .observeOn(AndroidSchedulers.mainThread())
+                                                .subscribe(new HLSubscriber<BigInteger>() {
+                                                    @Override
+                                                    protected void success(BigInteger data) {
+                                                        KLog.i("同步本地nonce成功");
+                                                    }
+
+                                                    @Override
+                                                    protected void failure(HLError error) {
+                                                        KLog.i("同步本地nonce失败");
+                                                    }
+                                                });
+
                                         new UpdateDialogUtil(new CenterDialog(R.layout.dlg_version_update,MainAct.this), MainAct.this, versionBean, null);
                                     }
                                 }

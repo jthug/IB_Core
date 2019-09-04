@@ -338,7 +338,16 @@ public interface ApiService {
      */
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("/hpb/private/function/isContract")
-    Flowable<NormalDataBean> isCOntract(@Body RequestBody info);
+    Flowable<NormalDataBean> isContract(@Body RequestBody info);
+
+    /**
+     * 验证是否是借贷合约
+     * @param info
+     * @return
+     */
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("/hpb/private/function/isContract")
+    Call<NormalDataBean> checkContract(@Body RequestBody info);
 
     /**
      * 获取合约详情
